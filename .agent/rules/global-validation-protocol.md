@@ -9,10 +9,13 @@ globs: "**/*"
 **DIRETTIVA SUPREMA**: Questa è la regola radice di Antigravity. Ogni operazione deve passare da questo gate. L'inottemperanza a questo protocollo è considerata un fallimento critico.
 
 ## 0. High-Resolution Planning (Planning Gate)
-PRIMA di qualsiasi azione tecnica o modifica al codice, l'Agente **DEVE** produrre un piano conforme ai seguenti criteri di qualità:
-- **Obiettivo**: Descrizione chiara del problema e del risultato atteso.
-- **High-Res**: Scomposizione in step atomici, identificazione dei rischi e delle assunzioni.
-- **Criteri di Successo**: Definire come verranno verificati i cambiamenti (test/comportamento).
+PRIMA di qualsiasi azione tecnica, l'Agente DEVE produrre un piano. La profondità dipende dalla complessità:
+
+* **Standard Plan (Strict)**: Obbligatorio per modifiche complesse. Richiede: Obiettivo, Step atomici, Rischi, Criteri di Successo.
+* **Micro-Plan (Adaptive Exception)**:
+    * **Trigger**: AMMESSO SOLO SE: Modifica ≤ 2 file AND Nessuna nuova libreria AND Nessun cambio DB/API.
+    * **Formato**: Lista puntata rapida delle azioni + Test di verifica.
+    * **Divieto**: Vietato saltare la fase di pensiero (`sequential-thinking`), anche nel
 
 ## 1. Monitoraggio Filesystem (MANDATORIO)
 In OGNI risposta (notify_user o output finale), l'Agente **DEVE** includere una sezione finale denominata `[FILESYSTEM UPDATES]` che elenca in modo atomico:

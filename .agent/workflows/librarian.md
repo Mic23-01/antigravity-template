@@ -32,6 +32,7 @@ description: "Agente Bibliotecario: Igiene Proattiva, Sincronizzazione Documenta
     - **ID**: `<Prefix>.hygiene.YYYYMMDD.<slug>`
     - **Metadata**: `project=<ProjectName>, type=hygiene_log, date=YYYY-MM-DD, result=pass|fail, notes=...`
 - **Regression Gate**: Esegui `check_chroma.py` sull'ID generato.
+- **System Integrity**: Esegui `.agent/tools/canary_check.py` per garantire che l'giene non abbia rotto nulla.
 
 6) Output finale
 - Report delle azioni di igiene eseguite.

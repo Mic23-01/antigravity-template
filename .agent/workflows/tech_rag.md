@@ -2,10 +2,13 @@
 description: "Tech Task Protocol: RAG -> Piano -> Modifiche -> Test -> Evidenze -> FixLog (Chroma) -> Checker"
 ---
 
-1) Analisi e Definizione (OBBLIGATORIO)
-- Consulta il Supervisore Leader (`.agent/rules/global-validation-protocol.md`) per attivare il Planning Gate.
-- 1 frase: problema + outcome.
-- Done = criteri verificabili (test/behavior).
+1) Analisi e Definizione (Adaptive BMAD Protocol)
+- **Check Modalità**: Leggi `WorkflowMode` in `.agent/project/PROJECT_AGENT_CONFIG.md`.
+- **Complexity Trigger**: Il task tocca > 2 file OPPURE cambia schema DB / API / Dipendenze?
+  - **SI (Complex -> Strict)**: Scomponi in **Stories Numerate**. Obbligo di **STOP** utente tra una story e l'altra.
+  - **NO (Simple -> Adaptive)**: Procedi con un "Micro-Plan" immediato (lista azioni + test).
+- **Obiettivo**: 1 frase (Problema + Outcome).
+- **Done Criteria**: Definizione verificabile (test/behavior).
 
 2) Contesto e Placeholder (Project-Agnostic)
 - **Identifica il Progetto**: Determina `<ProjectName>` e `<Prefix>` da `.agent/project/PROJECT_AGENT_CONFIG.md`.
@@ -35,7 +38,7 @@ E) Brave-search: solo se serve info esterna fuori canone.
 
 5) Test Gate (Interattivo)
 - Rispetta il protocollo `.agent/rules/testing-strategy.md` (Il Bivio).
-- Default Smoke cmd: Recupera `<SmokeTestCmd>` da `.agent/PROJECT_AGENT_CONFIG.md`.
+- Default Smoke cmd: Recupera `<SmokeTestCmd>` da `.agent/project/PROJECT_AGENT_CONFIG.md`.
 - **POLITICA "Zero Silence for Ghost Failures"**: Segnala immediatamente errori pre-esistenti.
 
 6) Persistenza in Chroma (OBBLIGATORIO)
