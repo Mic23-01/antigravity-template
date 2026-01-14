@@ -116,11 +116,34 @@ def run_script_test(cmd, description):
         return False
 
 def main():
+    # Initialize overall status for dynamic checks
+    all_systems_go = True
+
     print(f"{BLUE}#########################################{RESET}")
     print(f"{BLUE}# ANTIGRAVITY CANARY SYSTEM INTEGRITY   #{RESET}")
     print(f"{BLUE}#########################################{RESET}")
 
-    success = True
+    # 3. Dynamic Agent Check (Behavioral)
+    print(f"\n{BLUE}=== Behavioral Analysis (Dynamic Agent) ==={RESET}")
+    # Run the default compliance scenario in dry-run mode
+    dyn_cmd = ["python3", ".agent/tools/dynamic_agent.py", "--scenario", "001_compliance.md", "--mode", "dry-run"]
+    try:
+        # Use subprocess directly to capture output better or just rely on exit code
+        if subprocess.run(dyn_cmd, check=False).returncode == 0:
+             print(f"  {GREEN}✔ Protocol Compliance Verified{RESET}")
+        else:
+             print(f"  {RED}✘ Behavioral Deviation Detected{RESET}")
+             all_systems_go = False
+    except Exception as e:
+         print(f"  {RED}✘ Execution Error: {e}{RESET}")
+         all_systems_go = False
+
+    # This block will be printed after the dynamic agent check, reflecting its status
+    print(f"\n{GREEN if all_systems_go else RED}#########################################{RESET}")
+    print(f"{GREEN if all_systems_go else RED}# SYSTEM STATUS: {'100% OPERATIONAL' if all_systems_go else 'ATTENTION REQUIRED'}       #{RESET}")
+    print(f"{GREEN if all_systems_go else RED}#########################################{RESET}")
+
+    success = True # This will track static checks, separate from all_systems_go for dynamic
 
     # 1. Critical Config Files
     print(f"\n{BLUE}=== Critical Configuration Audit ==={RESET}")

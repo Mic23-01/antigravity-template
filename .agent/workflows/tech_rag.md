@@ -13,7 +13,7 @@ description: "Tech Task Protocol: RAG -> Piano -> Modifiche -> Test -> Evidenze 
 2) Contesto e Placeholder (Project-Agnostic)
 - **Identifica il Progetto**: Determina `<ProjectName>` e `<Prefix>` da `.agent/project/PROJECT_AGENT_CONFIG.md`.
 - **Context Switcher (OBBLIGATORIO)**:
-  - Se **UI/Frontend**: Leggi `docs_custom/brand_identity_guide.md`.
+  - Se **UI/Frontend**: Attiva `ui_ux_designer` e leggi/aggiorna `docs_custom/brand_identity_guide.md`.
   - Se **Backend/Arch**: Leggi `docs_custom/architecture.md`.
   - Se **Business Logic**: Leggi `docs_custom/domain_language.md`.
 - Usa sempre i placeholder `<ProjectName>` e `<Prefix>` nelle comunicazioni e nei metadata di Chroma.

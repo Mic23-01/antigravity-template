@@ -10,7 +10,9 @@ Ogni skill è una directory autocontenuta in `.agent/skills/<skill_name>/`.
 | `test_gate_bivio` | Gestisce l'interazione Test (Smoke vs Deep) | `tech_rag` |
 | `regression_gate` | Assicura integrità Chroma e Filesystem | All RAG workflows |
 | `fixlog_writer` | Standardizza scrittura log JSON e Chroma ID | `tech_rag`, `refactor` |
+| `security_audit` | Scansione di sicurezza per segreti e file rischiosi | `tech_rag` |
+| `ui_ux_designer` | Design Intelligence & Assets Search | `custom_project`, `tech_rag` |
 
 ## 🟡 Advanced Skills (Coming Soon)
 - `sql_optimization`
-- `frontend_design_system`
+- `visual_regression`

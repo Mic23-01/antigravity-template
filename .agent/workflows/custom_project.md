@@ -24,8 +24,9 @@ description: "Project Hydration Wizard: Trasforma i Template Antigravity in Docu
 
 3) Hydration Generation (The Build)
 - **Action**: Crea la directory target `docs_custom/` (se non esiste).
+- **Skill**: Attiva `ui_ux_designer` per trovare palette e font coerenti se non definiti.
 - **Action**: Per ogni template:
-  - Sostituisci i placeholder con i dati raccolti (Audit + Intervista).
+  - Sostituisci i placeholder con i dati raccolti (Audit + Intervista + UI Skill).
   - Rimuovi le sezioni "AI Instruction".
   - Scrivi il file finale in `docs_custom/<filename>`.
 - **Naming Convention**: Mantieni gli stessi nomi file dei template per coerenza.
