@@ -40,10 +40,9 @@ E) Brave-search: solo se serve info esterna fuori canone.
 - **POLITICA "Zero Silence for Ghost Failures"**: Segnala immediatamente errori pre-esistenti.
 
 6) Persistenza in Chroma (OBBLIGATORIO)
-- Salva un documento in `fix_logs`.
+- **Skill**: `fixlog_writer` (Genera payload standard JSON).
 - Per validazione/demo (**Task contiene 'CANARY'** o `EVAL_MODE=1`): usa ID STABILE `<Prefix>.fix.eval.metadata_gate`.
-- Per fix reali: usa ID `<Prefix>.fix.YYYYMMDD.<slug>`.
-- Metadata obbligatori: `project=<ProjectName>, type=fix_log, date=YYYY-MM-DD, result=pass|fail, notes=...`.
+- Per fix reali: usa l'ID generato automaticamente dalla skill `<Prefix>.fix.YYYYMMDD.<slug>`.
 
 7) Post-check (REGRESSION GATE)
 - **Skill**: `regression_gate` (Esegue check_chroma + librarian su `fix_logs`).

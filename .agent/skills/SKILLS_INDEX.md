@@ -9,6 +9,7 @@ Ogni skill è una directory autocontenuta in `.agent/skills/<skill_name>/`.
 | `resolve_canon_sources` | Risolve la gerarchia delle fonti (Custom > Template) | All RAG workflows |
 | `test_gate_bivio` | Gestisce l'interazione Test (Smoke vs Deep) | `tech_rag` |
 | `regression_gate` | Assicura integrità Chroma e Filesystem | All RAG workflows |
+| `fixlog_writer` | Standardizza scrittura log JSON e Chroma ID | `tech_rag`, `refactor` |
 
 ## 🟡 Advanced Skills (Coming Soon)
 - `sql_optimization`

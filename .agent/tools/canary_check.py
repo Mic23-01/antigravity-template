@@ -1,3 +1,4 @@
+# Antigravity Canary Check - v1.1.0 (Skills Integrated)
 #!/usr/bin/env python3
 """
 Antigravity Canary Check: System Integrity & Protocol Verification Tool.
@@ -46,6 +47,59 @@ def check_workflows():
             all_ok = False
     return all_ok
 
+def check_skills():
+    """Verifica dinamica delle Skills elencate in SKILLS_INDEX.md"""
+    print(f"\n{BLUE}=== Skills Integrity Check ==={RESET}")
+    
+    skill_index = Path(".agent/skills/SKILLS_INDEX.md")
+    if not skill_index.exists():
+        print(f"  {RED}[FAIL]{RESET} SKILLS_INDEX.md missing!")
+        return False
+        
+    print(f"  {GREEN}[OK]{RESET} Index found at {skill_index}")
+    
+    # Parse index for skills (looking for `skill_name` pattern)
+    skills_found = []
+    with open(skill_index, 'r') as f:
+        for line in f:
+            if "|" in line and "`" in line:
+                # Extract content between backticks
+                try:
+                    skill_name = line.split("`")[1]
+                    # Filter out header row or description column accidents
+                    if "Skill Name" not in skill_name and " " not in skill_name:
+                        skills_found.append(skill_name)
+                except IndexError:
+                    continue
+
+    if not skills_found:
+        print(f"  {YELLOW}[WARN]{RESET} No skills found in Index (Parsing error?)")
+        return True # Non-blocking warning
+
+    all_ok = True
+    print(f"  Found {len(skills_found)} skills in Index. Verifying integrity...")
+    
+    for sk in set(skills_found):
+        skill_path = Path(f".agent/skills/{sk}/SKILL.md")
+        if skill_path.exists():
+            # Frontmatter check
+            try:
+                with open(skill_path, 'r') as f:
+                    content = f.read()
+                    if content.startswith("---") and "version:" in content:
+                        print(f"    {GREEN}✔{RESET} {sk} valid (v{content.split('version:')[1].splitlines()[0].strip()})")
+                    else:
+                        print(f"    {YELLOW}⚠{RESET} {sk} exists but INVALID FRONTMATTER")
+                        all_ok = False
+            except Exception as e:
+                print(f"    {RED}✘{RESET} {sk} READ ERROR: {e}")
+                all_ok = False
+        else:
+             print(f"    {RED}✘{RESET} {sk} BROKEN (Missing {skill_path})")
+             all_ok = False
+             
+    return all_ok
+
 def run_script_test(cmd, description):
     print(f"\n{BLUE}=== Testing Script: {description} ==={RESET}")
     try:
@@ -80,6 +134,9 @@ def main():
     # 3. Script Execution
     success &= run_script_test("python3 .agent/project/librarian.py --hygiene", "Librarian Hygiene Check")
 
+    # 4. Skills Integrity
+    success &= check_skills()
+    
     print(f"\n{BLUE}#########################################{RESET}")
     if success:
         print(f"{GREEN}# SYSTEM STATUS: 100% OPERATIONAL       #{RESET}")
