@@ -11,10 +11,9 @@ description: "Unified RAG Protocol: Research -> (Optional) Decision -> Dual Pers
 - Identifica `<ProjectName>` e `<Prefix>` da `.agent/project/PROJECT_AGENT_CONFIG.md`.
 - Cerca in `research_summaries` e `decisions` per evitare duplicati.
 
-3) RAG (ordine rigido)
+14) 3) RAG (ordine rigido)
 **Step 0: Internal Canon Check**
-- **Primary**: Verifica presenza `docs_custom/SOURCES.md`.
-- **Fallback**: Se assente, usa `.agent/docs/SOURCES.md`.
+- **Skill**: `resolve_canon_sources` (Gestisce hierarchy Custom > Template)
 - Leggi la Canon Source. Se l'argomento è Gold, usa `markdownify` prima di procedere.
 A) Repo-first: Analisi codice e documentazione locale.
 B) Official Docs / Microsoft Learn / Context7.
@@ -37,8 +36,7 @@ C) Brave-search: Solo per news o informazioni fuori canone.
 - Metadata: `project=<ProjectName>, type=research|decision, ...`.
 
 6) Post-check (REGRESSION GATE)
-- Esegui SUBITO DOPO il salvataggio:
-  `uv run --with chromadb python3 .agent/tools/check_chroma.py --collection <Collezione Scelta> --id <ID Generato>`
+- **Skill**: `regression_gate` (Esegue check_chroma su `research_summaries` o `decisions`).
 - **FAIL-FAST**: Se il checker fallisce, correggere immediatamente prima di procedere.
 
 7) Output finale

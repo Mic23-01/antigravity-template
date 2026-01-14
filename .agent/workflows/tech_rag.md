@@ -20,8 +20,7 @@ description: "Tech Task Protocol: RAG -> Piano -> Modifiche -> Test -> Evidenze 
 
 3) RAG (ordine rigido)
 **Step 0: Internal Context Discovery**
-- **Trigger**: Per qualsiasi tecnologia menzionata.
-- **Action**: Verifica `docs_custom/SOURCES.md` (Primary) o `.agent/docs/SOURCES.md` (Fallback).
+- **Skill**: `resolve_canon_sources` (Gestisce hierarchy Custom > Template)
 - **Check**: Contiene link ufficiali o best practices interne?
 - **Decision**: Se sì -> Deep Read (markdownify). Se no -> Brave Search (Step 2).
 
@@ -37,8 +36,7 @@ E) Brave-search: solo se serve info esterna fuori canone.
 - Rispetta i Guardrail di sicurezza (`.agent/rules/mcp-scope-secrets-guardrail.md`).
 
 5) Test Gate (Interattivo)
-- Rispetta il protocollo `.agent/rules/testing-strategy.md` (Il Bivio).
-- Default Smoke cmd: Recupera `<SmokeTestCmd>` da `.agent/project/PROJECT_AGENT_CONFIG.md`.
+- **Skill**: `test_gate_bivio` (Gestisce livelli Smoke/Deep/Debug).
 - **POLITICA "Zero Silence for Ghost Failures"**: Segnala immediatamente errori pre-esistenti.
 
 6) Persistenza in Chroma (OBBLIGATORIO)
@@ -48,9 +46,7 @@ E) Brave-search: solo se serve info esterna fuori canone.
 - Metadata obbligatori: `project=<ProjectName>, type=fix_log, date=YYYY-MM-DD, result=pass|fail, notes=...`.
 
 7) Post-check (REGRESSION GATE)
-- L’agente DEVE eseguire SUBITO DOPO il salvataggio:
-  `uv run --with chromadb python3 .agent/tools/check_chroma.py --collection fix_logs --id <FixLog ID>`
-  `uv run python3 .agent/project/librarian.py`
+- **Skill**: `regression_gate` (Esegue check_chroma + librarian su `fix_logs`).
 - **FAIL-FAST**: Se il checker FALLISCE, l'agente DEVE FERMARSI e correggere i metadata.
 
 8) Output finale (EVIDENCE BUNDLE)

@@ -3,6 +3,7 @@ description: "Deep Refactoring Protocol (KILLER 2026): Analisi AST, Blast Radius
 ---
 
 1) Fase di Inquiry (Structural AST Check)
+- **Skill**: `resolve_canon_sources` (Gestisce hierarchy `docs_custom/` > Template).
 - Consulta il Supervisore Leader (`.agent/rules/global-validation-protocol.md`).
 - **Mappatura Strutturale**: Usa `ast-grep` o `grep_search` per mappare ogni occorrenza sintattica (non solo testuale).
 - **Blast Radius Report**: Genera un riepilogo che indichi:
@@ -19,11 +20,12 @@ description: "Deep Refactoring Protocol (KILLER 2026): Analisi AST, Blast Radius
 - Esegui i cambiamenti in modo incrementale.
 
 4) Validazione SOLID & Regression Gate
+- **Skill**: `regression_gate` (Validazione Chroma + Librarian).
 - Verifica la qualità formale post-modifica.
 - Esegui la suite di test completa del modulo (`testing-strategy.md`).
 - **Zero Silence**: Se il refactoring rompe test pre-esistenti, ferma tutto e rapporta.
 
-5) Persistenza e Igiene (ANTI-RULE-0005)
+5) Persistenza e Igiene (Post-Refactor)
 - Salva un FixLog in Chroma (type=refactor).
 - **Cleanup Finale**: Elimina ogni script di trasformazione temporaneo o sandbox.
 - **Doppio Check**: Esegui `ls` per confermare la pulizia del workspace.
