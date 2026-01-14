@@ -97,6 +97,24 @@ def check_skills():
         else:
              print(f"    {RED}✘{RESET} {sk} BROKEN (Missing {skill_path})")
              all_ok = False
+
+    # Ghost Skills Check (Filesystem -> Index)
+    print(f"  {BLUE}Verifying Ghost Skills (Unindexed directories)...{RESET}")
+    skills_dir = Path(".agent/skills")
+    if skills_dir.exists():
+        physical_skills = [d.name for d in skills_dir.iterdir() if d.is_dir() and not d.name.startswith(".")]
+        ghosts = set(physical_skills) - set(skills_found)
+        if ghosts:
+             print(f"    {YELLOW}⚠ Ghost Skills detected (Folder exists but not in Index):{RESET}")
+             for g in ghosts:
+                 print(f"      - {g}")
+             # Decidi se questo è bloccante o no. Per "ordine rigido", potrebbe esserlo, o solo warning.
+             # User requested "skills rotte che nessuno nota". Unindexed = Not noted.
+             # Let's keep it as WARNING for now, or FAIL? User said "rischi skills rotte".
+             # A ghost skill is not broken, just ignored. But it's "dust".
+    else:
+        print(f"  {RED}[FAIL]{RESET} .agent/skills directory missing!")
+        all_ok = False
              
     return all_ok
 

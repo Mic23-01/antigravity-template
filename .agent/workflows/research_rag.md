@@ -11,7 +11,7 @@ description: "Unified RAG Protocol: Research -> (Optional) Decision -> Dual Pers
 - Identifica `<ProjectName>` e `<Prefix>` da `.agent/project/PROJECT_AGENT_CONFIG.md`.
 - Cerca in `research_summaries` e `decisions` per evitare duplicati.
 
-14) 3) RAG (ordine rigido)
+3) RAG (ordine rigido)
 **Step 0: Internal Canon Check**
 - **Skill**: `resolve_canon_sources` (Gestisce hierarchy Custom > Template)
 - Leggi la Canon Source. Se l'argomento è Gold, usa `markdownify` prima di procedere.
