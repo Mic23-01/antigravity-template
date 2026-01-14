@@ -1,0 +1,35 @@
+# Antigravity Gitignore
+
+# Secrets (CRITICAL)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+**/secrets/*
+mcp_secrets.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env/
+
+# Node
+node_modules/
+npm-debug.log
+
+# System
+.DS_Store
+Thumbs.db
+
+# Agent Memory (Local)
+.agent/memory/chroma/
+.agent/evals/runs/
+.agent/research_summaries/temp/
+
+# Editor
+.vscode/
+.idea/
