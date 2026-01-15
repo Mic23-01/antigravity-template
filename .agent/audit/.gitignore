@@ -1,0 +1,5 @@
+# Audit Logs
+*.jsonl
+# Keep the verification index
+!audit_summary.md
+!audit_index.json

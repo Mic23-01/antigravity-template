@@ -1,0 +1,19 @@
+{
+  "id": "AG.fix.20260115.22876bf0",
+  "document": "Implemented Checkpoint Architecture (STATE + NEXT), translated core Rules/Workflows to English, and fixed timestamp precision in checkpoint_manager.py. (Final Persistence)",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-15",
+    "files": [
+      ".agent/memory/checkpoint_manager.py",
+      ".agent/rules/*.md",
+      ".agent/workflows/*.md",
+      ".agent/project/PROJECT_AGENT_CONFIG.md"
+    ],
+    "tests": "Stress test (Atomic/Rotation), E2E Workflow simulation, Librarian Audit",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

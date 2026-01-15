@@ -18,8 +18,8 @@ Antigravity is an advanced, hybrid project template designed for building **Auto
 ```bash
 .
 ├── .agent/                 # The "Brain": Memory, Rules, Skills, Workflows
-│   ├── memory/             # ChromaDB & JSON logs
-│   ├── rules/              # Active constraints (e.g., protocol_validation.md)
+│   ├── memory/             # Hot State (STATE.md) & Cold Logs
+│   ├── rules/              # Active constraints (English-First)
 │   ├── skills/             # executable toolkits (e.g., security_audit)
 │   └── workflows/          # Standard Operating Procedures (.md)
 ├── docs_custom/            # 🧠 Project Intelligence (The "Soul")
@@ -48,8 +48,10 @@ To transform this template into your specific project (e.g., "SolarSystemBuilder
 ## 🧠 Core Protocols
 
 1.  **No "Raw" Thinking**: Every complex task starts with `sequential-thinking`.
-2.  **Verify First**: Use `brave_search` or `markdownify` to validate libraries before coding.
-3.  **Fail Fast**: Operations stop immediately if a "Regression Gate" or "Security Audit" fails.
+2.  **English-First**: All Rules, Workflows, and System Logs must be in English for optimal AI comprehension.
+3.  **Resume Capability**: The agent maintains a "Hot State" (`STATE.md`) to survive crashes.
+4.  **Verify First**: Use `brave_search` or `markdownify` to validate libraries before coding.
+5.  **Fail Fast**: Operations stop immediately if a "Regression Gate" or "Security Audit" fails.
 
 ## 🤝 Contributing
 Refer to `.agent/rules/` for the strict contributor guidelines.

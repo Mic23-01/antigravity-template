@@ -1,5 +1,5 @@
-# Project Agent Configuration
-> **AI Instruction**: This file is the Source of Truth for Workflow Variables.
+# PROGETTO ANTIGRAVITY - Project Agent Configuration
+> **AI Instruction**: This file is the Source of Truth for Workflow Variables and Project Metadata.
 
 - **ProjectName**: "Antigravity"
 - **Prefix**: "AG"

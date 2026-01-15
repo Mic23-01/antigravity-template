@@ -4,26 +4,26 @@ trigger: always_on
 
 # MCP Scope & Secrets Guardrail (ALWAYS ON)
 
-## Scopo
-Questa regola impone confini e sicurezza quando l’Agent usa strumenti (MCP) e filesystem.
+## Purpose
+This rule imposes boundaries and security when the Agent uses tools (MCP) and the filesystem.
 
-## Workspace Scope (OBBLIGATORIO)
-- Considera come “root consentita” SOLO la root del workspace aperto.
-- **INTERRUPT**: Se un’operazione richiede di uscire dal workspace, l'Agente **DEVE FERMARSI** e chiedere conferma esplicita motivata.
+## Workspace Scope (MANDATORY)
+- Consider ONLY the root of the open workspace as "allowed root".
+- **INTERRUPT**: If an operation requires exiting the workspace, the Agent **MUST STOP** and ask for explicit motivated confirmation.
 
-## Secrets & Sensitive Files (DIVIETO ASSOLUTO)
-L'Agente **NON DEVE MAI** leggere, stampare o cercare contenuti in:
-- Qualsiasi file `.env*` (`.env`, `.env.local`, ecc.)
+## Secrets & Sensitive Files (ABSOLUTE PROHIBITION)
+The Agent **MUST NEVER** read, print, or search for content in:
+- Any `.env*` file (`.env`, `.env.local`, etc.)
 - `**/mcp_secrets.env`
 - `~/.ssh/**`, `**/id_rsa*`, `**/known_hosts`
 - `**/secrets/**`, `**/*token*`, `**/*apikey*`, `**/*key*`
 
-## Uso MCP: regole operative
-- Usa `sequential-thinking` per pianificare ogni task non banale.
-- Usa `brave-search` SOLO quando servono info esterne.
-- Usa "context7" quando servono docs reali validati.
-- Non inventare: se non trovi, dichiaralo e proponi il prossimo passo.
+## MCP Usage: Operational Rules
+- Use `sequential-thinking` to plan every non-trivial task.
+- Use `brave-search` ONLY when external info is needed.
+- Use "context7" when real validated docs are needed.
+- Do not invent: if you don't find it, declare it and propose the next step.
 
-## Terminal safety
-- Se un comando non è in Allow List, richiedi sempre review (ok).
-- **INTERRUPT**: Non proporre comandi distruttivi (`rm`, `sudo`, `chmod -R`, ecc.) senza un piano dettagliato e conferma esplicita.
+## Terminal Safety
+- If a command is not in the Allow List, always request review (approval).
+- **INTERRUPT**: Do not propose destructive commands (`rm`, `sudo`, `chmod -R`, etc.) without a detailed plan and explicit confirmation.

@@ -1,54 +1,54 @@
 ---
-description: "Agente R&D 2026: Ricerca Deep con Recursive Loop (Gemini-Level), Analisi Negativa (Skeptical) e Impact Scorecard."
+description: "R&D Agent 2026: Deep Research with Recursive Loop (Gemini-Level), Negative Analysis (Skeptical), and Impact Scorecard."
 ---
 
 1) Context & Deep Mapping (The Network)
-- **Mapping Esterno**: Usa `context7` per comprendere le librerie target e le loro alternative moderne.
-- **Mapping Interno**: Usa `grep_search` o `duckdb` (via `.agent/project/librarian.py --audit`) per mappare l'impatto strutturale sulle dipendenze locali.
-- **Obiettivo**: Capire non solo "cosa" fa la tecnologia, ma "dove" toccherà il progetto.
+- **External Mapping**: Use `context7` to understand target libraries and their modern alternatives.
+- **Internal Mapping**: Use `grep_search` or `duckdb` (via `.agent/project/librarian.py --audit`) to map the structural impact on local dependencies.
+- **Goal**: Understand not just "what" the technology does, but "where" it will touch the project.
 
 2) Recursive Deep Search Loop (The Gemini-Cycle)
-- **Fase A: Query Expansion (Divergenza)**
-  - Genera 5 assi di ricerca paralleli:
-    1. **Official**: Doc e Changelog.
+- **Phase A: Query Expansion (Divergence)**
+  - Generate 5 parallel research axes:
+    1. **Official**: Docs and Changelogs.
     2. **Skeptical**: "Why [X] sucks", "Performance issues", "Alternatives".
     3. **Comparative**: Benchmark vs Competitor Y.
     4. **Migration**: "Migration from [Current] to [X]", "Breaking changes".
     5. **Future**: "Roadmap 2026", "Deprecation warnings".
-- **Fase B: Massive Ingestion (Automated)**
-  - **Action**: Raccogli i 3-5 URL migliori per asse.
-  - **Tool**: Esegui `uv run --with aiohttp --with html2text --with beautifulsoup4 .agent/tools/deep_search.py --urls <url1> <url2> ... --output RESEARCH_BUNDLE.md`
-  - **Read**: Leggi SOLO `RESEARCH_BUNDLE.md` (Risparmia token e tempo).
-- **Fase C: Reflection & Convergence**
-  - Usa `sequential-thinking` per chiederti: "Le fonti sono concordi?".
-  - Se c'è conflitto o gap, lancia un Loop Ricorsivo mirato.
+- **Phase B: Massive Ingestion (Automated)**
+  - **Action**: Collect the best 3-5 URLs per axis.
+  - **Tool**: Execute `uv run --with aiohttp --with html2text --with beautifulsoup4 .agent/tools/deep_search.py --urls <url1> <url2> ... --output RESEARCH_BUNDLE.md`
+  - **Read**: Read ONLY `RESEARCH_BUNDLE.md` (Save tokens and time).
+- **Phase C: Reflection & Convergence**
+  - Use `sequential-thinking` to ask yourself: "Do the sources agree?".
+  - If there is conflict or a gap, launch a targeted Recursive Loop.
 
 3) Ephemeral Sandbox (The PoC)
-- **Regola Aurea**: Usa `uv run --with <libs>` per usare il top delle librerie senza inquinare l'ambiente.
+- **Golden Rule**: Use `uv run --with <libs>` to use top-tier libraries without polluting the environment.
 - **ANTI-RULE-0005**: 
-    - Crea script in `verifiche_test/RND_<slug>.py`.
-    - Esegui e cattura l'output quantitativo.
-    - **CANCELLA SUBITO**: `rm verifiche_test/RND_<slug>.py`.
-    - **DOPPIO CHECK**: Esegui `ls` per confermare la pulizia.
+    - Create scripts in `verifiche_test/RND_<slug>.py`.
+    - Execute and capture quantitative output.
+    - **DELETE IMMEDIATELY**: `rm verifiche_test/RND_<slug>.py`.
+    - **DOUBLE CHECK**: Run `ls` to confirm workspace cleanliness.
 
 4) Impact Analysis (The Scorecard)
-- Produci una tabella di impatto obbligatoria per ogni ricerca:
+- Produce a mandatory impact table for every research task:
 
-| Metrica | Rating (1-5) | Descrizione Impatto |
+| Metric | Rating (1-5) | Impact Description |
 | :--- | :--- | :--- |
-| **Simplification** | 1-5 | Quanto codice/complessità rimuove? |
-| **Performance** | 1-5 | Impatto su velocità/memoria. |
-| **Blast Radius** | 1-5 | Quanti file tocca? (1=Pochi, 5=Tutto) |
-| **Canon Compliance** | Si/No | Rispetta gli standard del progetto? |
-| **Depth of Field** | N Fonti | Numero totale fonti uniche consultate. |
+| **Simplification** | 1-5 | How much code/complexity does it remove? |
+| **Performance** | 1-5 | Impact on speed/memory. |
+| **Blast Radius** | 1-5 | How many files does it touch? (1=Few, 5=All) |
+| **Canon Compliance** | Yes/No | Does it respect project standards? |
+| **Depth of Field** | N Sources | Total number of unique sources consulted. |
 
-5) Persistenza e Decisione
-- **Research Summary**: Salva in `.agent/research_summaries/` (ID: `<Prefix>.deep_rag.YYYYMMDD.<slug>`).
-- **Chroma**: Persisti con tag `type=deep_search`.
-- **ADR condizionale**: Se il punteggio Simplification > 4 e Risk < 3, proponi direttamente l'adozione.
+5) Persistence & Decision
+- **Research Summary**: Save to `.agent/research_summaries/` (ID: `<Prefix>.deep_rag.YYYYMMDD.<slug>`).
+- **Chroma**: Persist with tag `type=deep_search`.
+- **Conditional ADR**: If Simplification > 4 and Risk < 3, propose adoption directly.
 
-6) Output Finale
-- Includi esplicitamente: "Processate X fonti su 5 assi (Recursive Deep Search)".
-- Scorecard completata.
-- Link al Summary.
-- **FILESYSTEM UPDATES**: Obbligatorio ad ogni output (Regola Leader).
+6) Final Output
+- Explicitly include: "Processed X sources on 5 axes (Recursive Deep Search)".
+- Completed Scorecard.
+- Link to Summary.
+- **FILESYSTEM UPDATES**: Mandatory for every output (Leader Rule).

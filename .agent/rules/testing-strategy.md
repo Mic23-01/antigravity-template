@@ -4,42 +4,41 @@ trigger: always_on
 
 # Advanced Testing Strategy & QA Protocol (ALWAYS ON)
 
-**TRIGGER**: Attiva quando l'utente chiede di testare codice, fare debugging, o verificare funzionalità ("funziona?", "puoi testarlo?").
+**TRIGGER**: Activate when the user asks to test code, debug, or verify functionality ("does it work?", "can you test it?").
 
-## 1. Fase di Inquadramento (Il Bivio)
-**INTERRUPT**: PRIMA di scrivere o proporre qualsiasi test, l'Agente **DEVE FERMARSI** e chiedere all'utente il livello di profondità desiderato. NON procedere autonomamente con un piano.
-- **Easy/Smoke Test**: Verifica rapida ("funziona o esplode?").
-- **Deep/Regression**: Copertura edge-case, stress test, security check.
-- **Debug Serio**: Isolamento del difetto con logica sequenziale.
+## 1. Framing Phase (The Crossroads)
+**INTERRUPT**: BEFORE writing or proposing any test, the Agent **MUST STOP** and ask the user for the desired depth level. DO NOT proceed autonomously with a plan.
+- **Easy/Smoke Test**: Rapid verification ("does it work or explode?").
+- **Deep/Regression**: Edge-case coverage, stress test, security check.
+- **Serious Debug**: Defect isolation with sequential logic.
 
 ## 2. Tooling & MCP Integration
-Usa gli strumenti giusti per il livello richiesto:
+Use the right tools for the required level:
 
 *   **Playwright (MCP + Extension)**:
-    *   Usa l'estensione VS Code installata (`Install in SSH: OVH`) per runnare i test visualmente.
+    *   Use the installed VS Code extension (`Install in SSH: OVH`) to run tests visually.
 *   **Sequential Thinking**:
-    *   OBBLIGATORIO per il "Debugging Serio". Analizza stacktrace -> formula ipotesi -> scrivi test che fallisce -> fixa.
+    *   MANDATORY for "Serious Debugging". Analyze stacktrace -> formulate hypothesis -> write failing test -> fix.
 
-## 3. Strategie di Test (Easy vs Deep)
+## 3. Test Strategies (Easy vs Deep)
 
 ### 🟢 Easy / Smoke Mode
-*   **Obiettivo**: Feedback immediato (< 30 sec).
+*   **Objective**: Immediate feedback (< 30 sec).
 *   **UV + Pytest**:
-    *   Usa `uv` per eseguire i test pytest quando disponibile (es. `uv run pytest ...`).
-    *   Standardizza l'uso di marker per negative/fuzz testing (`-m negative`).
-    *   Script `curl` o `httpie` per verificare endpoint API vivi.
+    *   Use `uv` to execute pytest when available (e.g., `uv run pytest ...`).
+    *   Standardize the use of markers for negative/fuzz testing (`-m negative`).
+    *   `curl` or `httpie` scripts to verify live API endpoints.
 
-### 🔴 Deep / Security Mode (Innovazione)
-*   **Obiettivo**: Scovare difetti nascosti.
-*   **Cosa fare**:
-    *   **Fuzzing**: Proponi input malformati.
-    *   **Concurrency**: Test paralleli (`pytest -n auto`).
-    *   **Network Chaos**: Simula latenza o down dei servizi esterni.
-    *   **Negative Testing**: Includi casi di fallimento attesi (marker dedicati se presenti).
-    *   **Marker Obbligatori**: Per test distruttivi o lenti, usa sempre marker (`@pytest.mark.negative`).
+### 🔴 Deep / Security Mode (Innovation)
+*   **Objective**: Uncover hidden defects.
+*   **Actions**:
+    *   **Fuzzing**: Propose malformed inputs.
+    *   **Concurrency**: Parallel tests (`pytest -n auto`).
+    *   **Network Chaos**: Simulate latency or downtime of external services.
+    *   **Negative Testing**: Include expected failure cases (dedicated markers if present).
+    *   **Mandatory Markers**: For destructive or slow tests, always use markers (`@pytest.mark.negative`).
 
-## 4. Best Practice di Codice
-*   Usa `pytest` come runner standard.
-*   I test DEVONO essere in cartelle separate (`tests/unit`, `tests/e2e`).
-*   **MAI** committare credenziali nei test.
-
+## 4. Code Best Practices
+*   Use `pytest` as the standard runner.
+*   Tests MUST be in separate folders (`tests/unit`, `tests/e2e`).
+*   **NEVER** commit credentials in tests.

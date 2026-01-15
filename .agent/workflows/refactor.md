@@ -1,35 +1,35 @@
 ---
-description: "Deep Refactoring Protocol (KILLER 2026): Analisi AST, Blast Radius e Hard Interrupt"
+description: "Deep Refactoring Protocol (KILLER 2026): AST Analysis, Blast Radius, and Hard Interrupt"
 ---
 
-1) Fase di Inquiry (Structural AST Check)
-- **Skill**: `resolve_canon_sources` (Gestisce hierarchy `docs_custom/` > Template).
-- Consulta il Supervisore Leader (`.agent/rules/global-validation-protocol.md`).
-- **Mappatura Strutturale**: Usa `ast-grep` o `grep_search` per mappare ogni occorrenza sintattica (non solo testuale).
-- **Blast Radius Report**: Genera un riepilogo che indichi:
-    - Quanti file e righe saranno toccati.
-    - Quali dipendenze (import/callers) verranno impattate.
-    - Rischio stimato (Basso/Medio/Alto).
+1) Inquiry Phase (Structural AST Check)
+- **Skill**: `resolve_canon_sources` (Handles hierarchy `docs_custom/` > Template).
+- Consult the Leader Supervisor (`.agent/rules/global-validation-protocol.md`).
+- **Structural Mapping**: Use `ast-grep` or `grep_search` to map every syntactic occurrence (not just textual).
+- **Blast Radius Report**: Generate a summary indicating:
+    - How many files and lines will be touched.
+    - Which dependencies (imports/callers) will be impacted.
+    - Estimated Risk (Low/Medium/High).
 
-2) Hard Interrupt (Consenso Informato)
-- **BLOCCO OBBLIGATORIO**: Presenta il *Blast Radius Report* e la proposta di modifica dettagliata (Diff previsto).
-- **CHIEDERE CONFERMA**: Chiama `notify_user` e attendi il "Procedi" esplicito prima di eseguire qualsiasi edit.
+2) Hard Interrupt (Informed Consent)
+- **MANDATORY BLOCK**: Present the *Blast Radius Report* and Detailed Modification Proposal (Forecasted Diff).
+- **ASK FOR CONFIRMATION**: Call `notify_user` and wait for explicit "Proceed" before executing any edits.
 
-3) Esecuzione Chirurgica (AST Transformation)
-- Se il refactoring è complesso, usa script `uv run --with libcst` per trasformazioni atomiche che preservano la formattazione.
-- Esegui i cambiamenti in modo incrementale.
+3) Surgical Execution (AST Transformation)
+- If refactoring is complex, use `uv run --with libcst` scripts for atomic transformations that preserve formatting.
+- Execute changes incrementally.
 
-4) Validazione SOLID & Regression Gate
-- **Skill**: `regression_gate` (Validazione Chroma + Librarian).
-- Verifica la qualità formale post-modifica.
-- Esegui la suite di test completa del modulo (`testing-strategy.md`).
-- **Zero Silence**: Se il refactoring rompe test pre-esistenti, ferma tutto e rapporta.
+4) SOLID Validation & Regression Gate
+- **Skill**: `regression_gate` (Chroma + Librarian Validation).
+- Verify formal quality post-modification.
+- Execute the full module test suite (`testing-strategy.md`).
+- **Zero Silence**: If refactoring breaks pre-existing tests, stop everything and report.
 
-5) Persistenza e Igiene (Post-Refactor)
-- Salva un FixLog in Chroma (type=refactor).
-- **Cleanup Finale**: Elimina ogni script di trasformazione temporaneo o sandbox.
-- **Doppio Check**: Esegui `ls` per confermare la pulizia del workspace.
+5) Persistence & Hygiene (Post-Refactor)
+- Save a FixLog in Chroma (type=refactor).
+- **Final Cleanup**: Delete any temporary transformation scripts or sandboxes.
+- **Double Check**: Run `ls` to confirm workspace cleanliness.
 
-6) Output finale (Evidence Bundle)
-- Sintesi trasformativa + FixLog ID.
-- **FILESYSTEM UPDATES**: Obbligatorio ad ogni output (Regola Leader).
+6) Final Output (Evidence Bundle)
+- Transformative synthesis + FixLog ID.
+- **FILESYSTEM UPDATES**: Mandatory for every output (Leader Rule).

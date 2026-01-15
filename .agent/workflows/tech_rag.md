@@ -1,55 +1,54 @@
 ---
-description: "Tech Task Protocol: RAG -> Piano -> Modifiche -> Test -> Evidenze -> FixLog (Chroma) -> Checker"
+description: "Tech Task Protocol: RAG -> Plan -> Edits -> Test -> Evidence -> FixLog (Chroma) -> Checker"
 ---
 
-1) Analisi e Definizione (Adaptive BMAD Protocol)
-- **Check Modalità**: Leggi `WorkflowMode` in `.agent/project/PROJECT_AGENT_CONFIG.md`.
-- **Complexity Trigger**: Il task tocca > 2 file OPPURE cambia schema DB / API / Dipendenze?
-  - **SI (Complex -> Strict)**: Scomponi in **Stories Numerate**. Obbligo di **STOP** utente tra una story e l'altra.
-  - **NO (Simple -> Adaptive)**: Procedi con un "Micro-Plan" immediato (lista azioni + test).
-- **Obiettivo**: 1 frase (Problema + Outcome).
-- **Done Criteria**: Definizione verificabile (test/behavior).
+1) Analysis & Definition (Adaptive BMAD Protocol)
+- **Mode Check**: Read `WorkflowMode` in `.agent/project/PROJECT_AGENT_CONFIG.md`.
+- **Complexity Trigger**: Does the task touch > 2 files OR change DB schema / API / Dependencies?
+  - **YES (Complex -> Strict)**: Break down into **Numbered Stories**. Mandatory User **STOP** between stories.
+  - **NO (Simple -> Adaptive)**: Proceed with an immediate "Micro-Plan" (Action List + Test).
+- **Objective**: 1 sentence (Problem + Outcome).
+- **Done Criteria**: Verifiable definition (test/behavior).
 
-2) Contesto e Placeholder (Project-Agnostic)
-- **Identifica il Progetto**: Determina `<ProjectName>` e `<Prefix>` da `.agent/project/PROJECT_AGENT_CONFIG.md`.
-- **Context Switcher (OBBLIGATORIO)**:
-  - Se **UI/Frontend**: Attiva `ui_ux_designer` e leggi/aggiorna `docs_custom/brand_identity_guide.md`.
-  - Se **Backend/Arch**: Leggi `docs_custom/architecture.md`.
-  - Se **Business Logic**: Leggi `docs_custom/domain_language.md`.
-- Usa sempre i placeholder `<ProjectName>` e `<Prefix>` nelle comunicazioni e nei metadata di Chroma.
+2) Context & Placeholders (Project-Agnostic)
+- **Identify Project**: Determine `<ProjectName>` and `<Prefix>` from `.agent/project/PROJECT_AGENT_CONFIG.md`.
+- **Context Switcher (MANDATORY)**:
+  - If **UI/Frontend**: Activate `ui_ux_designer` and read/update `docs_custom/brand_identity_guide.md`.
+  - If **Backend/Arch**: Read `docs_custom/architecture.md`.
+  - If **Business Logic**: Read `docs_custom/domain_language.md`.
+- Always use placeholders `<ProjectName>` and `<Prefix>` in communications and Chroma metadata.
 
-3) RAG (ordine rigido)
+3) RAG (Strict Order)
 **Step 0: Internal Context Discovery**
-- **Skill**: `resolve_canon_sources` (Gestisce hierarchy Custom > Template)
-- **Check**: Contiene link ufficiali o best practices interne?
-- **Decision**: Se sì -> Deep Read (markdownify). Se no -> Brave Search (Step 2).
+- **Skill**: `resolve_canon_sources` (Handles hierarchy Custom > Template)
+- **Check**: Does it contain official links or internal best practices?
+- **Decision**: If yes -> Deep Read (markdownify). If no -> Brave Search (Step 2).
 
-A) Repo-first: leggi file pertinenti nel progetto.
-B) Official Docs: usa i link identificati nella Canon Source attiva (Custom o Template).
-C) Chroma: cerca fix/decisioni simili filtrando per `project=<ProjectName>`.
-D) Microsoft Learn / Context7: doc ufficiali.
-E) Brave-search: solo se serve info esterna fuori canone.
+A) Repo-first: Read pertinent files in the project.
+B) Official Docs: Use links identified in the active Canon Source (Custom or Template).
+C) Chroma: Search for similar fixes/decisions filtering by `project=<ProjectName>`.
+D) Microsoft Learn / Context7: Official docs.
+E) Brave-search: Only if external info outside canon is needed.
 
-4) Esecuzione controllata
-- Cambi piccoli e localizzati.
-- Niente distruttivo senza review.
-- Rispetta i Guardrail di sicurezza (`.agent/rules/mcp-scope-secrets-guardrail.md`).
+4) Controlled Execution
+- Small, localized changes.
+- Nothing destructive without review.
+- Respect Security Guardrails (`.agent/rules/mcp-scope-secrets-guardrail.md`).
 
-5) Test Gate (Interattivo)
-- **Skill**: `test_gate_bivio` (Gestisce livelli Smoke/Deep/Debug).
-- **POLITICA "Zero Silence for Ghost Failures"**: Segnala immediatamente errori pre-esistenti.
+5) Test Gate (Interactive)
+- **Skill**: `test_gate_bivio` (Handles Smoke/Deep/Debug levels).
+- **POLICY "Zero Silence for Ghost Failures"**: Report pre-existing errors immediately.
 
-6) Persistenza in Chroma (OBBLIGATORIO)
-- **Skill**: `fixlog_writer` (Genera payload standard JSON).
-- Per validazione/demo (**Task contiene 'CANARY'** o `EVAL_MODE=1`): usa ID STABILE `<Prefix>.fix.eval.metadata_gate`.
-- Per fix reali: usa l'ID generato automaticamente dalla skill `<Prefix>.fix.YYYYMMDD.<slug>`.
+6) Chroma Persistence (MANDATORY)
+- **Skill**: `fixlog_writer` (Generates standard JSON payload).
+- For validation/demo (**Task contains 'CANARY'** or `EVAL_MODE=1`): use STABLE ID `<Prefix>.fix.eval.metadata_gate`.
+- For real fixes: use automatically generated ID from skill `<Prefix>.fix.YYYYMMDD.<slug>`.
 
 7) Post-check (REGRESSION GATE)
-- **Skill**: `regression_gate` (Esegue check_chroma + librarian su `fix_logs`).
-- **FAIL-FAST**: Se il checker FALLISCE, l'agente DEVE FERMARSI e correggere i metadata.
+- **Skill**: `regression_gate` (Executes check_chroma + librarian on `fix_logs`).
+- **FAIL-FAST**: If the checker FAILS, the Agent MUST STOP and fix metadata.
 
-8) Output finale (EVIDENCE BUNDLE)
-- Cosa è cambiato + FixLog ID.
-- Test eseguiti + esito.
-- **FILESYSTEM UPDATES**: Obbligatorio ad ogni output (Regola Leader).
-
+8) Final Output (EVIDENCE BUNDLE)
+- What changed + FixLog ID.
+- Tests executed + outcome.
+- **FILESYSTEM UPDATES**: Mandatory for every output (Leader Rule).

@@ -1,0 +1,20 @@
+{
+    "id": "AG.fix.20260115.81247ee4",
+    "document": "Implemented Dual Layer Audit (JSONL+MD) and Coverage Scoring (Tech+Protocol)",
+    "metadatas": {
+        "project": "Antigravity",
+        "type": "fix_log",
+        "date": "2026-01-15",
+        "files": [
+            ".agent/tools/event_logger.py",
+            ".agent/skills/fixlog_writer/scripts/write_log.py",
+            ".agent/evals/runner.py",
+            ".agent/tools/canary_check.py",
+            ".agent/audit/.gitignore"
+        ],
+        "tests": "Basic Smoke Test",
+        "result": "pass",
+        "evidence_path": "",
+        "notes": ""
+    }
+}

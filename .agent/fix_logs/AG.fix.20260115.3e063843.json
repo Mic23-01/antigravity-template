@@ -1,0 +1,17 @@
+{
+  "id": "AG.fix.20260115.3e063843",
+  "document": "Project Hygiene Update: Added .gitignore exclusions (backups, state, temp tests) and updated README with Checkpoint/English policies.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-15",
+    "files": [
+      ".gitignore",
+      "README.md"
+    ],
+    "tests": "git status check, visual inspection",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

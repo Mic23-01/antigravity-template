@@ -1,37 +1,37 @@
 ---
-description: "Project Hydration Wizard: Trasforma i Template Antigravity in Documentazione Viva (`docs_custom/`)."
+description: "Project Hydration Wizard: Transforms Antigravity Templates into Living Documentation (`docs_custom/`)."
 ---
 
 1) Context Discovery (The Automated Audit)
-- **Obiettivo**: Dedurre tutto ciò che è tecnicamente possibile senza chiedere all'utente.
-- **Action**: Esegui analisi strutturale profonda (Repo-first).
-  - **Primary**: Leggi `package.json`, `requirements.txt`, `pyproject.toml` per lo Stack.
-  - **Fallback**: Se i config mancano, usa `find` o `grep` per dedurre la struttura o cercare pattern di import.
-  - **Active Check**: Se necessario, lancia comandi safe (`node -v`, `python --version`) o script di esplorazione.
-  - **Intervention**: Se l'ambiguità persiste (> 20%), **CHIEDI** esplicitamente all'utente prima di inventare.
-  - **Style Check**: Cerca `tailwind.config.js` o variabili CSS root per dedurre la palette.
+- **Goal**: Deduce everything technically possible without asking the user.
+- **Action**: Execute deep structural analysis (Repo-first).
+  - **Primary**: Read `package.json`, `requirements.txt`, `pyproject.toml` for the Stack.
+  - **Fallback**: If configs are missing, use `find` or `grep` to deduce structure or search for import patterns.
+  - **Active Check**: If necessary, run safe commands (`node -v`, `python --version`) or exploration scripts.
+  - **Intervention**: If ambiguity persists (> 20%), **ASK** the user explicitly before inventing.
+  - **Style Check**: Search for `tailwind.config.js` or root CSS variables to deduce the palette.
 - **Tool**: `view_file`, `run_command` (safe), `librarian`.
 
 2) Gap Analysis & Interview (The User Check)
-- **Confronto**: Leggi i placeholder nei **Template Originali**:
+- **Comparison**: Read placeholders in **Original Templates**:
   - `.agent/docs/architecture.md`
   - `.agent/docs/brand_identity_guide.md`
   - `.agent/docs/domain_language.md`
   - `.agent/docs/product_strategy.md`
   - `.agent/docs/SOURCES.md`
-- **Intervista**: Formula una serie di domande mirate per l'utente per colmare i gap (es. "Qual è la Visione a 12 mesi?", "Definisci il termine 'Player'").
-- **Constraint**: NON procedere alla generazione finché l'utente non ha risposto.
+- **Interview**: Formulate a series of targeted questions for the user to bridge gaps (e.g., "What is the 12-month Vision?", "Define the term 'Player'").
+- **Constraint**: Do NOT proceed to generation until the user has responded.
 
 3) Hydration Generation (The Build)
-- **Action**: Crea la directory target `docs_custom/` (se non esiste).
-- **Skill**: Attiva `ui_ux_designer` per trovare palette e font coerenti se non definiti.
-- **Action**: Per ogni template:
-  - Sostituisci i placeholder con i dati raccolti (Audit + Intervista + UI Skill).
-  - Rimuovi le sezioni "AI Instruction".
-  - Scrivi il file finale in `docs_custom/<filename>`.
-- **Naming Convention**: Mantieni gli stessi nomi file dei template per coerenza.
+- **Action**: Create the target directory `docs_custom/` (if it doesn't exist).
+- **Skill**: Activate `ui_ux_designer` to find consistent palettes and fonts if undefined.
+- **Action**: For each template:
+  - Replace placeholders with collected data (Audit + Interview + UI Skill).
+  - Remove "AI Instruction" sections.
+  - Write the final file to `docs_custom/<filename>`.
+- **Naming Convention**: Maintain the same filenames as the templates for consistency.
 
 4) Validation & Binding (The Handshake)
-- **Review**: Chiedi all'utente di validare i file in `docs_custom/`.
-- **Commit**: Una volta approvati, questi file diventano la **Specific Source of Truth** del progetto.
-- **FILESYSTEM UPDATES**: Notifica la creazione dei nuovi file.
+- **Review**: Ask the user to validate the files in `docs_custom/`.
+- **Commit**: Once approved, these files become the **Specific Source of Truth** for the project.
+- **FILESYSTEM UPDATES**: Notification of new file creation.

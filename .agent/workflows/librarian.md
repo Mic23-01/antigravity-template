@@ -1,39 +1,44 @@
 ---
-description: "Agente Bibliotecario: Igiene Proattiva, Sincronizzazione Documentale e Analisi Strutturale (DuckDB)"
+description: "Librarian Agent: Proactive Hygiene, Document Sync, and Structural Analysis (DuckDB)"
 ---
 
-1) Preparazione e Planning
-- Consulta il Supervisore Leader (`.agent/rules/global-validation-protocol.md`).
-- Obiettivo: Mantenere il progetto pulito, aggiornato e privo di "Ghost Code".
+1) Preparation & Planning
+- Consult the Leader Supervisor (`.agent/rules/global-validation-protocol.md`).
+- Goal: Keep the project clean, updated, and free of "Ghost Code".
 
-2) Analisi Strutturale (The SQL Eye)
-- **DuckDB Audit**: Esegui l'audit strutturale automatizzato.
+2) Structural Analysis (The SQL Eye)
+- **DuckDB Audit**: Execute automated structural audit.
   `uv run --with duckdb python3 .agent/project/librarian.py --audit`
-- Identifica:
-    - **Ghost Files**: File non importati o duplicati orfani.
-    - **Dead Code**: Funzioni/Classi senza referenze (usa `grep_search` per validare).
-    - **Documentation Drift**: Verifica se `docs_custom/` è aggiornato rispetto al codice.
-    - **Missing Context**: Segnala se mancano file core in `docs_custom/`.
+- Identify:
+    - **Ghost Files**: Unimported files or orphan duplicates.
+    - **Dead Code**: Functions/Classes without references (use `grep_search` to validate).
+    - **Documentation Drift**: Verify if `docs_custom/` is up-to-date with code.
+    - **Missing Context**: Flag if core files are missing in `docs_custom/`.
 
-3) Sincronizzazione Attiva (Active Sync)
-- **Autorizzazione Obbligatoria**: Se il Bibliotecario individua documentazione mancante o obsoleta (es. README, ADR, DOCS), **DEVE** descrivere il contenuto proposto e chiedere il permesso tramite `notify_user` prima di creare o modificare i file.
-- **README Update**: Proponi l'aggiornamento delle mappe dei file e delle descrizioni.
-- **DOCS Sync**: Proponi il link di nuovi ADR o Research negli indici.
-- **SSOT Check**: Verifica coerenza costanti/parametri tra frontend e backend.
+3) Active Sync
+- **Mandatory Authorization**: If the Librarian identifies missing or obsolete documentation (e.g., README, ADR, DOCS), it **MUST** describe the proposed content and ask for permission via `notify_user` before creating or modifying files.
+- **README Update**: Propose updates to file maps and descriptions.
+- **DOCS Sync**: Propose links for new ADRs or Research in indices.
+- **SSOT Check**: Verify coherence of constants/parameters between frontend and backend.
 
-4) Pulizia e Ottimizzazione
-- Proponi la rimozione dei file identificati come "Ghost".
-- Archivia i task completati da `task.md` nel changelog storico.
-- Ottimizza i metadata di Chroma eliminando entry ridondanti o obsolete.
+3.5) Checkpoint Archiving (Memory Consolidation)
+- **State Archiving**: Read `.agent/memory/STATE.md` (if exists).
+- **Append**: Append the content to the session history in `docs_custom/session_history.md` (if exists) or Chroma logs with tag `session_summary`.
+- **Reset**: (Optional) If the session is concluded, rotate `.agent/memory/STATE.md` to clear context for the next startup.
 
-5) Verifica e Chiusura
-- Esegui lo script `librarian.py` originale per la validazione dello schema.
-- **Persistenza Chroma**: Salva l'esito nella collezione `fix_logs`.
+4) Cleaning & Optimization
+- Propose removal of files identified as "Ghost".
+- Archive completed tasks from `task.md` into the historical changelog.
+- Optimize Chroma metadata by eliminating redundant or obsolete entries.
+
+5) Verification & Closure
+- Execute original `librarian.py` script for schema validation.
+- **Chroma Persistence**: Save the result in the `fix_logs` collection.
     - **ID**: `<Prefix>.hygiene.YYYYMMDD.<slug>`
     - **Metadata**: `project=<ProjectName>, type=hygiene_log, date=YYYY-MM-DD, result=pass|fail, notes=...`
-- **Regression Gate**: Esegui `check_chroma.py` sull'ID generato.
-- **System Integrity**: Esegui `.agent/tools/canary_check.py` per garantire che l'giene non abbia rotto nulla.
+- **Regression Gate**: Execute `check_chroma.py` on the generated ID.
+- **System Integrity**: Execute `.agent/tools/canary_check.py` to ensure hygiene didn't break anything.
 
-6) Output finale
-- Report delle azioni di igiene eseguite.
-- **FILESYSTEM UPDATES**: Obbligatorio ad ogni output (Regola Leader).
+6) Final Output
+- Report of hygiene actions performed.
+- **FILESYSTEM UPDATES**: Mandatory for every output (Leader Rule).

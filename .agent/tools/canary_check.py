@@ -120,7 +120,7 @@ def check_skills():
 
 def find_latest_walkthrough():
     """Finds the most recent walkthrough.md in the brain directory."""
-    brain_dir = Path("/home/ubuntu/.gemini/antigravity/brain")
+    brain_dir = Path.home() / ".gemini/antigravity/brain"
     if not brain_dir.exists():
         return None
     
@@ -165,9 +165,45 @@ def check_walkthrough_evidence(path):
             print(f"         {YELLOW}Hint: Add a screenshot ( ![desc](path) ) or a log block ( ``` ).{RESET}")
             return False
             
+            print(f"  {RED}[FAIL]{RESET} Walkthrough at {path.name} lacks visual or code evidence.")
+            print(f"         {YELLOW}Hint: Add a screenshot ( ![desc](path) ) or a log block ( ``` ).{RESET}")
+            return False
+            
     except Exception as e:
         print(f"  {RED}[ERROR]{RESET} Could not read walkthrough: {e}")
         return False
+
+def check_audit_health():
+    """
+    Verifies the integrity of the Dual Layer Audit System.
+    1. JSONL (Machine) exists.
+    2. Markdown (Human) exists.
+    """
+    print(f"\n{BLUE}=== Audit Trail Integrity (Dual Layer) ==={RESET}")
+    audit_dir = Path(".agent/audit")
+    jsonl = audit_dir / "agent_events.jsonl"
+    md = audit_dir / "audit_summary.md"
+    
+    if not audit_dir.exists():
+        # Clean slate is acceptable for new projects, but warn if old logs exist elsewhere
+        print(f"  {YELLOW}[INFO]{RESET} Audit directory empty (Clean Slate).")
+        return True
+        
+    integrity = True
+    if jsonl.exists():
+        print(f"  {GREEN}[OK]{RESET} Machine Log found ({jsonl.name}).")
+    else:
+        # If MD exists but JSONL doesn't -> Corruption
+        if md.exists():
+             print(f"  {RED}[FAIL]{RESET} Audit Corruption: Summary exists but Raw Log missing!")
+             integrity = False
+        else:
+             pass # Both missing is fine
+             
+    if md.exists():
+        print(f"  {GREEN}[OK]{RESET} Human Summary found ({md.name}).")
+    
+    return integrity
 
 def run_script_test(cmd, description):
     print(f"\n{BLUE}=== Testing Script: {description} ==={RESET}")
@@ -268,8 +304,8 @@ def main():
     
     latest_walkthrough = find_latest_walkthrough()
     if latest_walkthrough:
-        # Initialize success before its first use here
-        success = True # This will track static checks, separate from all_systems_go for dynamic
+        # Initialize success if not already set (e.g. by Triad)
+        if 'success' not in locals(): success = True
         success &= check_walkthrough_evidence(latest_walkthrough)
     else:
         print(f"  {YELLOW}[SKIP]{RESET} No recent walkthrough.md found to verify.")
@@ -294,7 +330,9 @@ def main():
     print(f"{GREEN if all_systems_go else RED}# SYSTEM STATUS: {'100% OPERATIONAL' if all_systems_go else 'ATTENTION REQUIRED'}       #{RESET}")
     print(f"{GREEN if all_systems_go else RED}#########################################{RESET}")
 
-    success = True # This will track static checks, separate from all_systems_go for dynamic
+    # Merge dynamic status into overall success
+    if 'success' not in locals(): success = True
+    success &= all_systems_go
 
     # 1. Critical Config Files
     print(f"\n{BLUE}=== Critical Configuration Audit ==={RESET}")
@@ -307,6 +345,9 @@ def main():
 
     # 3. Script Execution
     success &= run_script_test("python3 .agent/project/librarian.py --hygiene", "Librarian Hygiene Check")
+
+    # 3.5 Audit Health
+    success &= check_audit_health()
 
     # 4. Skills Integrity
     success &= check_skills()

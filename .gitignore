@@ -25,10 +25,19 @@ npm-debug.log
 .DS_Store
 Thumbs.db
 
+
 # Agent Memory (Local)
 .agent/memory/chroma/
 .agent/evals/runs/
 .agent/research_summaries/temp/
+.agent/memory/backups/
+.agent/memory/STATE.md
+
+# Transient Tests
+verifiche_test/
+
+# Artificial Intelligence
+.gemini/
 
 # Editor
 .vscode/

@@ -4,48 +4,47 @@ description: Global Validation Protocol (Leader/Supervisor)
 globs: "**/*"
 ---
 
-# 👑 PROTOCOLLO LEADER: Validazione & Supervisione (ALWAYS ON)
+# 👑 LEADER PROTOCOL: Validation & Supervision (ALWAYS ON)
 
-**DIRETTIVA SUPREMA**: Questa è la regola radice di Antigravity. Ogni operazione deve passare da questo gate. L'inottemperanza a questo protocollo è considerata un fallimento critico.
+**SUPREME DIRECTIVE**: This is the root rule of Antigravity. Every operation must pass through this gate. Non-compliance with this protocol is considered a critical failure.
 
 ## 0. High-Resolution Planning (Planning Gate)
-PRIMA di qualsiasi azione tecnica, l'Agente DEVE produrre un piano. La profondità dipende dalla complessità:
+BEFORE any technical action, the Agent MUST produce a plan. The depth depends on complexity:
 
-* **Zero Step (Session Sentinel)**: Esegui `canary_check`. Se rileva una **Dirty Session** (modifiche senza FixLog), **STOP** immediato. Devi sanare la memoria prima di lavorare.
+* **Zero Step (Session Sentinel)**: Execute `canary_check`. If it detects a **Dirty Session** (modifications without FixLog), **STOP** immediately. You must sanitize memory before working.
 
-* **Standard Plan (Strict)**: Obbligatorio per modifiche complesse. Richiede: Obiettivo, Step atomici, Rischi, Criteri di Successo.
+* **Standard Plan (Strict)**: Mandatory for complex changes. Requires: Objective, Atomic Steps, Risks, Success Criteria.
 * **Micro-Plan (Adaptive Exception)**:
-    * **Trigger**: AMMESSO SOLO SE: Modifica ≤ 2 file AND Nessuna nuova libreria AND Nessun cambio DB/API.
-    * **Formato**: Lista puntata rapida delle azioni + Test di verifica.
-    * **Divieto**: Vietato saltare la fase di pensiero (`sequential-thinking`), anche nel
+    * **Trigger**: PERMITTED ONLY IF: Modification ≤ 2 files AND No new libraries AND No DB/API changes.
+    * **Format**: Quick bulleted list of actions + Verification tests.
+    * **Prohibition**: Forbidden to skip the thought phase (`sequential-thinking`), even in Micro-Plans.
 
-## 1. Monitoraggio Filesystem (MANDATORIO)
-In OGNI risposta (notify_user o output finale), l'Agente **DEVE** includere una sezione finale denominata `[FILESYSTEM UPDATES]` che elenca in modo atomico:
+## 1. Filesystem Monitoring (MANDATORY)
+In EVERY response (notify_user or final output), the Agent **MUST** include a final section named `[FILESYSTEM UPDATES]` listing atomically:
 - **NEW**: [file path]
 - **MODIFY**: [file path]
 - **DELETE**: [file path]
-Se non ci sono stati cambiamenti, scrivere `NONE`.
+If there were no changes, write `NONE`.
 
-## 2. Fase di Ragionamento Iniziale (Sequential Thinking)
-PRIMA di proporre o eseguire qualsiasi azione tecnica:
-1.  **Attiva** `sequential-thinking`.
-2.  **Analizza** la richiesta in assiomi fondamentali.
-3.  **INTERRUPT**: Se la richiesta è ambigua, **NON PROCEDERE**. Chiedi chiarimenti.
+## 2. Initial Reasoning Phase (Sequential Thinking)
+BEFORE proposing or executing any technical action:
+1.  **Activate** `sequential-thinking`.
+2.  **Analyze** the request into fundamental axioms.
+3.  **INTERRUPT**: If the request is ambiguous, **DO NOT PROCEED**. Ask for clarification.
 
-## 3. Fase di Ricerca Attiva (RAG Loop)
-Se manca certezza tecnica (100%):
-1.  **Consulta** le Gold Sources in `docs_custom/SOURCES.md`.
-2.  **Cross-Valida** con `brave-search` (limite temporale: ultimo anno).
-3.  **Deep-Read** con `markdownify` prima di asseverare una soluzione.
-4.  **Context Check (Obbligatorio)**: Prima di agire, CARICA il documento `docs_custom/` pertinente (es. Architecture per Backend, Brand per UI).
+## 3. Active Research Phase (RAG Loop)
+If technical certainty is lacking (not 100%):
+1.  **Consult** Gold Sources in `docs_custom/SOURCES.md`.
+2.  **Cross-Validate** with `brave-search` (time limit: last year).
+3.  **Deep-Read** with `markdownify` before asserting a solution.
+4.  **Context Check (Mandatory)**: Before acting, LOAD the pertinent `docs_custom/` document (e.g., Architecture for Backend, Brand for UI).
 
-## 4. Fase di Sintesi & Validazione
-- Se c'è conflitto: **La documentazione più recente (MCP) vince sempre.**
-- **INTERRUPT**: Se la soluzione richiede un cambio di architettura o l'uso di nuove librerie, **NON PROCEDERE** senza OK esplicito dell'utente su un `implementation_plan.md`.
+## 4. Synthesis & Validation Phase
+- If there is conflict: **The most recent documentation (MCP) always wins.**
+- **INTERRUPT**: If the solution requires an architectural change or the use of new libraries, **DO NOT PROCEED** without explicit user approval on an `implementation_plan.md`.
 
 ## 5. Protocol Fidelity
-Tutte le altre regole in `.agent/rules/` sono subordinate a questa. Se una regola richiede un'interazione (Bivio), l'Agente deve rispettarla rigorosamente senza tentare la risoluzione autonoma.
+All other rules in `.agent/rules/` are subordinate to this one. If a rule requires interaction (Fork/Choice), the Agent must respect it rigorosuly without attempting autonomous resolution.
 
 > [!IMPORTANT]
-> **L'allucinazione è il fallimento critico.** Meglio una domanda in più che un file modificato in meno o in modo errato.
-
+> **Hallucination is the critical failure.** Better one extra question than one file modified incorrectly or missing.

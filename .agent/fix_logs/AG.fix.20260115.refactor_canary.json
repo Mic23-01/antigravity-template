@@ -1,0 +1,17 @@
+{
+    "id": "AG.fix.20260115.refactor_canary",
+    "document": "Refactored canary_check.py and check_chroma.py to fix hardcoded paths and logic masking bugs.",
+    "metadatas": {
+        "project": "Antigravity",
+        "type": "fix_log",
+        "date": "2026-01-15",
+        "files": [
+            ".agent/tools/canary_check.py",
+            ".agent/tools/check_chroma.py"
+        ],
+        "tests": "Canary Check Execution",
+        "result": "pass",
+        "evidence_path": "",
+        "notes": "Fixed Success Masking Bug and Hardcoded Home Dir"
+    }
+}
