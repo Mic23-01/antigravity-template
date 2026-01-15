@@ -7,3 +7,6 @@
   - **Adaptive**: Attiva "Micro-Plan" per task semplici (< 3 file, no API/DB change).
   - **Strict**: Attiva protocollo completo (RAG profondo + Story Breakdown & Stop + FixLog dettagliato).
 - **SmokeTestCmd**: "ls -la docs_custom/" (Default safe check for template integrity)
+- **DeepTestCmd**: "uv run pytest -q"
+- **DebugTestCmd**: "uv run pytest -q -vv --maxfail=1 --pdb"
+- **NegativeTestMarkers**: "negative, fuzz, chaos"

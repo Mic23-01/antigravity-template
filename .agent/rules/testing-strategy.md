@@ -24,8 +24,9 @@ Usa gli strumenti giusti per il livello richiesto:
 
 ### 🟢 Easy / Smoke Mode
 *   **Obiettivo**: Feedback immediato (< 30 sec).
-*   **Cosa fare**:
-    *   Unit test essenziali (happy path).
+*   **UV + Pytest**:
+    *   Usa `uv` per eseguire i test pytest quando disponibile (es. `uv run pytest ...`).
+    *   Standardizza l'uso di marker per negative/fuzz testing (`-m negative`).
     *   Script `curl` o `httpie` per verificare endpoint API vivi.
 
 ### 🔴 Deep / Security Mode (Innovazione)
@@ -34,6 +35,8 @@ Usa gli strumenti giusti per il livello richiesto:
     *   **Fuzzing**: Proponi input malformati.
     *   **Concurrency**: Test paralleli (`pytest -n auto`).
     *   **Network Chaos**: Simula latenza o down dei servizi esterni.
+    *   **Negative Testing**: Includi casi di fallimento attesi (marker dedicati se presenti).
+    *   **Marker Obbligatori**: Per test distruttivi o lenti, usa sempre marker (`@pytest.mark.negative`).
 
 ## 4. Best Practice di Codice
 *   Usa `pytest` come runner standard.

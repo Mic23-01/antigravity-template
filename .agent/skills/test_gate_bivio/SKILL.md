@@ -21,8 +21,11 @@ author: Antigravity
    - Esegui comando `<SmokeTestCmd>`.
 3. **Deep**:
    - Esegui test di regressione completi (`pytest`, `npm test`, etc).
+   - Esegui `<DeepTestCmd>` (es. `uv run pytest -q`).
+   - Se presenti `<NegativeTestMarkers>`, esegui anche i test negativi (es. `uv run pytest -m "negative or fuzz"`).
 4. **Debug**:
    - Attiva `sequential-thinking` per isolare il caso.
+   - Esegui `<DebugTestCmd>` (es. `uv run pytest -q -vv --maxfail=1 --pdb`).
 
 ## Outputs
 - **Result**: `PASS` (proceed) o `FAIL` (fix required).
