@@ -1,4 +1,4 @@
-import argparse, sys
+import argparse, sys, os
 import chromadb
 
 REQUIRED = {
@@ -11,7 +11,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--collection", required=True)
     ap.add_argument("--id", required=True)
-    ap.add_argument("--data-dir", default="/home/ubuntu/chroma-data")
+    ap.add_argument("--data-dir", default=os.path.join(os.path.expanduser("~"), "chroma-data"))
     args = ap.parse_args()
 
     try:
