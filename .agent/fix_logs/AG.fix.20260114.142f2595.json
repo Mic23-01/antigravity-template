@@ -1,0 +1,13 @@
+{
+    "id": "AG.fix.20260114.142f2595",
+    "document": "Created README.md",
+    "metadatas": {
+        "project": "Antigravity",
+        "type": "fix_log",
+        "date": "2026-01-14",
+        "files": "README.md",
+        "tests": "Visual Verification",
+        "result": "pass",
+        "notes": "Manual write for Dual Persistence"
+    }
+}

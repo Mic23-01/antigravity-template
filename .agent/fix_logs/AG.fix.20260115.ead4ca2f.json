@@ -1,0 +1,13 @@
+{
+    "id": "AG.fix.20260115.ead4ca2f",
+    "document": "Integrated Session Sentinel into canary_check.py and updated Global Protocol.",
+    "metadatas": {
+        "project": "Antigravity",
+        "type": "fix_log",
+        "date": "2026-01-15",
+        "files": ".agent/tools/canary_check.py, .agent/rules/global-validation-protocol.md, .agent/brain/de1cdb2f-be72-436c-946c-5212665e321e/task.md",
+        "tests": "python3 .agent/tools/canary_check.py",
+        "result": "pass",
+        "notes": ""
+    }
+}

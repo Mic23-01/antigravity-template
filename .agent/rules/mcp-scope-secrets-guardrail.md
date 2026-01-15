@@ -21,9 +21,9 @@ L'Agente **NON DEVE MAI** leggere, stampare o cercare contenuti in:
 ## Uso MCP: regole operative
 - Usa `sequential-thinking` per pianificare ogni task non banale.
 - Usa `brave-search` SOLO quando servono info esterne.
+- Usa "context7" quando servono docs reali validati.
 - Non inventare: se non trovi, dichiaralo e proponi il prossimo passo.
 
 ## Terminal safety
 - Se un comando non è in Allow List, richiedi sempre review (ok).
 - **INTERRUPT**: Non proporre comandi distruttivi (`rm`, `sudo`, `chmod -R`, ecc.) senza un piano dettagliato e conferma esplicita.
-

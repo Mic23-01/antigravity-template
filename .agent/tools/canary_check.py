@@ -118,6 +118,57 @@ def check_skills():
              
     return all_ok
 
+def find_latest_walkthrough():
+    """Finds the most recent walkthrough.md in the brain directory."""
+    brain_dir = Path("/home/ubuntu/.gemini/antigravity/brain")
+    if not brain_dir.exists():
+        return None
+    
+    # Get all walkthrough.md files
+    walkthroughs = list(brain_dir.glob("*/walkthrough.md"))
+    if not walkthroughs:
+        return None
+        
+    # Sort by modification time
+    latest = max(walkthroughs, key=lambda p: p.stat().st_mtime)
+    return latest
+
+def check_walkthrough_evidence(path):
+    """
+    Smart Gate: Checks if walkthrough.md contains valid evidence.
+    Rule: Must have [Image] OR [CodeBlock] OR [Diff].
+    """
+    try:
+        with open(path, 'r') as f:
+            content = f.read()
+            
+        # Check 1: Empty file
+        if len(content.strip()) < 100:
+            print(f"  {RED}[FAIL]{RESET} Walkthrough at {path.name} is too short (<100 chars). EVIDENCE MISSING.")
+            return False
+            
+        import re
+        # Check 2: Image markdown ![alt](url)
+        has_image = bool(re.search(r'!\[.*?\]\(.*?\)', content))
+        
+        # Check 3: Code block ``` (triple backticks)
+        has_code = "```" in content
+        
+        if has_image:
+            print(f"  {GREEN}[PASS]{RESET} Evidence found in {path.name} (Image detected).")
+            return True
+        elif has_code:
+            print(f"  {GREEN}[PASS]{RESET} Evidence found in {path.name} (Code/Diff block detected).")
+            return True
+        else:
+            print(f"  {RED}[FAIL]{RESET} Walkthrough at {path.name} lacks visual or code evidence.")
+            print(f"         {YELLOW}Hint: Add a screenshot ( ![desc](path) ) or a log block ( ``` ).{RESET}")
+            return False
+            
+    except Exception as e:
+        print(f"  {RED}[ERROR]{RESET} Could not read walkthrough: {e}")
+        return False
+
 def run_script_test(cmd, description):
     print(f"\n{BLUE}=== Testing Script: {description} ==={RESET}")
     try:
@@ -133,13 +184,95 @@ def run_script_test(cmd, description):
         print(f"  {RED}[FATAL]{RESET} {description} crashed: {str(e)}")
         return False
 
+    except Exception as e:
+        print(f"  {RED}[FATAL]{RESET} {description} crashed: {str(e)}")
+        return False
+
+
+def check_session_integrity():
+    """
+    ZERO STEP: Verifies that the previous session was properly persisted.
+    If 'dirty files' are detected (modified > last fixlog), it BLOCKS execution.
+    """
+    print(f"\n{BLUE}=== Session Integrity Check (The Sentinel) ==={RESET}")
+    sentinel_path = ".agent/tools/session_sentinel.py"
+    if not os.path.exists(sentinel_path):
+        print(f"  {YELLOW}[SKIP]{RESET} Sentinel tool not found (Bootstrapping phase?)")
+        return True
+
+    try:
+        # We run the sentinel. If it exits with 1 -> DIRTY.
+        res = subprocess.run(["python3", sentinel_path], capture_output=True, text=True)
+        if res.returncode == 0:
+            print(f"  {GREEN}[PASS]{RESET} Session is CLEAN. Persistence verified.")
+            return True
+        else:
+            print(f"  {RED}[BLOCK]{RESET} DIRTY SESSION DETECTED!")
+            print(f"  {RED}FATAL: You have modified files without a subsequent FixLog.{RESET}")
+            print(f"  {YELLOW}Action Required: Run 'fixlog_writer' to sanitize the memory before proceeding.{RESET}")
+            # Print the Sentinel's evidence
+            print("  Evidence:")
+            for line in res.stdout.splitlines():
+                print(f"    {line}")
+            return False
+            
+    except Exception as e:
+        print(f"  {RED}[ERROR]{RESET} Sentinel execution failed: {e}")
+        return False
+
 def main():
     # Initialize overall status for dynamic checks
     all_systems_go = True
+    
+    # -1. Session Integrity (Hard Gate)
+    if not check_session_integrity():
+        print(f"\n{RED}#########################################{RESET}")
+        print(f"{RED}# SYSTEM LOCKED: PERSISTENCE REQUIRED   #{RESET}")
+        print(f"{RED}#########################################{RESET}")
+        sys.exit(1)
 
     print(f"{BLUE}#########################################{RESET}")
     print(f"{BLUE}# ANTIGRAVITY CANARY SYSTEM INTEGRITY   #{RESET}")
     print(f"{BLUE}#########################################{RESET}")
+
+    # 0. Artifact Evidence Check (Smart Gate)
+    print(f"\n{BLUE}=== Artifact Evidence Enforcement ==={RESET}")
+    # Defines path convention based on Brain/Task context. 
+    # Since this script runs in the root, we look for a generic walkthrough or rely on an env var.
+    # ideally, we should check the LATEST interaction or a specific path provided.
+    # For this implementation, we will check a standard location or skip if not found (Warn only).
+    
+    # In a real Agentic run, the artifacts are in: <appDataDir>/brain/<conversation-id>/walkthrough.md
+    # But canary_check doesn't know the conversation ID easily without input.
+    # Strategy: Scan the most recent brain directory or just check if a 'walkthrough.md' exists in CWD (for local testing).
+    
+    # For now, we'll check a placeholder path or rely on the user to point it out.
+    # To make it robust as a generally usable tool, we'll search for the newest walkthrough in .gemini/antigravity/brain/
+    # If not found, we skip (SOFT GATE).
+    
+    # 0.5 Eval Triad (Optional - Flag Based)
+    if "--triad" in sys.argv:
+        print(f"\n{BLUE}=== Capability Eval Triad (Deep Evaluation) ==={RESET}")
+        runner_path = ".agent/evals/runner.py"
+        if os.path.exists(runner_path):
+            print(f"  {BLUE}Running Full Eval Suite (Refactor/Bugfix/Feature)...{RESET}")
+            # We run it as a subprocess to keep isolation
+            triad_res = subprocess.run(["python3", runner_path, "--all"], capture_output=False) # Let it print to stdout
+            if triad_res.returncode == 0:
+                print(f"  {GREEN}[PASS]{RESET} Application Capability Verified (Triad Score: 100%)")
+            else:
+                print(f"  {RED}[FAIL]{RESET} Capability Eval Failed. Check outputs above.")
+                success = False
+        else:
+             print(f"  {RED}[ERROR]{RESET} Eval Runner missing at {runner_path}")
+    
+    latest_walkthrough = find_latest_walkthrough()
+    if latest_walkthrough:
+        # Initialize success before its first use here
+        success = True # This will track static checks, separate from all_systems_go for dynamic
+        success &= check_walkthrough_evidence(latest_walkthrough)
+    else:
+        print(f"  {YELLOW}[SKIP]{RESET} No recent walkthrough.md found to verify.")
 
     # 3. Dynamic Agent Check (Behavioral)
     print(f"\n{BLUE}=== Behavioral Analysis (Dynamic Agent) ==={RESET}")

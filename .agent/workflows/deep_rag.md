@@ -4,7 +4,7 @@ description: "Agente R&D 2026: Ricerca Deep con Recursive Loop (Gemini-Level), A
 
 1) Context & Deep Mapping (The Network)
 - **Mapping Esterno**: Usa `context7` per comprendere le librerie target e le loro alternative moderne.
-- **Mapping Interno**: Usa `ast-grep` o `duckdb` (via `librarian_queries.py`) per mappare l'impatto strutturale sulle dipendenze locali.
+- **Mapping Interno**: Usa `grep_search` o `duckdb` (via `.agent/project/librarian.py --audit`) per mappare l'impatto strutturale sulle dipendenze locali.
 - **Obiettivo**: Capire non solo "cosa" fa la tecnologia, ma "dove" toccherà il progetto.
 
 2) Recursive Deep Search Loop (The Gemini-Cycle)

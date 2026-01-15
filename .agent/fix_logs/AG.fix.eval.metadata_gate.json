@@ -1,0 +1,1 @@
+{"id": "AG.fix.eval.metadata_gate", "project": "Antigravity", "type": "fix", "timestamp": "2026-01-15T11:14:00Z", "summary": "Fix canary scripts: cross-platform temp paths and uv run dependency loading.", "files": [".agent/tools/dynamic_agent.py", ".agent/tools/canary_check.py"], "result": "pass"}

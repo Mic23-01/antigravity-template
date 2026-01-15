@@ -11,6 +11,8 @@ globs: "**/*"
 ## 0. High-Resolution Planning (Planning Gate)
 PRIMA di qualsiasi azione tecnica, l'Agente DEVE produrre un piano. La profondità dipende dalla complessità:
 
+* **Zero Step (Session Sentinel)**: Esegui `canary_check`. Se rileva una **Dirty Session** (modifiche senza FixLog), **STOP** immediato. Devi sanare la memoria prima di lavorare.
+
 * **Standard Plan (Strict)**: Obbligatorio per modifiche complesse. Richiede: Obiettivo, Step atomici, Rischi, Criteri di Successo.
 * **Micro-Plan (Adaptive Exception)**:
     * **Trigger**: AMMESSO SOLO SE: Modifica ≤ 2 file AND Nessuna nuova libreria AND Nessun cambio DB/API.
