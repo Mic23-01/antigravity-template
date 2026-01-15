@@ -10,13 +10,12 @@ import os
 import sys
 import shutil
 import yaml
-import glob
-import re
+import tempfile
 import argparse
 from pathlib import Path
 
 # Config
-SANDBOX_ROOT = Path("/tmp/ag_dynamic_sandbox")
+SANDBOX_ROOT = Path(tempfile.gettempdir()) / "ag_dynamic_sandbox"
 SCENARIO_ROOT = Path(".agent/project/scenarios")
 
 # Colors

@@ -144,7 +144,7 @@ def main():
     # 3. Dynamic Agent Check (Behavioral)
     print(f"\n{BLUE}=== Behavioral Analysis (Dynamic Agent) ==={RESET}")
     # Run the default compliance scenario in dry-run mode
-    dyn_cmd = ["python3", ".agent/tools/dynamic_agent.py", "--scenario", "001_compliance.md", "--mode", "dry-run"]
+    dyn_cmd = ["uv", "run", "--with", "PyYAML", "python3", ".agent/tools/dynamic_agent.py", "--scenario", "001_compliance.md", "--mode", "dry-run"]
     try:
         # Use subprocess directly to capture output better or just rely on exit code
         if subprocess.run(dyn_cmd, check=False).returncode == 0:
