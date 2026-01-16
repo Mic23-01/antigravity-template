@@ -1,0 +1,18 @@
+{
+  "id": "AG.fix.20260116.a4a7e780",
+  "document": "Modernized Evals system: Unified runner.py v2.0, deleted legacy .sh scripts, updated tech_rag and regression_gate",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-16",
+    "files": [
+      ".agent/evals/runner.py",
+      ".agent/workflows/tech_rag.md",
+      ".agent/skills/regression_gate/SKILL.md"
+    ],
+    "tests": "runner.py --protocol: 2/2 PASS",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

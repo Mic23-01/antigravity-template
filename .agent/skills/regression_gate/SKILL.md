@@ -1,30 +1,35 @@
 ---
 name: regression_gate
-description: "Atomic Validation Protocol: Wrapper unificato per Chroma Check e Librarian Audit."
-version: 2.0.0 (Divine)
+description: "Atomic Validation Protocol: Unified validator for Chroma Check and Librarian Audit."
+version: 2.1.0 (Unified)
 author: Antigravity
 ---
 
-# Istruzioni Operative
+# Operational Instructions
 
-Questa skill è il **Guardiano della Qualità**. Non deve mai essere bypassata.
+This skill is the **Quality Guardian**. It must never be bypassed.
 
-## 🛠️ The Atomic Tool
-Invece di lanciare comandi sparsi, usa lo script unificato che garantisce l'ordine di esecuzione e la gestione degli errori.
+## 🛠️ The Unified Command
+Instead of running scattered commands, use the unified eval runner:
 
-### Sintassi
+### Syntax
 ```bash
-python3 .agent/skills/regression_gate/scripts/run_audit.py --collection <COLLECTION> --id <ID>
+uv run --with chromadb .agent/evals/runner.py --protocol
 ```
 
-## 🚨 Protocollo di Fallimento
-Se lo script restituisce un errore (Exit Code 1):
+This command validates:
+1. **FixLog Canary**: `AG.fix.eval.metadata_gate` in `fix_logs` collection.
+2. **Research Canary**: `AG.research.eval.metadata_gate` in `research_summaries` collection.
 
-1. **STOP**: Non procedere con altre azioni.
-2. **CONSULTA**: Leggi `.agent/skills/regression_gate/examples/correct_metadata.md` per capire dove hai sbagliato.
-3. **FIX**: Correggi i metadata in Chroma o pulisci i file ghost.
-4. **RETRY**: Rilancia il gate finché non ottieni `✅ GATE PASSED`.
+## 🚨 Failure Protocol
+If the script returns an error (Exit Code 1):
 
-## Note Tecniche
-- Lo script gestisce internamente `uv run` per le dipendenze (`chromadb`, `duckdb`).
-- È progettato per essere "Zero Silence": stampa l'errore esatto in rosso.
+1. **STOP**: Do not proceed with any other actions.
+2. **CONSULT**: Read `.agent/skills/regression_gate/examples/correct_metadata.md` for guidance.
+3. **FIX**: Correct metadata in Chroma or clean ghost files.
+4. **RETRY**: Re-run the gate until you get `🚀 READY FOR DEPLOY`.
+
+## Technical Notes
+- The script handles `uv run` internally for dependencies (`chromadb`).
+- Designed to be "Zero Silence": prints exact errors in red.
+

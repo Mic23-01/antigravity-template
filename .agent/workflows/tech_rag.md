@@ -45,7 +45,8 @@ E) Brave-search: Only if external info outside canon is needed.
 - For real fixes: use automatically generated ID from skill `<Prefix>.fix.YYYYMMDD.<slug>`.
 
 7) Post-check (REGRESSION GATE)
-- **Skill**: `regression_gate` (Executes check_chroma + librarian on `fix_logs`).
+- **Skill**: `regression_gate` (uses unified validator).
+- **Command**: `uv run --with chromadb .agent/evals/runner.py --protocol`
 - **FAIL-FAST**: If the checker FAILS, the Agent MUST STOP and fix metadata.
 
 8) Final Output (EVIDENCE BUNDLE)
