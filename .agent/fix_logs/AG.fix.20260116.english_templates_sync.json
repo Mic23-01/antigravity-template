@@ -1,0 +1,18 @@
+{
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-16",
+    "files": [
+        ".agent/docs/WORKFLOW_SUMMARY.md",
+        ".agent/docs/SOURCES.md",
+        ".agent/docs/domain_language.md",
+        ".agent/docs/product_strategy.md",
+        ".agent/docs/brand_identity_guide.md",
+        ".agent/docs/architecture.md",
+        ".agent/project/PROJECT_RULES.md"
+    ],
+    "tests": "Visual inspection of English translations",
+    "result": "pass",
+    "fixlog_id": "AG.fix.20260116.english_templates_sync",
+    "description": "Synchronized and translated all meta-documentation templates to English (English-first policy)."
+}

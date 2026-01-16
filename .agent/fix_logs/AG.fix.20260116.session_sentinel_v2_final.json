@@ -1,0 +1,20 @@
+{
+    "id": "AG.fix.20260116.session_sentinel_v2_final.json",
+    "document": "Final upgrade of Session Sentinel v2: fixed ignore logic for .agent/memory and verified clean session state with DuckDB Dual-Check.",
+    "metadatas": {
+        "project": "Antigravity",
+        "type": "feature_upgrade",
+        "date": "2026-01-16",
+        "files": [
+            ".agent/tools/session_sentinel.py",
+            ".agent/project/librarian.py",
+            ".agent/memory/librarian.db"
+        ],
+        "tests": [
+            "Dual-layer clean session verification",
+            "Semantic diff verification",
+            "Ignore list logic test"
+        ],
+        "result": "SUCCESS"
+    }
+}

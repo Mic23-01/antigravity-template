@@ -54,7 +54,7 @@ Implement these as CSS variables in `:root`:
 
 ## 5. Generative AI Asset Policy
 ### `generate_image` Prompt DNA
-To maintain aesthetic consistency, sempre include questi keyword nei prompt:
+To maintain aesthetic consistency, always include these keywords in your prompts:
 > "Symmetry, <STYLE_KEYWORD_1>, <STYLE_KEYWORD_2>, Cinematic Lighting, High Fidelity, 8k, <PRIMARY_COLOR> highlights."
 
 ---
@@ -70,6 +70,3 @@ graph TD
     Visual --> Motion["Micro-interactions"]
     Voice --> Tone["Tone & Character"]
 ```
-
----
-

@@ -85,9 +85,11 @@ def main():
             # Flatten payload for logger
             log_payload = payload["metadatas"].copy()
             log_payload["fixlog_id"] = log_id
-            log_payload["description"] = args.desc # Ensure description is top key
+            log_payload["description"] = args.desc 
             
-            event_logger.log_event("FIX_LOG", log_payload, project_name=args.project)
+            # Use Singleton
+            event_logger.logger.set_context(project=args.project)
+            event_logger.logger.log(event_logger.EventType.FIX_LOG.value, log_payload)
             print(f"{GREEN}✔ Audit Trail Updated (Event Log + Summary){RESET}")
         except Exception as e:
             print(f"{YELLOW}⚠ Audit Logging Failed: {e}{RESET}")

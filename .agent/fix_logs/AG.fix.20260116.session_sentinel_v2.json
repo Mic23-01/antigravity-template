@@ -1,0 +1,19 @@
+{
+    "id": "AG.fix.20260116.session_sentinel_v2.json",
+    "document": "Upgraded Session Sentinel to v2 with DuckDB Dual-Check and Semantic Diffing. Fixed Librarian persistence trigger.",
+    "metadatas": {
+        "project": "Antigravity",
+        "type": "feature_upgrade",
+        "date": "2026-01-16",
+        "files": [
+            ".agent/tools/session_sentinel.py",
+            ".agent/project/librarian.py"
+        ],
+        "tests": [
+            "Manual timestamp verification",
+            "Sentinel v2 dry run",
+            "Librarian persistence verification"
+        ],
+        "result": "SUCCESS"
+    }
+}

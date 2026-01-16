@@ -20,7 +20,7 @@ Do not invent solutions; always verify them. Use tools in this precise order:
     *   Before writing code from scratch, ask Chroma if we have resolved a similar problem before.
 
 ## 2. Operational Standards (OS & Environment)
-The target system is **Ubuntu 24.03+ LTS** (Server). Solutions must adhere to these standards:
+The target system is **Ubuntu 24.04 LTS** (Server). Solutions must adhere to these standards:
 
 *   **Python**: ALWAYS use `uv` to manage venvs (`uv venv`, `uv pip install`).
 *   **Package Management**:

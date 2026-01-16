@@ -1,0 +1,12 @@
+{
+    "id": "AG.fix.20260116.librarian_powerup",
+    "document": "Enhanced Librarian hygiene script with dead code detection, dependency sync, and README structural alignment.",
+    "metadatas": {
+        "project": "Antigravity",
+        "type": "hygiene_enhancement",
+        "date": "2026-01-16",
+        "files": [".agent/project/librarian.py"],
+        "tests": ["Smoke Test", "Poison Test (Dead Code)", "Poison Test (README Drift)"],
+        "result": "pass"
+    }
+}

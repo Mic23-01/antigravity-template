@@ -1,30 +1,18 @@
-# Product Strategy & Roadmap: Antigravity
+# Product Strategy & Vision 🚀
 
-> **AI Instruction**: Strategy alignment for Antigravity.
+## 1. Vision Statement
+To establish **Antigravity** as the definitive operational foundation for Agentic AI development in 2026, eliminating the fragility of experimental systems by providing a rigorous, self-correcting infrastructure.
 
-## 1. The North Star (Vision)
-- **Obiettivo a 6-12 Mesi**: Realizzazione dei migliori template operativi per agenti autonomi.
-- **Target Audience**: Sviluppatori Agentici, AI Engineers.
-- **Key Differentiator**: Struttura "Deep" ibrida (Regole + Memoria + Strategia).
+## 2. Primary Objective
+Reduce the "Double Penalty" of agent interaction to zero through real-time persistence, automated audit trails, and deterministic verification protocols.
 
-## 2. Strategic Pillars (OKR)
-1. **Robustezza**
-   - KR: Zero allucinazioni su contesti complessi (Scorecard > 4.5).
-2. **Replicabilità**
-   - KR: Tempo di idratazione nuovo progetto < 5 minuti.
+## 3. 12-Month Roadmap
+- **Q1 - Foundation**: Reach "Gold Standard" v1.0 (Current). Complete English-first standardization and Sentinel robustness.
+- **Q2 - Scale**: Implementation of advanced MCP orchestration and multi-agent synergy.
+- **Q3 - Intelligence**: Deepening the capability of the automated Gap Analysis and Hydration workflows.
+- **Q4 - Community**: Release as a stabilized, project-agnostic template for wider industrial adoption.
 
-## 3. Roadmap (Living Document)
-### 🟢 Now (Current Phase)
-- Focus: Finalizzazione Template e Workflow "Deep".
-- Critical Deliverable: `docs_custom/` generation (Proof of Concept).
-
-### 🟡 Next (1-3 Months)
-- Feature A: Integrazione CLI per hydration (non solo chat).
-- Technical Debt: Ottimizzazione Chroma index.
-
-### 🔵 Later (3+ Months / Exploration)
-- Idea: Self-amending Rules (L'agente propone modifiche alle sue regole).
-
-## 4. Feature Graveyard (Anti-Roadmap)
-> Cose che abbiamo deciso di NON fare (per ora).
-- **GUI Web**: Antigravity è "Console First" per ora.
+## 4. Key Success Metrics
+- **Success Rate**: 100% execution of defined Workflows without manual intervention.
+- **Persistence Fidelity**: 0% loss of technical context between agent swaps.
+- **Hydration Speed**: Total project initialization time < 5 minutes.

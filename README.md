@@ -1,5 +1,8 @@
 # Antigravity (AG) 🌌
-> **The Deep Agentic Template for 2026**
+> [!NOTE]
+> **Disclaimer**: This project, "Antigravity (AG)", is an independent template for Agentic AI development and is **not** affiliated with, endorsed by, or connected to Google's "Antigravity" project or deep research initiatives. "Antigravity" here refers to the concept of lifting the burden of maintenance through AI.
+
+---> **The Deep Agentic Template for 2026**
 
 Antigravity is an advanced, hybrid project template designed for building **Autonomous Agents** that are robust, replicable, and self-correcting. It bridges the gap between high-level reasoning (LLMs) and deterministic execution (Python/Node).
 
@@ -19,13 +22,16 @@ Antigravity is an advanced, hybrid project template designed for building **Auto
 .
 ├── .agent/                 # The "Brain": Memory, Rules, Skills, Workflows
 │   ├── memory/             # Hot State (STATE.md) & Cold Logs
+│   ├── audit/              # Machine Logs & Human Summaries
+│   ├── fix_logs/           # Persistent technical fix records (JSON)
 │   ├── rules/              # Active constraints (English-First)
-│   ├── skills/             # executable toolkits (e.g., security_audit)
+│   ├── skills/             # Executable toolkits (e.g., security_audit)
 │   └── workflows/          # Standard Operating Procedures (.md)
 ├── docs_custom/            # 🧠 Project Intelligence (The "Soul")
+│   ├── SOURCES.md          # 0-Step: Hierarchy & Canon Sources
 │   ├── domain_language.md  # Ubiquitous Language & Definitions
 │   ├── product_strategy.md # Vision, OKRs & Roadmap
-│   ├── brand_identity.md   # UX/UI Guidelines
+│   ├── brand_identity_guide.md # UX/UI Guidelines
 │   └── architecture.md     # Technical Design
 ├── .gitignore              # Pre-configured for Polyglot stacks
 └── README.md               # This file
@@ -52,7 +58,4 @@ To transform this template into your specific project (e.g., "SolarSystemBuilder
 3.  **Resume Capability**: The agent maintains a "Hot State" (`STATE.md`) to survive crashes.
 4.  **Verify First**: Use `brave_search` or `markdownify` to validate libraries before coding.
 5.  **Fail Fast**: Operations stop immediately if a "Regression Gate" or "Security Audit" fails.
-
-## 🤝 Contributing
-Refer to `.agent/rules/` for the strict contributor guidelines.
 

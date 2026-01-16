@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# /// script
+# dependencies = ["duckdb"]
+# ///
 """
 The Librarian: Automated Hygiene & Structural Analysis Tool.
 Integrates filesystem heuristics and DuckDB-based code analysis.
@@ -18,6 +21,7 @@ import glob
 import sys
 import time
 import argparse
+import re
 from pathlib import Path
 
 # Try importing duckdb, handle if missing
@@ -58,7 +62,7 @@ def get_file_metadata(root_dir="."):
                 continue
     return metadata
 
-def run_duckdb_audit():
+def run_duckdb_audit(db_path=":memory:"):
     """Esegue l'analisi strutturale usando DuckDB."""
     if not HAS_DUCKDB:
         print(f"{RED}[!] DuckDB not installed. Run with `uv run --with duckdb ...` to enable audit.{RESET}")
@@ -67,16 +71,19 @@ def run_duckdb_audit():
     print(f"\n{BLUE}=== 🦆 Librarian: Deep Structural Analysis (DuckDB) ==={RESET}")
     metadata = get_file_metadata()
     
-    # In-Memory DB for analysis (Could be persisted if needed)
-    conn = duckdb.connect(':memory:')
+    # In-Memory or Persistent DB
+    if db_path != ":memory:":
+        print(f"  {BLUE}Persisting to {db_path}...{RESET}")
+        
+    conn = duckdb.connect(db_path)
     
-    # Crea tabella e carica dati
-    conn.execute("CREATE TABLE files (path VARCHAR, size_kb DOUBLE, age_days DOUBLE, extension VARCHAR)")
+    # Crea tabella e carica dati (Drop if exists to refresh state)
+    conn.execute("DROP TABLE IF EXISTS files")
+    conn.execute("CREATE TABLE files (path VARCHAR, size_kb DOUBLE, age_days DOUBLE, extension VARCHAR, mtime DOUBLE)")
     
-    # Bulk insert is faster but simple loop is fine for this scale
     # Prepare data for executemany
-    data_to_insert = [(f['path'], f['size_kb'], f['age_days'], f['extension']) for f in metadata]
-    conn.executemany("INSERT INTO files VALUES (?, ?, ?, ?)", data_to_insert)
+    data_to_insert = [(f['path'], f['size_kb'], f['age_days'], f['extension'], Path(f['path']).stat().st_mtime) for f in metadata]
+    conn.executemany("INSERT INTO files VALUES (?, ?, ?, ?, ?)", data_to_insert)
     
     # 1. Rilevamento potenziale codice morto / File vecchi mai toccati
     print(f"\n{YELLOW}[!] Stale Files (> 30 days inactive):{RESET}")
@@ -201,10 +208,148 @@ def check_docs_custom():
     else:
         print(f"{GREEN}All Critical Docs present in docs_custom/.{RESET}")
 
+def check_dependency_sync():
+    """Verifies if requirements.txt and pyproject.toml are in sync (basic check)."""
+    print(f"\n{YELLOW}[*] Dependency Sync Check...{RESET}")
+    req_path = Path("requirements.txt")
+    toml_path = Path("pyproject.toml")
+    
+    if not req_path.exists() or not toml_path.exists():
+        print(f"  {YELLOW}[SKIP]{RESET} One or both config files (requirements.txt, pyproject.toml) are missing.")
+        return
+
+    try:
+        req_content = req_path.read_text()
+        toml_content = toml_path.read_text()
+        
+        # Very naive check: search for names of dependencies in each other
+        # This is a heuristic to catch obvious omissions
+        import re
+        # Find everything that looks like a package name in requirements.txt (e.g. "package==" or "package>=")
+        req_packages = re.findall(r'^([a-zA-Z0-9_\-]+)', req_content, re.MULTILINE)
+        
+        missing_in_toml = []
+        for pkg in req_packages:
+            if pkg.lower() not in toml_content.lower():
+                missing_in_toml.append(pkg)
+                
+        if missing_in_toml:
+            print(f"{RED}[!] Discrepancy Found:{RESET}")
+            for m in missing_in_toml:
+                print(f"  - '{m}' found in requirements.txt but missing in pyproject.toml")
+        else:
+            print(f"{GREEN}Dependencies seem vertically synced.{RESET}")
+    except Exception as e:
+        print(f"{RED}[ERROR]{RESET} Failed to sync dependencies: {e}")
+
+def check_readme_structure():
+    """Verifies if the directory structure in README.md matches actual reality."""
+    print(f"\n{YELLOW}[*] README Structure Alignment...{RESET}")
+    readme_path = Path("README.md")
+    if not readme_path.exists():
+        return
+
+    try:
+        content = readme_path.read_text()
+        lines = content.splitlines()
+        
+        missing_paths = []
+        path_stack = [] # list of (indent_level, name)
+        
+        for line in lines:
+            # Look for tree nodes: │   ├── .agent/  or └── memory/
+            match = re.search(r'^([│\s\s\s]*)[├└]──\s*([a-zA-Z0-9_\-\./]+)', line)
+            if match:
+                indent = len(match.group(1))
+                name = match.group(2).strip().rstrip('/')
+                
+                # Pop from stack until we find the parent (lower indent)
+                while path_stack and path_stack[-1][0] >= indent:
+                    path_stack.pop()
+                
+                # Construct path
+                if path_stack:
+                    full_path = os.path.join(path_stack[-1][1], name)
+                else:
+                    full_path = name
+                
+                # If it's a directory, we push it to stack for children
+                # (Assuming dirs end with / or are known dirs)
+                if line.strip().endswith('/') or '/' in name or os.path.isdir(full_path):
+                     path_stack.append((indent, full_path))
+                
+                if not os.path.exists(full_path):
+                    # Fallback: maybe it's just a file in the root mentioned with a name?
+                    if not os.path.exists(name):
+                        missing_paths.append(full_path)
+                
+        if missing_paths:
+            print(f"{RED}[!] Documentation Drift Detected in README.md:{RESET}")
+            for m in missing_paths:
+                print(f"  - Reference '{m}' does not exist on disk.")
+        else:
+            print(f"{GREEN}README structure is aligned with filesystem.{RESET}")
+    except Exception as e:
+        print(f"{RED}[ERROR]{RESET} README check failed: {e}")
+
+def check_project_config():
+    """Validates if the core agent configuration exists and is readable."""
+    print(f"\n{YELLOW}[*] Project Agent Config Check...{RESET}")
+    config_path = Path(".agent/project/PROJECT_AGENT_CONFIG.md")
+    if not config_path.exists():
+        print(f"{RED}[!] PROJECT_AGENT_CONFIG.md is MISSING!{RESET}")
+    else:
+        print(f"{GREEN}Core config found.{RESET}")
+
+def check_dead_code():
+    """Heuristic search for functions/classes defined but never used."""
+    print(f"\n{YELLOW}[*] Dead Code Hunt (AST Heuristic)...{RESET}")
+    py_files = list(Path(".").rglob("*.py"))
+    py_files = [f for f in py_files if not any(x in str(f) for x in ['.agent', '.venv', 'tests', '__pycache__'])]
+    
+    import re
+    definitions = {} # name -> file
+    
+    # 1. Collect definitions
+    for f in py_files:
+        try:
+            content = f.read_text()
+            # def name( or class name( or class name:
+            found = re.findall(r'(?:def|class)\s+([a-zA-Z0-9_]+)\s*[\(\:]', content)
+            for name in found:
+                if name.startswith('_') or name == 'main': # Removed 'or name == 'Task'' as per instruction context
+                    continue
+                definitions[name] = str(f)
+        except Exception:
+            continue
+            
+    # 2. Search for usages
+    all_content = ""
+    for f in py_files:
+        try:
+            all_content += f.read_text()
+        except:
+            continue
+            
+    dead_candidates = []
+    for name, source_file in definitions.items():
+        # Count occurrences. If 1, it's just the definition.
+        # This is a very rough estimate but good for a "Librarian" warning.
+        if all_content.count(name) <= 1:
+            dead_candidates.append(f"{name} ({source_file})")
+            
+    if dead_candidates:
+        print(f"{YELLOW}[!] Potential Dead Code (1 usage only):{RESET}")
+        for d in dead_candidates:
+            print(f"  - {d}")
+    else:
+        print(f"{GREEN}No obvious dead code detected.{RESET}")
+
 def main():
     parser = argparse.ArgumentParser(description="The Librarian: Project Hygiene Tool")
     parser.add_argument('--audit', action='store_true', help='Run DuckDB structural audit')
     parser.add_argument('--hygiene', action='store_true', help='Run standard hygiene checks')
+    parser.add_argument('--persist', action='store_true', help='Persists results to .agent/memory/librarian.db')
     parser.add_argument('--all', action='store_true', help='Run all checks')
     
     # Default to all if no args
@@ -220,9 +365,20 @@ def main():
         check_config_schema()
         check_component_duplication()
         check_docs_custom()
+        check_dependency_sync()
+        check_readme_structure()
+        check_project_config()
+        check_dead_code()
         
-    if args.audit or args.all:
-        run_duckdb_audit()
+    if args.audit or args.all or args.persist:
+        # Use persistent DB if --persist or --all is set
+        db_path = ":memory:"
+        if args.all or args.persist:
+             db_path = str(Path(".agent/memory/librarian.db"))
+             # Ensure directory exists
+             Path(".agent/memory").mkdir(parents=True, exist_ok=True)
+             
+        run_duckdb_audit(db_path)
 
     print(f"\n{GREEN}=== Checks Complete ==={RESET}")
 

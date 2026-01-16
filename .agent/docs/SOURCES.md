@@ -1,10 +1,10 @@
 # Gold Sources (Internal Canon) - Antigravity Template
 
-Questo file definisce le fonti di verità autoritative per il progetto. Gli workflow agentici DEVONO consultare queste fonti prima di ogni ricerca generica.
+This file defines the authoritative sources of truth for the project. Agentic workflows MUST consult these sources before any generic research.
 
-## 🏛 Primary Sources (Gold) - Documentazione Ufficiale
+## 🏛 Primary Sources (Gold) - Official Documentation
 
-Queste fonti hanno la massima priorità. In caso di conflitto con altre fonti, queste prevalgono.
+These sources have the highest priority. In case of conflict with other sources, these prevail.
 
 ### 🌌 Antigravity & AI Ecosystem
 - **Antigravity Guide**: https://antigravity.google/docs/get-started
@@ -26,7 +26,7 @@ Queste fonti hanno la massima priorità. In caso di conflitto con altre fonti, q
 - **Vitest**: https://vitest.dev/guide/
 
 ## 🧩 Project Custom Sources (Placeholder)
-*[Questa sezione è riservata alle documentazioni specifiche del progetto derivato. L'Agente deve popolarla all'avvio di un nuovo progetto]*
+*[This section is reserved for documentation specific to the derived project. The Agent must populate it upon starting a new project]*
 
 - **Project Core Docs**: ...
 - **External Dependencies**: ...

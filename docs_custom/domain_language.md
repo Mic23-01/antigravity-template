@@ -1,22 +1,13 @@
-# Domain Language (Ubiquitous Language): Antigravity
+# Domain Language & Glossary 🧠
 
-> **AI Instruction**: Binding glossary for the Antigravity Project.
+## 1. Core Terminology
+- **Antigravity (AG)**: The internal name for the agentic framework and its specific implementation.
+- **Workflow**: A standardized operational procedure (SOP) defined as an interactive markdown protocol.
+- **Skill**: A modular, executable toolkit containing specific logic (e.g., `fixlog_writer`).
+- **Sentinel**: The persistence gatekeeper that monitors file modifications and ensures every action is logged.
+- **Hydration**: The process of transforming a generic template into a project-aware specialized system.
 
-## 1. Core Entities (Nouns)
-| Termine | Definizione Business (User) | Definizione Tecnica (AI) | Vincoli / Invarianti |
-| :--- | :--- | :--- | :--- |
-| **Agent** | L'entità autonoma che esegue i compiti. | `Models.Agent` / Process | Deve avere accesso a `.agent` root. |
-| **Template** | La struttura base replicabile per nuovi progetti. | `docs/*.md` | Deve contenere placeholder iniziali. |
-| **Hydration** | Il processo di compilazione di un Template in un Progetto. | `Workflow: custom_project` | Irreversibile su `docs_custom`. |
-| **Workflow** | Sequenza operativa codificata. | `.agent/workflows/*.md` | Deve essere atomico e testabile. |
-
-## 2. Processi Chiave (Verbs)
-| Azione | Input | Output | Side Effects Importanti |
-| :--- | :--- | :--- | :--- |
-| **Hydrate** | User Context (Stack, Vision) | `docs_custom/` files | Crea nuova Source of Truth. |
-| **Research** | Query | `research_summaries/` | Consuma token, aggiorna Chroma. |
-
-## 3. Ambiguities & Anti-patterns
-> Termini che NON dobbiamo usare o che creano confusione.
-- **"Bot"**: Non usare. Usa invece **"Agent"**.
-- **"Script"**: Se è un workflow strutturato, usa **"Workflow"**.
+## 2. Operational Semantics
+- **Double Penalty**: The cognitive load required to understand what an agent did after it acted. AG aims to eliminate this via Checkpoints.
+- **Gold Standard**: The highest level of operational maturity for an agentic project (v1.0+).
+- **Dirty Session**: A state where filesystem changes have been made without a corresponding FixLog persistence.

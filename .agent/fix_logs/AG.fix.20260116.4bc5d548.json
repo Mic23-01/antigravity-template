@@ -1,0 +1,16 @@
+{
+  "id": "AG.fix.20260116.4bc5d548",
+  "document": "Bugfix: canary_check.py NameError in find_latest_walkthrough",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-16",
+    "files": [
+      ".agent/tools/canary_check.py"
+    ],
+    "tests": "Verified via canary_check",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

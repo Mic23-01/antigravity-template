@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# /// script
+# dependencies = ["PyYAML"]
+# ///
 """
 Dynamic Agent Runner (Divine Edition)
 -------------------------------------
@@ -13,6 +16,10 @@ import yaml
 import tempfile
 import argparse
 from pathlib import Path
+
+# Import MemoryEngine for state persistence
+sys.path.insert(0, str(Path(__file__).parent.parent / "memory"))
+from checkpoint_manager import MemoryEngine
 
 # Config
 SANDBOX_ROOT = Path(tempfile.gettempdir()) / "ag_dynamic_sandbox"
@@ -88,6 +95,17 @@ def execute_agent_simulation(scenario, mode="dry-run"):
         log_path = SANDBOX_ROOT / f".agent/fix_logs/{log_id}.json"
         log_path.parent.mkdir(parents=True, exist_ok=True)
         log_path.write_text('{"id": "'+log_id+'", "result": "pass", "task": "'+scenario['name']+'"}')
+        
+        # Persist Agent State via MemoryEngine (Sandbox)
+        memory_dir = SANDBOX_ROOT / ".agent" / "memory"
+        memory = MemoryEngine(memory_dir)
+        memory.update(
+            state=f"Simulating scenario: {scenario['name']}",
+            context=f"1. Created {scenario['target_file']}. 2. Generated FixLog {log_id}.",
+            next_step="Verify assertions."
+        )
+        print(f"{BLUE}[Memory] State persisted at {memory_dir / 'STATE.md'}{RESET}")
+        
         print(f"{GREEN}[Agent] Simulation complete.{RESET}")
         return True
     

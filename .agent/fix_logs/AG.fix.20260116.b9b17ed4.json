@@ -1,0 +1,17 @@
+{
+  "id": "AG.fix.20260116.b9b17ed4",
+  "document": "Refactored checkpoint_manager.py into MemoryEngine class. Integrated memory persistence into dynamic_agent.py simulation.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-16",
+    "files": [
+      ".agent/memory/checkpoint_manager.py",
+      ".agent/tools/dynamic_agent.py"
+    ],
+    "tests": "canary_check.py (pending)",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

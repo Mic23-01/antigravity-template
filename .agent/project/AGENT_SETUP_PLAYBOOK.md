@@ -1,87 +1,137 @@
 # Agentic Setup Playbook (Antigravity) — Project Bootstrap
 
-## Scopo
-Installare nel progetto corrente un sistema agentico replicabile:
-- Workflows: /tech_rag, /research_rag, /decision_rag (adattivi)
+## Purpose
+Install a replicable agentic system in the current project:
+- Workflows: /tech_rag, /research_rag, /decision_rag (adaptive)
 - Evals: checker + canary IDs + runner run_checks.sh
-- Chroma: collezioni + metadata standard
-- Safety: no .env* leakage + regression gate obbligatorio
+- Chroma: collections + standard metadata
+- Safety: no .env* leakage + mandatory regression gate
 
-## Regole operative (OBBLIGATORIE)
-- Non leggere/stampare `.env*`, `mcp_secrets.env`, `~/.ssh` o segreti.
-- Cambi piccoli e verificabili.
-- Dopo ogni persistenza in Chroma: eseguire subito `check_chroma.py` (Regression Gate).
-- Se emerge un nuovo failure class: proporre un nuovo eval case (non scriverlo senza OK).
-
----
-
-# Step 0 — Parametri progetto (compilare)
-Imposta questi valori (es. in un file temporaneo o variabili d'ambiente):
-- PROJECT_NAME = "<NOME_PROGETTO>"        (es: DeD)
-- PROJECT_PREFIX = "<prefisso>"          (es: ded)
-- SMOKE_TEST_CMD = "<comando>"           (es: pytest -q | npm test | pnpm test | ecc.)
-- CHROMA_DATA_DIR = "/home/ubuntu/chroma-data"
+## Operational Rules (MANDATORY)
+- Do not read/print `.env*`, `mcp_secrets.env`, `~/.ssh` or secrets.
+- Small, verifiable changes.
+- After each Chroma persistence: immediately run `check_chroma.py` (Regression Gate).
+- If a new failure class emerges: propose a new eval case (do not write without approval).
 
 ---
 
-# Step 1 — Copia la baseline da BrainTracker
-Da eseguire dalla root del progetto target:
+# Step 0 — Project Parameters (Fill in)
+Set these values (e.g., in a temporary file or environment variables):
+- PROJECT_NAME = "<PROJECT_NAME>"        (e.g., DeD)
+- PROJECT_PREFIX = "<prefix>"          (e.g., ded)
+- SMOKE_TEST_CMD = "<command>"           (e.g., pytest -q | npm test | pnpm test | etc.)
+- CHROMA_DATA_DIR = "$HOME/chroma-data"
+
+---
+
+# Step 1 — Copy Baseline from Template
+Execute from the root of the target project:
 
 ```bash
-cp -a /home/ubuntu/Progetti/Progetti_Approvati/BrainTracker/.agent .
+cp -a <template_path>/.agent .
 ```
 
-Verifica:
+Verify:
 ```bash
 ls -la .agent
 ```
 
-# Step 2 — Adattamento automatico (Prefix & Metadata)
+# Step 2 — Automatic Adaptation (Prefix & Metadata)
 
 > [!NOTE]
-> I workflow di baseline sono ora **dinamici**: usano `<ProjectName>` come placeholder che l'agente risolve leggendo la root del progetto. La sostituzione `sed` serve principalmente per il prefisso dei canary e degli script.
+> Baseline workflows are now **dynamic**: they use `<ProjectName>` as a placeholder that the agent resolves by reading the project root. The `sed` substitution is mainly for canary prefix and scripts.
 
-Esegui (assicurati che `PROJECT_NAME` e `PROJECT_PREFIX` siano impostati):
+Execute (ensure `PROJECT_NAME` and `PROJECT_PREFIX` are set):
 
 ```bash
-# Sostituzione prefisso canary (bt. -> prefisso specifico)
+# Canary prefix substitution (bt. -> specific prefix)
 find .agent -type f \( -name "*.md" -o -name "*.sh" -o -name "*.py" \) -print0 \
 | xargs -0 sed -i \
   -e "s/bt\./${PROJECT_PREFIX}./g" \
   -e "s/BT-/${PROJECT_PREFIX^^}-/g"
 
-# Se vuoi 'fissare' il nome progetto (opzionale, consigliato se non c'è un PROJECT_OVERVIEW.md chiaro):
+# If you want to 'lock' the project name (optional, recommended if there's no clear PROJECT_OVERVIEW.md):
 # find .agent -type f -name "*.md" -print0 | xargs -0 sed -i "s/<ProjectName>/${PROJECT_NAME}/g"
 ```
 
-# Step 3 — Imposta Smoke Test per /tech_rag (progetto-specifico)
+# Step 3 — Set Smoke Test for /tech_rag (project-specific)
 
-Apri:
+Open:
 `.agent/workflows/tech_rag.md`
 
-Aggiorna la sezione "Test Gate" includendo il comando specifico:
+Update the "Test Gate" section including the specific command:
 `Default Smoke cmd: ${SMOKE_TEST_CMD}`
 
-# Step 4 — Canary IDs (stabili)
+# Step 4 — Canary IDs (stable)
 
-Aggiorna `.agent/evals/run_checks.sh` affinché verifichi i nuovi ID:
+Update `.agent/evals/run_checks.sh` to verify new IDs:
 - collection: `fix_logs`, id: `${PROJECT_PREFIX}.fix.eval.metadata_gate`
 - collection: `research_summaries`, id: `${PROJECT_PREFIX}.research.eval.metadata_gate`
 
-# Step 5 — Inizializza canary (1 volta sola)
+# Step 5 — Initialize Canary (one-time only)
 
-In Antigravity, esegui:
-1. `/tech_rag CANARY micro-run` (es. update README) -> verifica salvataggio auto su ID stabile.
-2. `/research_rag CANARY micro-run` -> verifica salvataggio auto su ID stabile.
-3. Esegui `./.agent/evals/run_checks.sh`.
+In Antigravity, execute:
+1. `/tech_rag CANARY micro-run` (e.g., update README) -> verify auto-save on stable ID.
+2. `/research_rag CANARY micro-run` -> verify auto-save on stable ID.
+3. Run `./.agent/evals/run_checks.sh`.
 
-# Step 6 — Convenzioni Chroma (OBBLIGATORIE)
+# Step 6 — Chroma Conventions (MANDATORY)
 
-Stesse collezioni e metadata standard (project, type, date, ecc.) come nel Playbook originale.
+Same collections and standard metadata (project, type, date, etc.) as in the original Playbook.
 
 ---
 
-## Come lo usi in pratica
-1) Copi questo file nel progetto target.
-2) In Antigravity scrivi:
-> "Esegui AGENT_SETUP_PLAYBOOK.md per questo progetto. Nome: DeD, Prefisso: ded, Smoke: npm test."
+## How to Use in Practice
+1) Copy this file to the target project.
+2) In Antigravity write:
+> "Execute AGENT_SETUP_PLAYBOOK.md for this project. Name: DeD, Prefix: ded, Smoke: npm test."
+
+---
+
+## Project Hydration: Template → Custom
+
+**Question**: When I copy `.agent/` to a new project, how do I transform it from a generic template to a **project-specific** system?
+
+**Answer**: Use the **`/custom_project` workflow**:
+
+1. **Automatic Discovery**: The agent reads your `package.json`, `pyproject.toml`, repo structure, and deduces:
+   - Stack (React/Next/Django/etc)
+   - Project name
+   - Existing color palette (if `tailwind.config.js` or CSS variables exist)
+
+2. **Gap Analysis**: The agent compares template placeholders in `.agent/docs/` against what it found and asks you targeted questions:
+   - "What is the 12-month Vision?"
+   - "Define the term 'Player' in your domain language"
+   - "What are your Gold Sources (official docs URLs)?"
+
+3. **Hydration Engine**: Once you answer, the agent generates a `manifest.json` and executes:
+   ```bash
+   python3 .agent/tools/init_antigravity.py --manifest manifest.json
+   ```
+   This populates `docs_custom/` with:
+   - `architecture.md`
+   - `brand_identity_guide.md`
+   - `domain_language.md`
+   - `product_strategy.md`
+   - `SOURCES.md`
+
+4. **Binding**: After review/approval, these files become your **Custom Source of Truth**. The agent now uses `docs_custom/` (via `resolve_canon_sources` skill) instead of `.agent/docs/` templates.
+
+---
+
+## Key Mechanism: Custom > Template Hierarchy
+
+- **Before Hydration**: Agent reads `.agent/docs/` (generic templates).
+- **After Hydration**: Agent reads `docs_custom/` (your project-specific docs).
+- **Enforcement**: The `resolve_canon_sources` skill ensures this priority automatically.
+
+**Next Steps After Copy**:
+```bash
+# Option A: Fully Automated
+/custom_project
+
+# Option B: Manual (if you prefer control)
+1. Manually edit PROJECT_AGENT_CONFIG.md (set ProjectName, Prefix)
+2. Manually create docs_custom/ files
+3. Run canary to verify
+```

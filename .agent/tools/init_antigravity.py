@@ -9,10 +9,13 @@ Usage:
     python3 .agent/tools/init_antigravity.py
 """
 
+
 import os
 import sys
 import argparse
 import subprocess
+import json
+import shutil
 from pathlib import Path
 
 # ANSI Colors
@@ -22,9 +25,15 @@ YELLOW = '\033[93m'
 BLUE = '\033[94m'
 RESET = '\033[0m'
 
-# Default Template Values (What we look for to replace)
+# Default Template Values
 DEFAULT_PROJECT_NAME = "Antigravity"
 DEFAULT_PREFIX = "AG"
+
+# Paths
+LIBRARIAN_DB = Path(".agent/memory/librarian.db")
+DOCS_SOURCE = Path(".agent/docs")
+DOCS_TARGET = Path("docs_custom")
+CONFIG_PATH = Path(".agent/project/PROJECT_AGENT_CONFIG.md")
 
 def input_clean(prompt, default=None):
     """Safe input wrapper."""
@@ -63,55 +72,72 @@ def replace_in_file(file_path, old_str, new_str):
         print(f"{RED}Failed to read/write {file_path}: {e}{RESET}")
     return False
 
-def main():
-    print(f"{GREEN}#########################################{RESET}")
-    print(f"{GREEN}# ANTIGRAVITY INITIALIZATION ENGINE     #{RESET}")
-    print(f"{GREEN}#########################################{RESET}")
+def check_guardrails(force=False):
+    """Checks if the project is already initialized."""
+    if LIBRARIAN_DB.exists() and not force:
+        print(f"{RED}[!] FATAL: Project appears to be already initialized (Librarian DB found).{RESET}")
+        print(f"{YELLOW}    Use --force to override this safety check.{RESET}")
+        return False
+    return True
 
-    # 1. Wizard
-    print("\nWelcome Architect. Let's configure your new Agent System.")
-    
-    project_name = input_clean("Project Name", "Solaris")
-    prefix = input_clean("Project Prefix (2-4 chars)", "SOL").upper()
+def populate_docs(manifest_docs=None):
+    """Copies templates to docs_custom and optionally hydrates them."""
+    print(f"\n{BLUE}=== Template Population ==={RESET}")
+    if not DOCS_TARGET.exists():
+        DOCS_TARGET.mkdir(parents=True)
+        print(f"{GREEN}✔ Created {DOCS_TARGET}{RESET}")
 
-    print(f"\n{BLUE}Plan:{RESET}")
-    print(f"- Project: {DEFAULT_PROJECT_NAME} -> {GREEN}{project_name}{RESET}")
-    print(f"- Prefix:  {DEFAULT_PREFIX}       -> {GREEN}{prefix}{RESET}")
-    
-    if input_clean("Proceed?", "y").lower() != 'y':
-        print("Aborted.")
-        sys.exit(0)
+    if not DOCS_SOURCE.exists():
+        print(f"{RED}⚠ Source docs {DOCS_SOURCE} not found. Skipping population.{RESET}")
+        return
 
-    # 2. Hydration (Config Source of Truth)
-    # Theoretically, we only need to update PROJECT_AGENT_CONFIG.md
-    # because workflows read from there using placeholders.
-    # HOWEVER, some files might have hardcoded defaults or we might want to brand the readme.
-    
+    # Map of template -> target
+    templates = {
+        "brand_identity_guide.md": "brand_identity_guide.md",
+        "architecture.md": "architecture.md",
+        "domain_language.md": "domain_language.md",
+        "product_strategy.md": "product_strategy.md",
+        "SOURCES.md": "SOURCES.md"
+    }
+
+    for src_name, target_name in templates.items():
+        src = DOCS_SOURCE / src_name
+        dst = DOCS_TARGET / target_name
+        
+        if dst.exists():
+            print(f"{YELLOW}  - {target_name} exists, skipping.{RESET}")
+            continue
+
+        if src.exists():
+            shutil.copy2(src, dst)
+            print(f"{GREEN}  + Cloned {target_name}{RESET}")
+        else:
+            print(f"{YELLOW}  ⚠ Template {src_name} missing.{RESET}")
+
+def hydrate_config(project_name, prefix):
+    """Updates the main configuration file."""
     print(f"\n{BLUE}=== Hydrating Configuration ==={RESET}")
     
-    config_path = ".agent/project/PROJECT_AGENT_CONFIG.md"
-    if replace_in_file(config_path, f'"{DEFAULT_PROJECT_NAME}"', f'"{project_name}"'):
+    if replace_in_file(CONFIG_PATH, f'"{DEFAULT_PROJECT_NAME}"', f'"{project_name}"'):
         print(f"{GREEN}✔ Updated ProjectName in config.{RESET}")
     else:
-        print(f"{YELLOW}⚠ Could not update ProjectName (Already changed?){RESET}")
+        print(f"{YELLOW}⚠ Could not update ProjectName (Already matched?).{RESET}")
 
-    if replace_in_file(config_path, f'"{DEFAULT_PREFIX}"', f'"{prefix}"'):
+    if replace_in_file(CONFIG_PATH, f'"{DEFAULT_PREFIX}"', f'"{prefix}"'):
         print(f"{GREEN}✔ Updated Prefix in config.{RESET}")
     else:
-        print(f"{YELLOW}⚠ Could not update Prefix (Already changed?){RESET}")
+        print(f"{YELLOW}⚠ Could not update Prefix (Already matched?).{RESET}")
 
-    # 3. Environment Setup
+def init_env():
+    """Initializes git environment."""
     print(f"\n{BLUE}=== Environment Setup ==={RESET}")
     
     # Check uv
     if run_command("uv --version", ignore_errors=True):
         print(f"{GREEN}✔ uv detected.{RESET}")
-        # Init venv
-        if not Path(".venv").exists():
-            print("Creating virtual environment...")
-            run_command("uv venv")
+        print("Note: Using Zero-Venv architecture. Persistence managed via uv cache.")
     else:
-        print(f"{YELLOW}⚠ uv not found. Skipping venv creation.{RESET}")
+        print(f"{YELLOW}⚠ uv not found. Tool performance may be degraded.{RESET}")
 
     # Check git
     if not Path(".git").exists():
@@ -120,23 +146,59 @@ def main():
     else:
         print(f"{GREEN}✔ Git already initialized.{RESET}")
 
+def main():
+    parser = argparse.ArgumentParser(description="Antigravity Initialization Engine")
+    parser.add_argument("--manifest", help="Path to JSON manifest for non-interactive mode")
+    parser.add_argument("--force", action="store_true", help="Ignore guardrails (e.g. existing DB)")
+    parser.add_argument("--flavor", choices=["Architect", "Dev"], default="Architect", help="Initialization flavor")
+    args = parser.parse_args()
+
+    print(f"{GREEN}#########################################{RESET}")
+    print(f"{GREEN}# ANTIGRAVITY INITIALIZATION ENGINE     #{RESET}")
+    print(f"{GREEN}#########################################{RESET}")
+
+    # 1. Guardrails
+    if not check_guardrails(args.force):
+        sys.exit(1)
+
+    # 2. Configuration Strategy
+    project_name = DEFAULT_PROJECT_NAME
+    prefix = DEFAULT_PREFIX
+    
+    if args.manifest:
+        print(f"{BLUE}Loading Manifest: {args.manifest}{RESET}")
+        try:
+            with open(args.manifest, 'r') as f:
+                data = json.load(f)
+                project_name = data.get("project_name", project_name)
+                prefix = data.get("prefix", prefix)
+        except Exception as e:
+            print(f"{RED}Failed to load manifest: {e}{RESET}")
+            sys.exit(1)
+    else:
+        # Interactive Wizard
+        print("\nWelcome Architect. Let's configure your new Agent System.")
+        project_name = input_clean("Project Name", "Solaris")
+        prefix = input_clean("Project Prefix (2-4 chars)", "SOL").upper()
+
+        print(f"\n{BLUE}Plan:{RESET}")
+        print(f"- Project: {DEFAULT_PROJECT_NAME} -> {GREEN}{project_name}{RESET}")
+        print(f"- Prefix:  {DEFAULT_PREFIX}       -> {GREEN}{prefix}{RESET}")
+        
+        if input_clean("Proceed?", "y").lower() != 'y':
+            print("Aborted.")
+            sys.exit(0)
+
+    # 3. Execution
+    hydrate_config(project_name, prefix)
+    populate_docs()
+    init_env()
+
     print(f"\n{GREEN}#########################################{RESET}")
     print(f"{GREEN}# INITIALIZATION COMPLETE               #{RESET}")
     print(f"{GREEN}#########################################{RESET}")
     print(f"\nNext Steps:")
     print(f"1. Run canary check: {YELLOW}python3 .agent/tools/canary_check.py{RESET}")
-    print(f"2. Start your first task with task_boundary tool.")
-
-    # 4. Self Destruct Protocol
-    print(f"\n{RED}=== Protocollo Autodistruzione ==={RESET}")
-    if input_clean("Vuoi rimuovere questo script di init per sicurezza?", "n").lower() == 'y':
-        try:
-            os.remove(__file__)
-            print(f"{GREEN}Script rimosso. Buona fortuna, Architect.{RESET}")
-        except Exception as e:
-            print(f"{RED}Errore durante la rimozione: {e}{RESET}")
-    else:
-        print(f"{YELLOW}Script conservato in .agent/tools/.{RESET}")
 
 if __name__ == "__main__":
     main()

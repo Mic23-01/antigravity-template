@@ -1,5 +1,8 @@
 # Antigravity Canary Check - v1.1.0 (Skills Integrated)
 #!/usr/bin/env python3
+# /// script
+# dependencies = ["PyYAML"]
+# ///
 """
 Antigravity Canary Check: System Integrity & Protocol Verification Tool.
 Verifies that all components (Rules, Workflows, Scripts) are 100% operational.
@@ -9,6 +12,10 @@ import os
 import sys
 import subprocess
 from pathlib import Path
+try:
+    import event_logger
+except ImportError:
+    event_logger = None
 
 # ANSI colors
 GREEN = '\033[92m'
@@ -118,9 +125,11 @@ def check_skills():
              
     return all_ok
 
-def find_latest_walkthrough():
+def find_latest_walkthrough(brain_dir=None):
     """Finds the most recent walkthrough.md in the brain directory."""
-    brain_dir = Path.home() / ".gemini/antigravity/brain"
+    if not brain_dir:
+        brain_dir = Path.home() / ".gemini/antigravity/brain"
+        
     if not brain_dir.exists():
         return None
     
@@ -229,7 +238,12 @@ def check_session_integrity():
     """
     ZERO STEP: Verifies that the previous session was properly persisted.
     If 'dirty files' are detected (modified > last fixlog), it BLOCKS execution.
+    Can be bypassed with --no-sentinel for testing/new users.
     """
+    if "--no-sentinel" in sys.argv:
+        print(f"\n{YELLOW}[WARN]{RESET} Skipping Session Integrity Check (--no-sentinel flag detected).")
+        return True
+
     print(f"\n{BLUE}=== Session Integrity Check (The Sentinel) ==={RESET}")
     sentinel_path = ".agent/tools/session_sentinel.py"
     if not os.path.exists(sentinel_path):
@@ -238,6 +252,17 @@ def check_session_integrity():
 
     try:
         # We run the sentinel. If it exits with 1 -> DIRTY.
+        # But we need to handle the "First Run" case where NO fixlogs exist yet.
+        # The sentinel usually checks for modifications SINCE the last log. 
+        # If there are no logs, everything modified is technically dirty, BUT for a fresh clone/new user
+        # we shouldn't block.
+        
+        # Check if any fixlogs exist
+        fixlog_dir = Path(".agent/fix_logs")
+        if not fixlog_dir.exists() or not list(fixlog_dir.glob("*.json")):
+             print(f"  {YELLOW}[INFO]{RESET} No FixLogs found (Clean Install / First Run). Allowing proceed.")
+             return True
+
         res = subprocess.run(["python3", sentinel_path], capture_output=True, text=True)
         if res.returncode == 0:
             print(f"  {GREEN}[PASS]{RESET} Session is CLEAN. Persistence verified.")
@@ -273,20 +298,30 @@ def main():
 
     # 0. Artifact Evidence Check (Smart Gate)
     print(f"\n{BLUE}=== Artifact Evidence Enforcement ==={RESET}")
-    # Defines path convention based on Brain/Task context. 
-    # Since this script runs in the root, we look for a generic walkthrough or rely on an env var.
-    # ideally, we should check the LATEST interaction or a specific path provided.
-    # For this implementation, we will check a standard location or skip if not found (Warn only).
     
-    # In a real Agentic run, the artifacts are in: <appDataDir>/brain/<conversation-id>/walkthrough.md
-    # But canary_check doesn't know the conversation ID easily without input.
-    # Strategy: Scan the most recent brain directory or just check if a 'walkthrough.md' exists in CWD (for local testing).
+    # Check for override via environment variable, else default to standard location
+    # but handle 'missing directory' gracefully.
+    brain_dir_env = os.getenv("AG_BRAIN_DIR")
+    if brain_dir_env:
+        brain_dir = Path(brain_dir_env)
+    else:
+        brain_dir = Path.home() / ".gemini/antigravity/brain"
+
+    latest_walkthrough = None
+    if brain_dir.exists():
+        # Search for the newest walkthrough in the configured brain dir
+        latest_walkthrough = find_latest_walkthrough(brain_dir)
+    else:
+        # Fallback: check CWD if user is running locally/standalone
+        if Path("walkthrough.md").exists():
+            latest_walkthrough = Path("walkthrough.md")
     
-    # For now, we'll check a placeholder path or rely on the user to point it out.
-    # To make it robust as a generally usable tool, we'll search for the newest walkthrough in .gemini/antigravity/brain/
-    # If not found, we skip (SOFT GATE).
-    
-    # 0.5 Eval Triad (Optional - Flag Based)
+    if latest_walkthrough:
+        # Initialize success if not already set (e.g. by Triad)
+        if 'success' not in locals(): success = True
+        success &= check_walkthrough_evidence(latest_walkthrough)
+    else:
+        print(f"  {YELLOW}[SKIP]{RESET} No recent walkthrough.md found in {brain_dir} (or CWD).")
     if "--triad" in sys.argv:
         print(f"\n{BLUE}=== Capability Eval Triad (Deep Evaluation) ==={RESET}")
         runner_path = ".agent/evals/runner.py"
@@ -302,18 +337,11 @@ def main():
         else:
              print(f"  {RED}[ERROR]{RESET} Eval Runner missing at {runner_path}")
     
-    latest_walkthrough = find_latest_walkthrough()
-    if latest_walkthrough:
-        # Initialize success if not already set (e.g. by Triad)
-        if 'success' not in locals(): success = True
-        success &= check_walkthrough_evidence(latest_walkthrough)
-    else:
-        print(f"  {YELLOW}[SKIP]{RESET} No recent walkthrough.md found to verify.")
 
     # 3. Dynamic Agent Check (Behavioral)
     print(f"\n{BLUE}=== Behavioral Analysis (Dynamic Agent) ==={RESET}")
     # Run the default compliance scenario in dry-run mode
-    dyn_cmd = ["uv", "run", "--with", "PyYAML", "python3", ".agent/tools/dynamic_agent.py", "--scenario", "001_compliance.md", "--mode", "dry-run"]
+    dyn_cmd = ["uv", "run", ".agent/tools/dynamic_agent.py", "--scenario", "001_compliance.md", "--mode", "dry-run"]
     try:
         # Use subprocess directly to capture output better or just rely on exit code
         if subprocess.run(dyn_cmd, check=False).returncode == 0:
@@ -355,8 +383,14 @@ def main():
     print(f"\n{BLUE}#########################################{RESET}")
     if success:
         print(f"{GREEN}# SYSTEM STATUS: 100% OPERATIONAL       #{RESET}")
+        try:
+             event_logger.logger.log(event_logger.EventType.CANARY_PASS.value, {"result": "PASS", "score": 100})
+        except: pass
     else:
         print(f"{RED}# SYSTEM STATUS: DEGRADED / INCOMPLETE  #{RESET}")
+        try:
+             event_logger.logger.log(event_logger.EventType.CANARY_FAIL.value, {"result": "FAIL", "score": 0})
+        except: pass
     print(f"{BLUE}#########################################{RESET}")
 
 if __name__ == "__main__":

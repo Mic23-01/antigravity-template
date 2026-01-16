@@ -1,0 +1,20 @@
+{
+  "id": "AG.fix.20260116.4a87a746",
+  "document": "Pivot to Zero-Venv Architecture (PEP 723)",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-16",
+    "files": [
+      ".agent/project/librarian.py",
+      ".agent/tools/canary_check.py",
+      ".agent/tools/dynamic_agent.py",
+      ".agent/tools/init_antigravity.py",
+      ".agent/project/PROJECT_AGENT_CONFIG.md"
+    ],
+    "tests": "Verified all tools run without .venv via uv run",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

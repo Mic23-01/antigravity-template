@@ -60,8 +60,8 @@ graph TD
 ## 6. Domain Responsibility Map
 - `src/`: <FRONTEND_LOGIC_RESPONSIBILITY>
 - `backend/`: <SERVER_SIDE_RESPONSIBILITY>
-- `.agent/`: Ecosistema Agentico (Config, Rules, Workflows)
-- `docs/`: Autorità del Progetto (Canon)
+- `.agent/`: Agentic Ecosystem (Config, Rules, Workflows)
+- `docs/`: Project Authority (Canon)
 
 ---
 
@@ -73,7 +73,7 @@ graph TD
 ---
 
 ## 8. Scalability & Health (SHIP)
-- **Limitazioni Note**: <KNOWN_LIMITATIONS>
-- **Monitoraggio**: <HEALTH_CHECK_STRATEGY> (e.g., Librarian Audit, Ship Protocol)
+- **Known Limitations**: <KNOWN_LIMITATIONS>
+- **Monitoring**: <HEALTH_CHECK_STRATEGY> (e.g., Librarian Audit, Ship Protocol)
 
 ---

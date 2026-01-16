@@ -7,7 +7,7 @@
 > *Goal*: Align code tasks with business value.
 
 ## 1. The North Star (Vision)
-- **Obiettivo a 6-12 Mesi**: <LONG_TERM_GOAL>
+- **6-12 Month Objective**: <LONG_TERM_GOAL>
 - **Target Audience**: <PRIMARY_USER_PERSONA>
 - **Key Differentiator**: <UNIQUE_VALUE_PROPOSITION>
 
@@ -30,5 +30,5 @@
 - Idea: <FUTURE_IDEA>
 
 ## 4. Feature Graveyard (Anti-Roadmap)
-> Cose che abbiamo deciso di NON fare (per ora).
+> Things we decided NOT to do (for now).
 - <DISCARDED_FEATURE>: <REASON_FOR_REJECTION>

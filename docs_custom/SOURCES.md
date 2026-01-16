@@ -1,24 +1,22 @@
-# Gold Sources (Internal Canon) - Antigravity Project
+# SOURCES.md 🔍
+> **Project**: Antigravity (AG)
+> **Status**: SPECIFIC (Gold Source)
 
-Questo file definisce le fonti di verità autoritative per il progetto Antigravity.
+## 0. Hierarchy & Canon (The "Order of Truth")
+In case of conflict, the following order of precedence MUST be respected:
 
-## 🏛 Primary Sources (Gold) - Documentazione Ufficiale
+1.  **docs_custom/**: Project-specific strategy, architecture, and branding.
+2.  **.agent/rules/**: Active operational constraints and guardrails.
+3.  **.agent/docs/**: Base templates and generic patterns (Fallback).
+4.  **EXTERNAL**: Brave Search / Microsoft Learn (Last resort for context).
 
-### 🌌 Antigravity & AI Ecosystem
-- **Antigravity Guide**: https://antigravity.google/docs/get-started
-- **Gemini API Docs**: https://ai.google.dev/docs
+## 1. Internal Documentation
+- [Architecture](file:///home/ubuntu/Progetti/IDE_Sviluppo/Antigravity/docs_custom/architecture.md): Technical specifications and stack.
+- [Brand Identity](file:///home/ubuntu/Progetti/IDE_Sviluppo/Antigravity/docs_custom/brand_identity_guide.md): Visual and persona guidelines.
+- [Domain Language](file:///home/ubuntu/Progetti/IDE_Sviluppo/Antigravity/docs_custom/domain_language.md): Glossary and ubiquitous terms.
+- [Product Strategy](file:///home/ubuntu/Progetti/IDE_Sviluppo/Antigravity/docs_custom/product_strategy.md): Vision and Roadmap.
 
-### 🛠️ Modern Development Stack (React + Python + Postgres)
-- **UV (Python Manager)**: https://docs.astral.sh/uv/
-- **Python 3.x (Latest)**: https://docs.python.org/3/
-- **FastAPI / SQLAlchemy**: https://fastapi.tiangolo.com/
-- **Postgres**: https://www.postgresql.org/docs/
-- **React (Core)**: https://react.dev/reference/react
-- **Vite (Build Tool)**: https://vite.dev/guide/
-
-### 🧪 Testing & Infrastructure
-- **Playwright (E2E)**: https://playwright.dev/docs/intro
-- **Vitest**: https://vitest.dev/guide/
-
-## 🧩 Project Custom Sources
-- **Custom Docs**: `docs_custom/` folder.
+## 2. External References
+- Official MCP Documentation.
+- Python `uv` documentation.
+- VS Code / Playwright official docs.

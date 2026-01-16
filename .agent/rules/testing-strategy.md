@@ -16,7 +16,7 @@ trigger: always_on
 Use the right tools for the required level:
 
 *   **Playwright (MCP + Extension)**:
-    *   Use the installed VS Code extension (`Install in SSH: OVH`) to run tests visually.
+    *   Use the installed VS Code extension (e.g., Playwright Test for VSCode) to run tests visually.
 *   **Sequential Thinking**:
     *   MANDATORY for "Serious Debugging". Analyze stacktrace -> formulate hypothesis -> write failing test -> fix.
 

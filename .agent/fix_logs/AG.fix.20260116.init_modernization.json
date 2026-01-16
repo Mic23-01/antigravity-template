@@ -1,0 +1,19 @@
+{
+    "id": "AG.fix.20260116.init_modernization.json",
+    "document": "Modernized init_antigravity.py with Manifest Mode, Librarian Guardrails, and Template Auto-Population. Integrated into /custom_project workflow.",
+    "metadatas": {
+        "project": "Antigravity",
+        "type": "feature_upgrade",
+        "date": "2026-01-16",
+        "files": [
+            ".agent/tools/init_antigravity.py",
+            ".agent/workflows/custom_project.md"
+        ],
+        "tests": [
+            "Guardrail Check (Librarian DB detection)",
+            "Manifest Mode Execution",
+            "Template Population Verification"
+        ],
+        "result": "SUCCESS"
+    }
+}

@@ -23,15 +23,19 @@ description: "Project Hydration Wizard: Transforms Antigravity Templates into Li
 - **Constraint**: Do NOT proceed to generation until the user has responded.
 
 3) Hydration Generation (The Build)
-- **Action**: Create the target directory `docs_custom/` (if it doesn't exist).
-- **Skill**: Activate `ui_ux_designer` to find consistent palettes and fonts if undefined.
-- **Action**: For each template:
-  - Replace placeholders with collected data (Audit + Interview + UI Skill).
-  - Remove "AI Instruction" sections.
-  - Write the final file to `docs_custom/<filename>`.
-- **Naming Convention**: Maintain the same filenames as the templates for consistency.
+- **Reference**: Executes logic defined in `.agent/project/AGENT_SETUP_PLAYBOOK.md` (Step 2 & 3).
+- **Action**: Generate a `manifest.json` containing:
+  - `project_name`: The determined Project Name.
+  - `prefix`: The determined Prefix (e.g., AG, DED).
+  - `palette`: (Optional) Color codes if deduced.
+- **Execution**: Run the Initialization Engine:
+  `python3 .agent/tools/init_antigravity.py --manifest manifest.json`
+- **Verification**: 
+  - Check that `docs_custom/` contains all 5 critical files.
+  - Check that `.agent/project/PROJECT_AGENT_CONFIG.md` has the new keys.
 
 4) Validation & Binding (The Handshake)
 - **Review**: Ask the user to validate the files in `docs_custom/`.
 - **Commit**: Once approved, these files become the **Specific Source of Truth** for the project.
+- **Hierarchy Shift**: The skill `resolve_canon_sources` will now automatically prioritize `docs_custom/` over `.agent/docs/`.
 - **FILESYSTEM UPDATES**: Notification of new file creation.

@@ -1,0 +1,21 @@
+{
+  "id": "AG.fix.20260116.1ba2e3c7",
+  "document": "Refactoring for Gold Standard v1.0: Branding, Language, Paths, OS, and Sentinel UX",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-16",
+    "files": [
+      "README.md",
+      ".agent/tools/canary_check.py",
+      ".agent/skills/fixlog_writer/SKILL.md",
+      ".agent/project/AGENT_SETUP_PLAYBOOK.md",
+      ".agent/rules/testing-strategy.md",
+      ".agent/rules/best-practice-tools.md"
+    ],
+    "tests": "Verified via canary_check",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}
