@@ -29,7 +29,7 @@ description: "Project Hydration Wizard: Transforms Antigravity Templates into Li
   - `prefix`: The determined Prefix (e.g., AG, DED).
   - `palette`: (Optional) Color codes if deduced.
 - **Execution**: Run the Initialization Engine:
-  `python3 .agent/tools/init_antigravity.py --manifest manifest.json`
+  `uv run .agent/tools/init_antigravity.py --manifest manifest.json`
 - **Verification**: 
   - Check that `docs_custom/` contains all 5 critical files.
   - Check that `.agent/project/PROJECT_AGENT_CONFIG.md` has the new keys.

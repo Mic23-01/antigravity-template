@@ -28,7 +28,7 @@ The target system is **Ubuntu 24.04 LTS** (Server). Solutions must adhere to the
     *   Project libraries -> in `pyproject.toml` or `requirements.txt`.
 *   **Docker**:
     *   Always use `docker compose` (v2).
-    *   Map volumes with explicit absolute paths (`/home/ubuntu/Progetti/...`).
+    *   Map volumes with explicit absolute paths (e.g., `$(pwd)/data:/app/data`).
 *   **Refactoring**:
     *   Suggest a clean folder structure (e.g., `src/`, `tests/`, `scripts/`).
     *   Add essential docstrings (Google style).

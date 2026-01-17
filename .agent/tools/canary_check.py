@@ -263,7 +263,7 @@ def check_session_integrity():
              print(f"  {YELLOW}[INFO]{RESET} No FixLogs found (Clean Install / First Run). Allowing proceed.")
              return True
 
-        res = subprocess.run(["python3", sentinel_path], capture_output=True, text=True)
+        res = subprocess.run(["uv", "run", sentinel_path], capture_output=True, text=True)
         if res.returncode == 0:
             print(f"  {GREEN}[PASS]{RESET} Session is CLEAN. Persistence verified.")
             return True
@@ -328,7 +328,7 @@ def main():
         if os.path.exists(runner_path):
             print(f"  {BLUE}Running Full Eval Suite (Refactor/Bugfix/Feature)...{RESET}")
             # We run it as a subprocess to keep isolation
-            triad_res = subprocess.run(["python3", runner_path, "--all"], capture_output=False) # Let it print to stdout
+            triad_res = subprocess.run(["uv", "run", runner_path, "--all"], capture_output=False) # Let it print to stdout
             if triad_res.returncode == 0:
                 print(f"  {GREEN}[PASS]{RESET} Application Capability Verified (Triad Score: 100%)")
             else:
@@ -372,7 +372,7 @@ def main():
     success &= check_workflows()
 
     # 3. Script Execution
-    success &= run_script_test("python3 .agent/project/librarian.py --hygiene", "Librarian Hygiene Check")
+    success &= run_script_test("uv run .agent/project/librarian.py --hygiene", "Librarian Hygiene Check")
 
     # 3.5 Audit Health
     success &= check_audit_health()

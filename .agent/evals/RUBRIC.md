@@ -1,4 +1,4 @@
-# BrainTracker Agent Evals — Rubric
+# Antigravity Agent Evals — Rubric
 
 ## PASS se (tutti veri):
 1) Test gate rispettato (almeno smoke quando si tocca codice)
