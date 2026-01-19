@@ -1,34 +1,34 @@
 ---
 name: resolve_canon_sources
-description: Risolve la gerarchia delle fonti (Custom > Template)
+description: Resolves the source hierarchy (Custom > Template)
 version: 1.1.0
 author: Antigravity
 ---
 
-# Istruzioni Operative
+# Operational Instructions
 
 ## Trigger
-- All'inizio di `tech_rag` (Step 0 Internal Context Discovery).
-- All'inizio di `research_rag` (Step 0 Internal Canon Check).
-- Ogni volta che è necessario stabilire la "Gold Source" di verità.
+- At the start of `tech_rag` (Step 0 Internal Context Discovery).
+- At the start of `research_rag` (Step 0 Internal Canon Check).
+- Whenever it's necessary to establish the "Gold Source" of truth.
 
 ## Inputs
-- **Environment**: File system locale.
-- **Constraints**: Nessuno.
+- **Environment**: Local file system.
+- **Constraints**: None.
 
 ## Steps
-1. **Primary Check**: Verifica esistenza `docs_custom/SOURCES.md`.
-2. **Fallback Check**: Se Custom non esiste, usa `.agent/docs/SOURCES.md`.
+1. **Primary Check**: Verify existence of `docs_custom/SOURCES.md`.
+2. **Fallback Check**: If Custom doesn't exist, use `.agent/docs/SOURCES.md`.
 3. **Execution**:
-   - Leggi il file identificato (`view_file`).
-   - Se l'argomento è "Gold" (definito nel file), attiva `markdownify` per deep reading.
-   - Altrimenti procedi con `brave_search` se necessario.
+   - Read the identified file (`view_file`).
+   - If the topic is "Gold" (defined in the file), activate `markdownify` for deep reading.
+   - Otherwise proceed with `brave_search` if necessary.
 
 ## Outputs
-- **Path**: Il path del file sorgente identificato.
-- **Content**: Il contenuto letto da usare come contesto.
+- **Path**: The path of the identified source file.
+- **Content**: The content read to use as context.
 
-## Comandi Suggeriti
+## Suggested Commands
 ```bash
 ls -F docs_custom/SOURCES.md 2>/dev/null || ls -F .agent/docs/SOURCES.md
 ```

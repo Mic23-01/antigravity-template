@@ -15,7 +15,7 @@ globs: "**/*"
 Use the provided utility script for robustness (never edit raw if script is available).
 
 ```bash
-python3 .agent/memory/checkpoint_manager.py update \
+uv run .agent/memory/checkpoint_manager.py update \
   --state "Brief narrative of WHERE we are (e.g., 'Analyzing AST for refactor')." \
   --context "Compacted history of last events (e.g., '1. Created file X. 2. Failed test Y. 3. Fixed bug Z')." \
   --next "Immediate next atomic step (e.g., 'Run pytest')."

@@ -1,16 +1,16 @@
 # Antigravity Skills Index
 
-Questo catalogo mappa le competenze modulari ("Skills") disponibili per l'Agente.
-Ogni skill è una directory autocontenuta in `.agent/skills/<skill_name>/`.
+This catalog maps the modular competencies ("Skills") available to the Agent.
+Each skill is a self-contained directory in `.agent/skills/<skill_name>/`.
 
 ## 🟢 Base Skills (Core)
-| Skill Name | Descrizione | Trigger Workflow |
+| Skill Name | Description | Trigger Workflow |
 |------------|-------------|------------------|
-| `resolve_canon_sources` | Risolve la gerarchia delle fonti (Custom > Template) | All RAG workflows |
-| `test_gate_bivio` | Gestisce l'interazione Test (Smoke vs Deep) | `tech_rag` |
-| `regression_gate` | Assicura integrità Chroma e Filesystem | All RAG workflows |
-| `fixlog_writer` | Standardizza scrittura log JSON e Chroma ID | `tech_rag`, `refactor` |
-| `security_audit` | Scansione di sicurezza per segreti e file rischiosi | `tech_rag` |
+| `resolve_canon_sources` | Resolves the source hierarchy (Custom > Template) | All RAG workflows |
+| `test_gate_bivio` | Manages test gate interaction (Smoke vs Deep) | `tech_rag` |
+| `regression_gate` | Ensures Chroma and Filesystem integrity | All RAG workflows |
+| `fixlog_writer` | Standardizes JSON log writing and Chroma ID | `tech_rag`, `refactor` |
+| `security_audit` | Security scan for secrets and risky files | `tech_rag` |
 | `ui_ux_designer` | Design Intelligence & Assets Search | `custom_project`, `tech_rag` |
 
 ## 🟡 Advanced Skills (Coming Soon)

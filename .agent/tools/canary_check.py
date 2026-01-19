@@ -299,8 +299,10 @@ def main():
     # 0. Artifact Evidence Check (Smart Gate)
     print(f"\n{BLUE}=== Artifact Evidence Enforcement ==={RESET}")
     
-    # Check for override via environment variable, else default to standard location
-    # but handle 'missing directory' gracefully.
+    # Brain Directory Resolution Strategy:
+    # 1. Primary: AG_BRAIN_DIR environment variable (explicit override)
+    # 2. Default: ~/.gemini/antigravity/brain (standard location)
+    # 3. Fallback: CWD walkthrough.md (for standalone/local testing)
     brain_dir_env = os.getenv("AG_BRAIN_DIR")
     if brain_dir_env:
         brain_dir = Path(brain_dir_env)

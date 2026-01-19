@@ -1,17 +1,17 @@
-# Esempio d'Uso: security_audit
+# Usage Example: security_audit
 
-## Esecuzione Rapida
-Per scansionare l'intero progetto alla ricerca di problemi di sicurezza:
+## Quick Execution
+To scan the entire project for security issues:
 
 ```bash
-python3 .agent/skills/security_audit/scripts/audit_runner.py
+uv run .agent/skills/security_audit/scripts/audit_runner.py
 ```
 
-## Cosa Controlla
-1. **Secrets**: Pattern Regex per token GitHub, AWS, Chiavi Private.
-2. **Risky Files**: File binari (`.exe`, `.dll`), chiavi esposte (`.pem`), e file > 50MB.
-3. **Dependencies**: Integrità dei pacchetti Python installati via `uv`.
+## What It Checks
+1. **Secrets**: Regex patterns for GitHub tokens, AWS keys, Private Keys.
+2. **Risky Files**: Binary files (`.exe`, `.dll`), exposed keys (`.pem`), and files > 50MB.
+3. **Dependencies**: Integrity of Python packages installed via `uv`.
 
-## Output Interpretazione
-- **PASS**: Nessun problema rilevato.
-- **FAIL**: Trovati problemi. Controlla i log per i dettagli (file path esatto).
+## Output Interpretation
+- **PASS**: No issues detected.
+- **FAIL**: Issues found. Check logs for details (exact file path).

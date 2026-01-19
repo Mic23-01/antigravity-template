@@ -6,7 +6,7 @@ Automates the hydration of a new Antigravity project.
 Replaces the manual 'sed' playbook with a safe, interactive wizard.
 
 Usage:
-    python3 .agent/tools/init_antigravity.py
+    uv run .agent/tools/init_antigravity.py
 """
 
 
@@ -198,7 +198,7 @@ def main():
     print(f"{GREEN}# INITIALIZATION COMPLETE               #{RESET}")
     print(f"{GREEN}#########################################{RESET}")
     print(f"\nNext Steps:")
-    print(f"1. Run canary check: {YELLOW}python3 .agent/tools/canary_check.py{RESET}")
+    print(f"1. Run canary check: {YELLOW}uv run .agent/tools/canary_check.py{RESET}")
 
 if __name__ == "__main__":
     main()

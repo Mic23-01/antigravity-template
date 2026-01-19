@@ -106,7 +106,7 @@ Same collections and standard metadata (project, type, date, etc.) as in the ori
 
 3. **Hydration Engine**: Once you answer, the agent generates a `manifest.json` and executes:
    ```bash
-   python3 .agent/tools/init_antigravity.py --manifest manifest.json
+   uv run .agent/tools/init_antigravity.py --manifest manifest.json
    ```
    This populates `docs_custom/` with:
    - `architecture.md`

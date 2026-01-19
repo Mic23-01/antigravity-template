@@ -1,37 +1,37 @@
 ---
 name: security_audit
-description: Scansione di sicurezza per segreti, file rischiosi e dipendenze vulnerabili.
+description: Security scan for secrets, risky files, and vulnerable dependencies.
 version: 1.0.0 (Divine)
 author: Antigravity
 ---
 
-# Istruzioni Operative
+# Operational Instructions
 
-Questa skill esegue un audit di sicurezza statico sul progetto. Identifica file pericolosi, credenziali esposte e dipendenze rotte.
+This skill executes a static security audit on the project. It identifies dangerous files, exposed credentials, and broken dependencies.
 
 ## Trigger
-- **Pre-Commit**: Prima di caricare codice sensibile.
-- **Refactor**: Quando si toccano file di configurazione.
-- **On-Demand**: Richiesta esplicita "Verifica sicurezza".
+- **Pre-Commit**: Before uploading sensitive code.
+- **Refactor**: When touching configuration files.
+- **On-Demand**: Explicit request "Verify security".
 
 ## Inputs
-- **Target Logic**: Directory da scansionare (default: `.`).
-- **Exclude Patterns**: File/Cartelle da ignorare (es. `.git`, `.venv`, `node_modules`).
+- **Target Logic**: Directory to scan (default: `.`).
+- **Exclude Patterns**: Files/Folders to ignore (e.g., `.git`, `.venv`, `node_modules`).
 
 ## Steps
-1. **Secret Scanning**: Cerca pattern Regex (AWS, GitHub, Generic Keys) nei file tracciati.
-2. **Risky Files Audit**: Cerca estensioni proibite (`.exe`, `.p12`, `.key`) e file giganti (>50MB).
-3. **Dependency Check**: Esegue `uv pip check` per verificare la coerenza dell'ambiente Python.
-4. **Reporting**: Genera un output JSON/Markdown con status PASS/FAIL per ogni check.
+1. **Secret Scanning**: Search for Regex patterns (AWS, GitHub, Generic Keys) in tracked files.
+2. **Risky Files Audit**: Search for prohibited extensions (`.exe`, `.p12`, `.key`) and giant files (>50MB).
+3. **Dependency Check**: Run `uv pip check` to verify Python environment consistency.
+4. **Reporting**: Generate JSON/Markdown output with PASS/FAIL status for each check.
 
 ## Outputs
-- **Console**: Log colorato con esito immediato.
-- **Report**: Lista dei file violati (se FAIL).
+- **Console**: Colored log with immediate result.
+- **Report**: List of violated files (if FAIL).
 
 ## Fail-Fast
-- Se trova **Segreti Confermati** (High Confidence), l'audit FALLISCE e richiede intervento manuale.
+- If **Confirmed Secrets** (High Confidence) are found, the audit FAILS and requires manual intervention.
 
-## Comandi Suggeriti
+## Suggested Commands
 ```bash
-python3 .agent/skills/security_audit/scripts/audit_runner.py
+uv run .agent/skills/security_audit/scripts/audit_runner.py
 ```

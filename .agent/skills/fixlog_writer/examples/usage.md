@@ -1,12 +1,12 @@
-# Esempio d'Uso: fixlog_writer
+# Usage Example: fixlog_writer
 
-Questa skill standardizza la creazione dei FixLog per ridurre errori di formato e garantire che meta-dati critici (come `result` o `files`) siano sempre presenti.
+This skill standardizes the creation of FixLogs to reduce formatting errors and ensure that critical metadata (such as `result` or `files`) are always present.
 
-## Generazione Payload (Dry Run)
-Usa lo script per generare il JSON corretto da incollare nel tool `chroma_add_documents`.
+## Generating Payload (Dry Run)
+Use the script to generate the correct JSON to paste into the `chroma_add_documents` tool.
 
 ```bash
-python3 .agent/skills/fixlog_writer/scripts/write_log.py \
+uv run .agent/skills/fixlog_writer/scripts/write_log.py \
   --project "Antigravity" \
   --desc "Standardized all skill definitions" \
   --files ".agent/skills/resolve_canon_sources/SKILL.md, .agent/skills/test_gate_bivio/SKILL.md" \
@@ -15,13 +15,13 @@ python3 .agent/skills/fixlog_writer/scripts/write_log.py \
   --dry-run
 ```
 
-## Integrazione nei Workflow
-In `tech_rag.md` (Step 6), invece di scrivere "Salva un documento...", ora si invoca:
+## Workflow Integration
+In `tech_rag.md` (Step 6), instead of writing "Save a document...", now invoke:
 
-> **Skill**: `fixlog_writer` (Standardizza il payload JSON).
+> **Skill**: `fixlog_writer` (Standardizes the JSON payload).
 
-## Output Atteso
-Un JSON valido pronto per l'ingestione:
+## Expected Output
+A valid JSON ready for ingestion:
 ```json
 {
   "id": "AG.fix.20260114.a1b2c3d4",

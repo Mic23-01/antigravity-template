@@ -1,34 +1,34 @@
 ---
 name: test_gate_bivio
-description: Gestisce l'interazione del test gate rispettando la profondità richiesta
+description: Manages test gate interaction respecting the required depth
 version: 1.1.0
 author: Antigravity
 ---
 
-# Istruzioni Operative
+# Operational Instructions
 
 ## Trigger
-- All'interno di `tech_rag` (Step 5 Test Gate).
-- Ogni volta che è necessaria una validazione interattiva prima di procedere.
+- Within `tech_rag` (Step 5 Test Gate).
+- Whenever interactive validation is needed before proceeding.
 
 ## Inputs
 - **User Config**: `<SmokeTestCmd>` in `.agent/project/PROJECT_AGENT_CONFIG.md`.
-- **User Choice**: Interazione diretta (Easy/Deep/Debug).
+- **User Choice**: Direct interaction (Easy/Deep/Debug).
 
 ## Steps
-1. **Interrupt**: CHIEDI all'utente il livello di test desiderato.
+1. **Interrupt**: ASK the user for the desired test level.
 2. **Easy/Smoke**:
-   - Esegui comando `<SmokeTestCmd>`.
+   - Execute `<SmokeTestCmd>` command.
 3. **Deep**:
-   - Esegui test di regressione completi (`pytest`, `npm test`, etc).
-   - Esegui `<DeepTestCmd>` (es. `uv run pytest -q`).
-   - Se presenti `<NegativeTestMarkers>`, esegui anche i test negativi (es. `uv run pytest -m "negative or fuzz"`).
+   - Execute complete regression tests (`pytest`, `npm test`, etc).
+   - Execute `<DeepTestCmd>` (e.g., `uv run pytest -q`).
+   - If `<NegativeTestMarkers>` are present, also run negative tests (e.g., `uv run pytest -m "negative or fuzz"`).
 4. **Debug**:
-   - Attiva `sequential-thinking` per isolare il caso.
-   - Esegui `<DebugTestCmd>` (es. `uv run pytest -q -vv --maxfail=1 --pdb`).
+   - Activate `sequential-thinking` to isolate the case.
+   - Execute `<DebugTestCmd>` (e.g., `uv run pytest -q -vv --maxfail=1 --pdb`).
 
 ## Outputs
-- **Result**: `PASS` (proceed) o `FAIL` (fix required).
+- **Result**: `PASS` (proceed) or `FAIL` (fix required).
 
-## Configurazione
-Verifica `.agent/project/PROJECT_AGENT_CONFIG.md` per il comando Smoke di default.
+## Configuration
+Check `.agent/project/PROJECT_AGENT_CONFIG.md` for the default Smoke command.

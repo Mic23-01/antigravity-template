@@ -8,7 +8,7 @@ description: "Librarian Agent: Proactive Hygiene, Document Sync, and Structural 
 
 2) Structural Analysis (The SQL Eye)
 - **DuckDB Audit**: Execute automated structural audit.
-  `uv run --with duckdb python3 .agent/project/librarian.py --audit`
+  `uv run --with duckdb .agent/project/librarian.py --audit`
 - Identify:
     - **Ghost Files**: Unimported files or orphan duplicates.
     - **Dead Code**: Functions/Classes without references (use `grep_search` to validate).
