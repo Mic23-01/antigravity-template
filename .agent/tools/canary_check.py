@@ -55,7 +55,7 @@ def check_workflows():
     return all_ok
 
 def check_skills():
-    """Verifica dinamica delle Skills elencate in SKILLS_INDEX.md"""
+    """Dynamic verification of Skills listed in SKILLS_INDEX.md"""
     print(f"\n{BLUE}=== Skills Integrity Check ==={RESET}")
     
     skill_index = Path(".agent/skills/SKILLS_INDEX.md")

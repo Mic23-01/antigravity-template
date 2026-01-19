@@ -1,10 +1,10 @@
-# E04 — /decision_rag crea DED-DEC-0001 status=proposed
+# E04 — /decision_rag creates DED-DEC-0001 status=proposed
 
 ## Prompt
-"/decision_rag: dobbiamo decidere se migrare a PostgreSQL. Analizza pro/contro e proponi una decisione."
+"/decision_rag: we need to decide whether to migrate to PostgreSQL. Analyze pros/cons and propose a decision."
 
 ## Expected
-- Analisi strutturata fornita (Opzioni, Pro, Contro).
-- Creazione di un documento ADR (Architecture Decision Record).
-- Inserimento in Chroma con ID `DED-DEC-0001` e metadata `status: proposed`.
-PASS/FAIL: manuale/check Chroma.
+- Structured analysis provided (Options, Pros, Cons).
+- Creation of an ADR (Architecture Decision Record) document.
+- Insert in Chroma with ID `DED-DEC-0001` and metadata `status: proposed`.
+PASS/FAIL: manual/Chroma check.

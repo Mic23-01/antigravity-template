@@ -39,7 +39,7 @@ RESET = '\033[0m'
 BLUE = '\033[94m'
 
 def get_file_metadata(root_dir="."):
-    """Raccoglie i metadati reali del filesystem per DuckDB."""
+    """Collects real filesystem metadata for DuckDB."""
     metadata = []
     # Ignore node_modules, .git, .venv to speed up and reduce noise
     exclude_dirs = {'node_modules', '.git', '.venv', '__pycache__', 'dist', 'coverage'}
@@ -63,7 +63,7 @@ def get_file_metadata(root_dir="."):
     return metadata
 
 def run_duckdb_audit(db_path=":memory:"):
-    """Esegue l'analisi strutturale usando DuckDB."""
+    """Runs structural analysis using DuckDB."""
     if not HAS_DUCKDB:
         print(f"{RED}[!] DuckDB not installed. Run with `uv run --with duckdb ...` to enable audit.{RESET}")
         return
@@ -77,7 +77,7 @@ def run_duckdb_audit(db_path=":memory:"):
         
     conn = duckdb.connect(db_path)
     
-    # Crea tabella e carica dati (Drop if exists to refresh state)
+    # Create table and load data (Drop if exists to refresh state)
     conn.execute("DROP TABLE IF EXISTS files")
     conn.execute("CREATE TABLE files (path VARCHAR, size_kb DOUBLE, age_days DOUBLE, extension VARCHAR, mtime DOUBLE)")
     
@@ -85,7 +85,7 @@ def run_duckdb_audit(db_path=":memory:"):
     data_to_insert = [(f['path'], f['size_kb'], f['age_days'], f['extension'], Path(f['path']).stat().st_mtime) for f in metadata]
     conn.executemany("INSERT INTO files VALUES (?, ?, ?, ?, ?)", data_to_insert)
     
-    # 1. Rilevamento potenziale codice morto / File vecchi mai toccati
+    # 1. Potential dead code detection / Old files never touched
     print(f"\n{YELLOW}[!] Stale Files (> 30 days inactive):{RESET}")
     stale_files = conn.execute("""
         SELECT path, age_days 
@@ -103,7 +103,7 @@ def run_duckdb_audit(db_path=":memory:"):
     else:
         print(f"  {GREEN}None found.{RESET}")
 
-    # 2. Analisi Complessità/Dimensione
+    # 2. Complexity/Size Analysis
     print(f"\n{YELLOW}[!] Large Files (> 50KB) - Refactor Candidates:{RESET}")
     big_files = conn.execute("SELECT path, size_kb FROM files WHERE size_kb > 50 ORDER BY size_kb DESC LIMIT 10").fetchall()
     if big_files:
@@ -112,7 +112,7 @@ def run_duckdb_audit(db_path=":memory:"):
     else:
         print(f"  {GREEN}None found.{RESET}")
 
-    # 3. Distribuzione Componenti
+    # 3. Component Distribution
     print(f"\n{YELLOW}[!] File Type Distribution:{RESET}")
     stats = conn.execute("SELECT extension, count(*) as count FROM files GROUP BY extension HAVING count > 1 ORDER BY count DESC").fetchall()
     for row in stats:
@@ -181,7 +181,7 @@ def check_component_duplication():
     return True
 
 def check_docs_custom():
-    """Verifica la presenza e l'integrità della documentazione custom."""
+    """Verifies the presence and integrity of custom documentation."""
     print(f"\n{YELLOW}[*] Docs Custom Check...{RESET}")
     docs_dir = Path("docs_custom")
     required_files = [

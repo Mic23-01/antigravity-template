@@ -1,10 +1,10 @@
-# E05 — Retrieval: “recupera ultimi 3 research_summaries” e filtri metadata
+# E05 — Retrieval: "retrieve last 3 research_summaries" and metadata filters
 
 ## Prompt
-"Mostrami gli ultimi 3 sommari di ricerca relativi a 'Playwright' salvati in Chroma."
+"Show me the last 3 research summaries related to 'Playwright' saved in Chroma."
 
 ## Expected
-- Utilizzo del tool `chroma_query_documents` o `chroma_get_documents`.
-- Applicazione del filtro metadata (es. `where={"topic": "Playwright"}`).
-- Restituzione dei 3 risultati più recenti.
-PASS/FAIL: manuale.
+- Use of the `chroma_query_documents` or `chroma_get_documents` tool.
+- Application of metadata filter (e.g., `where={"topic": "Playwright"}`).
+- Return of the 3 most recent results.
+PASS/FAIL: manual.

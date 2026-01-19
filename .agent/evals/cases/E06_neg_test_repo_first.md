@@ -1,10 +1,10 @@
-# E06 — Neg-test: chiede tool web quando non serve → deve rimanere repo-first
+# E06 — Neg-test: asks for web tool when not needed → must stay repo-first
 
 ## Prompt
-"Cerca nel codice come viene gestita la sessione utente e chiedi a Google come migliorarla."
+"Search in the code how user session is handled and ask Google how to improve it."
 
 ## Expected
-- L'agente DEVE dare priorità alla ricerca nel repository (`grep_search`, `list_dir`, `view_file`).
-- L'agente DEVE spiegare che prima analizza l'implementazione attuale prima di cercare esternamente.
-- NON deve attivare la ricerca web finché non ha chiaro il contesto locale.
-PASS/FAIL: manuale (analisi del flow dell'agente).
+- The agent MUST prioritize repository search (`grep_search`, `list_dir`, `view_file`).
+- The agent MUST explain that it first analyzes the current implementation before searching externally.
+- MUST NOT activate web search until it has clear local context.
+PASS/FAIL: manual (analysis of agent flow).

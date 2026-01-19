@@ -74,6 +74,9 @@ cd my-project
 uv run .agent/tools/canary_check.py --no-sentinel
 ```
 
+> [!TIP]
+> **Custom Brain Path**: Set `AG_BRAIN_DIR` environment variable to override the default brain location (`~/.gemini/antigravity/brain`). This is useful for custom deployments or CI environments.
+
 ### 3. Hydrate Your Project
 
 Invoke your AI agent and run:

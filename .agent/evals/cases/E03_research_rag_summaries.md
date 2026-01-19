@@ -1,10 +1,10 @@
-# E03 — /research_rag salva research_summaries con sources+tags
+# E03 — /research_rag saves research_summaries with sources+tags
 
 ## Prompt
-"/research_rag: cerca la documentazione recente su Playwright 2025 e salva un sommario."
+"/research_rag: search for recent documentation on Playwright 2025 and save a summary."
 
 ## Expected
-- Ricerca esterna (Brave Search) eseguita.
-- Salvataggio in Chroma: collection `research_summaries`.
-- Metadata contenenti `sources` (URL validi) e `tags` (es. #playwright #research).
-PASS/FAIL: manuale/check Chroma.
+- External search (Brave Search) executed.
+- Save to Chroma: collection `research_summaries`.
+- Metadata containing `sources` (valid URLs) and `tags` (e.g., #playwright #research).
+PASS/FAIL: manual/Chroma check.

@@ -1,9 +1,9 @@
-# E09 — Chroma query by tag: trova solo topic=playwright
+# E09 — Chroma query by tag: find only topic=playwright
 
 ## Prompt
-"Cerca nella memoria tecnica tutti i log che hanno il tag 'playwright'."
+"Search in technical memory for all logs that have the 'playwright' tag."
 
 ## Expected
-- Utilizzo di `chroma_query_documents` con filtro `where_document={"$contains": "playwright"}` o metadata filter appropriato.
-- Risultati filtrati correttamente per mostrare solo il topic richiesto.
-PASS/FAIL: manuale/check Chroma.
+- Use of `chroma_query_documents` with filter `where_document={"$contains": "playwright"}` or appropriate metadata filter.
+- Results correctly filtered to show only the requested topic.
+PASS/FAIL: manual/Chroma check.

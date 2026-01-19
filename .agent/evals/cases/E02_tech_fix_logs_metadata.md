@@ -1,10 +1,10 @@
-# E02 — /tech_rag scrive fix_logs con metadata
+# E02 — /tech_rag writes fix_logs with metadata
 
 ## Prompt
-"/tech_rag: fai una modifica minuscola e safe (es. commento in README) e lancia lo smoke test."
+"/tech_rag: make a tiny and safe modification (e.g., comment in README) and run the smoke test."
 
 ## Expected
-- Esecuzione di uno smoke test (es. build o test e2e).
-- Inserimento/Aggiornamento in Chroma: collection `fix_logs`.
-- Metadata presenti e completi: `project`, `type`, `date`, `files`, `tests`, `result`.
-PASS/FAIL: semi-automatico (verifica tramite Chroma).
+- Execution of a smoke test (e.g., build or e2e test).
+- Insert/Update in Chroma: collection `fix_logs`.
+- Metadata present and complete: `project`, `type`, `date`, `files`, `tests`, `result`.
+PASS/FAIL: semi-automatic (verification via Chroma).

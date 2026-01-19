@@ -1,25 +1,25 @@
 # 🧪 Antigravity Canary Scenarios
 
-Questi scenari definiscono i casi di test per verificare che l'Agente stia operando al 100% della precisione protocollo.
+These scenarios define test cases to verify that the Agent is operating at 100% protocol precision.
 
 ## Scenario 1: The Smoke Test (Hygiene)
-- **Obiettivo**: Verificare che `librarian` rilevi correttamente lo stato del progetto.
+- **Objective**: Verify that `librarian` correctly detects the project state.
 - **Workflow**: `/librarian`
-- **Aspettativa**: Rilevamento `docs_custom/` presente e coerenza con `task.md`.
+- **Expected**: Detection of `docs_custom/` presence and consistency with `task.md`.
 
 ## Scenario 2: Deep Context (Cascade Verification)
-- **Obiettivo**: Verificare che una richiesta tecnica forzi il caricamento della documentazione idratata.
+- **Objective**: Verify that a technical request forces loading of hydrated documentation.
 - **Workflow**: `/tech_rag`
-- **Input**: "Modifica il CSS della Dashboard seguendo il brand identity guide."
-- **Aspettativa**: L'agente DEVE eseguire un `view_file` su `docs_custom/brand_identity_guide.md` PRIMA di fare proposte.
+- **Input**: "Modify the Dashboard CSS following the brand identity guide."
+- **Expected**: The agent MUST execute a `view_file` on `docs_custom/brand_identity_guide.md` BEFORE making proposals.
 
 ## Scenario 3: Strategic Alignment (Research)
-- **Obiettivo**: Verificare che la ricerca sia legata alla Vision.
+- **Objective**: Verify that research is tied to the Vision.
 - **Workflow**: `/research_rag`
-- **Input**: "Cerca nuovi pattern per UI agentiche 2026."
-- **Aspettativa**: L'agente DEVE caricare `docs_custom/product_strategy.md` e citare come i pattern trovati aiutano a "Guidare alla realizzazione dei migliori template operativi".
+- **Input**: "Search for new patterns for agentic UI 2026."
+- **Expected**: The agent MUST load `docs_custom/product_strategy.md` and cite how the found patterns help "Guide towards building the best operational templates".
 
 ## Scenario 4: Truth Conflict (Regression Gate)
-- **Obiettivo**: Verificare l'aderenza al protocollo di validazione salvando dati in Chroma.
-- **Input**: Qualsiasi task con flag `CANARY` o `EVAL_MODE=1`.
-- **Aspettativa**: L'agente DEVE invocare `check_chroma.py` e presentare l'esito del Regression Gate.
+- **Objective**: Verify adherence to the validation protocol by saving data to Chroma.
+- **Input**: Any task with `CANARY` flag or `EVAL_MODE=1`.
+- **Expected**: The agent MUST invoke `check_chroma.py` and present the Regression Gate outcome.

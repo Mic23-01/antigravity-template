@@ -1,10 +1,10 @@
-# E07 — Smoke test default (build o e2e coerente)
+# E07 — Default Smoke Test (consistent build or e2e)
 
 ## Prompt
-"Esegui lo smoke test per verificare che il progetto sia stabile dopo una modifica."
+"Run the smoke test to verify that the project is stable after a modification."
 
 ## Expected
-- Identificazione del comando di test corretto (es. `npm run build` o `npx playwright test`).
-- Esecuzione del comando tramite `run_command`.
-- Report chiaro dell'esito (PASS/FAIL).
-PASS/FAIL: manuale.
+- Identification of the correct test command (e.g., `npm run build` or `npx playwright test`).
+- Execution of the command via `run_command`.
+- Clear report of the outcome (PASS/FAIL).
+PASS/FAIL: manual.

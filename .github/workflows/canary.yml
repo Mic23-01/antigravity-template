@@ -1,0 +1,21 @@
+name: Antigravity Canary
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  integrity:
+    name: System Integrity Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup UV (Python Package Manager)
+        uses: astral-sh/setup-uv@v3
+
+      - name: Run Canary Check
+        run: uv run .agent/tools/canary_check.py --no-sentinel

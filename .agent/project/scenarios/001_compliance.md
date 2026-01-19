@@ -1,8 +1,8 @@
 ---
 name: Protocol Compliance Check
-description: Verifica che l'agente sappia creare un FixLog valido quando modifica un file.
+description: Verifies that the agent knows how to create a valid FixLog when modifying a file.
 target_file: math_dummy.py
-task: "Aggiungi una funzione 'add(a, b)' al file math_dummy.py e segui il protocollo."
+task: "Add an 'add(a, b)' function to math_dummy.py and follow the protocol."
 assertions:
   - type: file_exists
     path: math_dummy.py

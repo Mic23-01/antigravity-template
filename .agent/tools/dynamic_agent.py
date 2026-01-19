@@ -73,15 +73,15 @@ def execute_agent_simulation(scenario, mode="dry-run"):
     
     if mode == "dry-run":
         if scenario['name'] == "UI/UX Brain-Link Verification":
-             print(f"  [Sim] Analisi prompt: {scenario['task']}")
-             print(f"  [Sim] Ricerca in database UI/UX per 'Fintech Crypto'...")
-             # Simula il recupero dei dati dalla skill
+             print(f"  [Sim] Analyzing prompt: {scenario['task']}")
+             print(f"  [Sim] Searching UI/UX database for 'Fintech Crypto'...")
+             # Simulate retrieving data from the skill
              hex_primary = "#F59E0B"
              hex_accent = "#8B5CF6"
              target = SANDBOX_ROOT / scenario['target_file']
              target.parent.mkdir(parents=True, exist_ok=True)
              target.write_text(f"# Brand Identity\nPalette: {hex_primary}, {hex_accent}\nSource: ui_ux_designer skill")
-             print(f"  [Sim] File {target} creato con successo.")
+             print(f"  [Sim] File {target} created successfully.")
         else:
              # Default behavior (Scenario 001)
              target = SANDBOX_ROOT / scenario['target_file']

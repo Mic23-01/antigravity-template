@@ -5,13 +5,13 @@ import sys
 import argparse
 from pathlib import Path
 
-# Configurazione Path relativa allo script
+# Path configuration relative to script
 BASE_DIR = Path(__file__).parent.parent
-# La struttura scaricata è .agent/skills/ui_ux_designer/resources/data/*.csv
+# Downloaded structure is .agent/skills/ui_ux_designer/resources/data/*.csv
 RESOURCE_DIR = BASE_DIR / "resources" / "data"
 
 def load_db(filename):
-    """Carica un file CSV dal database risorse e lo trasforma in una lista di dict."""
+    """Load a CSV file from the resources database and transform it into a list of dicts."""
     path = RESOURCE_DIR / filename
     if not path.exists():
         return []
@@ -33,21 +33,21 @@ def search(query, db_name="colors.csv"):
     query = query.lower()
     
     for item in data:
-        # Cerca in tutti i valori del dizionario (riga CSV)
+        # Search in all dictionary values (CSV row)
         content = " ".join([str(v).lower() for v in item.values() if v])
         if query in content:
             results.append(item)
     
-    return results[:3] # Limita a 3 risultati per non intasare il contesto
+    return results[:3]  # Limit to 3 results to avoid context overflow
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--query", required=True, help="Cosa stai cercando (es. 'dark mode', 'corporate')")
+    parser.add_argument("--query", required=True, help="What you're looking for (e.g., 'dark mode', 'corporate')")
     parser.add_argument("--type", default="colors", 
                         choices=["colors", "typography", "styles", "products", "ux", "landing", "charts"])
     args = parser.parse_args()
 
-    # Mapping dei file CSV reali trovati nel repo
+    # Mapping of actual CSV files found in the repo
     db_map = {
         "colors": "colors.csv",
         "typography": "typography.csv",
