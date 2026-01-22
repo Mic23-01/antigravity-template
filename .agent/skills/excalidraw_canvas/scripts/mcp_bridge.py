@@ -41,6 +41,12 @@ def execute_mcp_command(tool_name, arguments):
         }
     }
     
+    
+    # Calculate LOG_FILE_PATH relative to this script's directory
+    # This ensures the log is stored in .agent/skills/excalidraw_canvas/
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    log_file_path = os.path.join(os.path.dirname(script_dir), "excalidraw.log")
+    
     try:
         process = subprocess.Popen(
             ["node", mcp_path],
@@ -51,7 +57,8 @@ def execute_mcp_command(tool_name, arguments):
             env={
                 **os.environ,
                 "EXPRESS_SERVER_URL": express_url,
-                "ENABLE_CANVAS_SYNC": "true"
+                "ENABLE_CANVAS_SYNC": "true",
+                "LOG_FILE_PATH": log_file_path  # Dynamic log path
             }
         )
         stdout, stderr = process.communicate(input=json.dumps(request) + "\n", timeout=20)

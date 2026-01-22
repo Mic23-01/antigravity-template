@@ -1,0 +1,16 @@
+{
+  "id": "AG.fix.20260122.9a64f245",
+  "document": "Relocated excalidraw.log to skill directory using dynamic LOG_FILE_PATH injection",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/scripts/mcp_bridge.py"
+    ],
+    "tests": "Stress test: 5x clear_canvas + test_perfect cycles - all passed, log correctly placed in skill dir",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

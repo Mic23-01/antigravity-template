@@ -1,0 +1,19 @@
+{
+  "id": "AG.fix.20260122.a92484be",
+  "document": "Antigravity v3.0.0-beta: Excalidraw Canvas Integration. Implemented portability fix for mcp_bridge.py, updated SKILL.md with prerequisites, and enhanced README.md with visual reasoning section and version bump. Verified with 6/6 portability tests and git tags v2.0.1 and v3.0.0-beta.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/scripts/mcp_bridge.py",
+      ".agent/skills/excalidraw_canvas/SKILL.md",
+      "README.md",
+      ".agent/memory/STATE.md"
+    ],
+    "tests": "6/6 portability tests PASS, canary_check PASS, git tags created",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}
