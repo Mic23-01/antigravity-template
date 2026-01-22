@@ -1,0 +1,16 @@
+{
+  "id": "AG.fix.20260122.ce68d4a0",
+  "document": "Fixed critical visual bug in Excalidraw tools diagram: eliminated duplicate arrow labels (imports, logs to, runs) that were overlapping. Recreated clean JSON payload with single, properly positioned labels.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/tools/tools_diagram_payload.json"
+    ],
+    "tests": "Visual verification on Excalidraw canvas Port 3000",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

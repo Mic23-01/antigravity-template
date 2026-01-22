@@ -16,6 +16,21 @@ author: Antigravity
 - **ProjectName**: (from `PROJECT_AGENT_CONFIG.md`) Project name.
 - **Log Data**: JSON containing `id`, `document` (description), and `metadatas` (project, type, date, files, tests, result).
 
+## CLI Parameters (write_log.py)
+```bash
+uv run .agent/skills/fixlog_writer/scripts/write_log.py \
+  --project "ProjectName" \
+  --prefix "PREFIX" \
+  --desc "Description of the fix" \
+  --files "file1.py,file2.js" \
+  --test "Test description" \
+  --result "pass"  # ⚠️ VALID VALUES: "pass" or "fail" (NOT "success"!)
+```
+
+**Critical Parameter Values:**
+- `--result`: **ONLY** accepts `"pass"` or `"fail"` (enforced by argparse choices)
+- `--files`: Comma-separated list of file paths (will be split into array)
+
 ## Steps
 1. **Prepare Data**: Collect intervention data.
 2. **Format JSON**: Create a JSON structure compatible with Chroma.
@@ -25,12 +40,13 @@ author: Antigravity
 4. **Verification**: Confirm file exists and Chroma entry is searchable.
 
 ## Usage Example
-```python
-# Typically used via internal script or agent call
-log_entry = {
-    "id": "FIX-001",
-    "document": "Fixed critical bug in auth",
-    "metadatas": { ... }
-}
-persist_log(log_entry)
+```bash
+uv run .agent/skills/fixlog_writer/scripts/write_log.py \
+  --project "Antigravity" \
+  --prefix "AG" \
+  --desc "Fixed critical bug in authentication flow" \
+  --files "src/auth.py,tests/test_auth.py" \
+  --test "pytest tests/test_auth.py - all passed" \
+  --result "pass"
 ```
+

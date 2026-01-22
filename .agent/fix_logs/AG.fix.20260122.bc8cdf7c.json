@@ -1,0 +1,16 @@
+{
+  "id": "AG.fix.20260122.bc8cdf7c",
+  "document": "Fixed WebSocket sync issue with direct Express API call. Achieved geometric precision.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/scripts/mcp_bridge.py"
+    ],
+    "tests": "Atomic wipe (13 elements removed) + Clean redraw with centered layout.",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": "Used curl to bypass MCP and hit /api/elements/sync directly."
+  }
+}

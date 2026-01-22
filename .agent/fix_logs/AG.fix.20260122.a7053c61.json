@@ -1,0 +1,17 @@
+{
+  "id": "AG.fix.20260122.a7053c61",
+  "document": "Upgraded Excalidraw Skill to V2: Added clear_canvas and layout management.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/scripts/mcp_bridge.py",
+      ".agent/skills/excalidraw_canvas/SKILL.md"
+    ],
+    "tests": "Verified clear_canvas and batch_create with spacing logic.",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": "PM2 services are stable with absolute paths."
+  }
+}

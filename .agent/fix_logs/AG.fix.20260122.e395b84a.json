@@ -1,0 +1,19 @@
+{
+  "id": "AG.fix.20260122.e395b84a",
+  "document": "Excalidraw Arrow Rendering: Empirical Calibration & Visual Validation. Fixed invisible arrow issue through systematic testing (strokeWidth 1-16, vivid palette). Confirmed strokeWidth=2 with high-saturation colors (#f77f00, #118ab2, #06d6a0, #e63946) as optimal for Excalidraw rendering. Updated SKILL.md with testing methodology, created vivid_infrastructure.json example, documented in walkthrough.md.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/SKILL.md",
+      ".agent/skills/excalidraw_canvas/scripts/mcp_bridge.py",
+      ".agent/skills/excalidraw_canvas/examples/vivid_infrastructure.json",
+      "verifiche_test/test_arrow_rendering.py"
+    ],
+    "tests": "Empirical visual validation with 5 arrow width variants. User confirmed Orange (width=2) as visible. Final render: 33 elements, all arrows visible.",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": ""
+  }
+}

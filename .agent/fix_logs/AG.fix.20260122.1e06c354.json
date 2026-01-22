@@ -1,0 +1,18 @@
+{
+  "id": "AG.fix.20260122.1e06c354",
+  "document": "Created excalidraw_canvas skill with Python-MCP bridge.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/SKILL.md",
+      ".agent/skills/excalidraw_canvas/scripts/mcp_bridge.py",
+      ".agent/skills/SKILLS_INDEX.md"
+    ],
+    "tests": "batch_create_elements verified on live canvas.",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": "Fixed points schema (objects vs arrays) during verification."
+  }
+}

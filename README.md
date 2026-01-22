@@ -116,6 +116,7 @@ Follow the interactive wizard to generate your `docs_custom/` and project-specif
 | `test_gate_bivio` | Interactive test depth selector (Smoke/Deep/Debug) |
 | `resolve_canon_sources` | Source hierarchy resolution (Custom > Template) |
 | `ui_ux_designer` | Design database access for colors, typography, styles |
+| `excalidraw_canvas` | 🎨 Visual reasoning: live diagrams via Excalidraw (v3.0.0+) |
 
 ## 🏆 Best Practices Enforced
 
@@ -124,11 +125,30 @@ Follow the interactive wizard to generate your `docs_custom/` and project-specif
 - ✅ **Security Guardrails**: No `.env` leakage, secrets scanning, scope limits
 - ✅ **Evidence Bundle**: Every task outputs what changed, tests run, and FixLog ID
 
+## 🎨 Excalidraw Canvas (v3.0.0+)
+
+> [!NOTE]
+> This is an **optional** visual reasoning capability requiring external setup.
+
+The `excalidraw_canvas` skill enables AI agents to create live architectural diagrams.
+
+**Quick Start (Docker)**:
+```bash
+# Canvas Server
+docker run -d -p 3000:3000 --name mcp-canvas ghcr.io/yctimlin/mcp_excalidraw-canvas:latest
+
+# Set environment variable
+export EXCALIDRAW_MCP_PATH="$HOME/mcp_excalidraw/dist/index.js"
+```
+
+For complete setup options, see: [excalidraw_canvas/SKILL.md](.agent/skills/excalidraw_canvas/SKILL.md)
+
 ## Requirements
 
 - Python 3.10+
 - `uv` (recommended) or `pip`
 - ChromaDB (optional, for vector memory)
+- Node.js 18+ (optional, for Excalidraw)
 
 ## Support & Community
 
@@ -142,4 +162,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Project Founder**: MIC | **Version**: 2.0.0 | **Status**: Production Ready
+**Project Founder**: MIC | **Version**: 3.0.0 | **Status**: Production Ready

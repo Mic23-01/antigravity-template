@@ -1,0 +1,17 @@
+{
+  "id": "AG.fix.20260122.ac06051b",
+  "document": "Upgraded Excalidraw Skill to V3 (Atomic & Pixel-Perfect). Added native clear_scene and geometric arrow logic.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/scripts/mcp_bridge.py",
+      "~/mcp_excalidraw/src/index.ts"
+    ],
+    "tests": "Verified clear_scene and geometrically correct arrow offsets.",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": "Rebuilt MCP server with TypeScript dependency fix."
+  }
+}

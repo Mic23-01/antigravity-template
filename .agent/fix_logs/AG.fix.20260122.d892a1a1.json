@@ -1,0 +1,17 @@
+{
+  "id": "AG.fix.20260122.d892a1a1",
+  "document": "Enhanced excalidraw_canvas skill with examples folder and live interaction test.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/examples/",
+      ".agent/skills/excalidraw_canvas/SKILL.md"
+    ],
+    "tests": "Live drawing of User Insight box pointing to Antigravity Agent.",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": "Successfully read canvas state to avoid overlap and target correct components."
+  }
+}

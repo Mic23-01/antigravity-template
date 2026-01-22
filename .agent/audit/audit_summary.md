@@ -22,3 +22,15 @@
 | 2026-01-19 | **CANARY_FAIL** | N/A | FAIL | N/A |
 | 2026-01-19 | **FIX_LOG** | English-First conformity, License creation, and professional README enhancement | pass | [Link]() |
 | 2026-01-19 | **CANARY_FAIL** | N/A | FAIL | N/A |
+| 2026-01-22 | **FIX_LOG** | Session integrity restoration and hygiene check | pass | [Link]() |
+| 2026-01-22 | **CANARY_FAIL** | N/A | FAIL | N/A |
+| 2026-01-22 | **FIX_LOG** | Created excalidraw_canvas skill with Python-MCP bridge. | pass | [Link]() |
+| 2026-01-22 | **FIX_LOG** | Enhanced excalidraw_canvas skill with examples folder and live interaction test. | pass | [Link]() |
+| 2026-01-22 | **FIX_LOG** | Architectural visualization of Workflows & Rules on Excalidraw plus persistence advisory. | pass | [Link]() |
+| 2026-01-22 | **FIX_LOG** | Upgraded Excalidraw Skill to V2: Added clear_canvas and layout management. | pass | [Link]() |
+| 2026-01-22 | **FIX_LOG** | Upgraded Excalidraw Skill to V3 (Atomic & Pixel-Perfect). Added native clear_scene and geometric arrow logic. | pass | [Link]() |
+| 2026-01-22 | **FIX_LOG** | Internalized 'Build First' rule. Finalized Skill V3 with Atomic Wipe and Geometric Precision. | pass | [Link]() |
+| 2026-01-22 | **FIX_LOG** | Fixed WebSocket sync issue with direct Express API call. Achieved geometric precision. | pass | [Link]() |
+| 2026-01-22 | **FIX_LOG** | Excalidraw Arrow Rendering: Empirical Calibration & Visual Validation. Fixed invisible arrow issue through systematic testing (strokeWidth 1-16, vivid palette). Confirmed strokeWidth=2 with high-saturation colors (#f77f00, #118ab2, #06d6a0, #e63946) as optimal for Excalidraw rendering. Updated SKILL.md with testing methodology, created vivid_infrastructure.json example, documented in walkthrough.md. | pass | [Link]() |
+| 2026-01-22 | **FIX_LOG** | Fixed critical visual bug in Excalidraw tools diagram: eliminated duplicate arrow labels (imports, logs to, runs) that were overlapping. Recreated clean JSON payload with single, properly positioned labels. | pass | [Link]() |
+| 2026-01-22 | **CANARY_FAIL** | N/A | FAIL | N/A |

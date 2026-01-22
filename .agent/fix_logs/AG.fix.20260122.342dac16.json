@@ -1,0 +1,17 @@
+{
+  "id": "AG.fix.20260122.342dac16",
+  "document": "Internalized 'Build First' rule. Finalized Skill V3 with Atomic Wipe and Geometric Precision.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/SKILL.md",
+      ".agent/skills/excalidraw_canvas/scripts/mcp_bridge.py"
+    ],
+    "tests": "Rendered the Antigravity Workflow on a clean canvas.",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": "Acknowledged and resolved the build blind spot."
+  }
+}

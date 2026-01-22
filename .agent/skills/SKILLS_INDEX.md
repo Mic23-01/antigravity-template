@@ -12,6 +12,7 @@ Each skill is a self-contained directory in `.agent/skills/<skill_name>/`.
 | `fixlog_writer` | Standardizes JSON log writing and Chroma ID | `tech_rag`, `refactor` |
 | `security_audit` | Security scan for secrets and risky files | `tech_rag` |
 | `ui_ux_designer` | Design Intelligence & Assets Search | `custom_project`, `tech_rag` |
+| `excalidraw_canvas` | Advanced Visual Drawing & Architecture Management | `tech_rag`, `refactor` |
 
 ## 🟡 Advanced Skills (Coming Soon)
 - `sql_optimization`

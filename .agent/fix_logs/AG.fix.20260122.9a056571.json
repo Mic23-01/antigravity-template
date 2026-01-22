@@ -1,0 +1,16 @@
+{
+  "id": "AG.fix.20260122.9a056571",
+  "document": "Architectural visualization of Workflows & Rules on Excalidraw plus persistence advisory.",
+  "metadatas": {
+    "project": "Antigravity",
+    "type": "fix_log",
+    "date": "2026-01-22",
+    "files": [
+      ".agent/skills/excalidraw_canvas/"
+    ],
+    "tests": "Batch render of Core-Workflow-Rules diagram successful.",
+    "result": "pass",
+    "evidence_path": "",
+    "notes": "Provided instruction for PM2 as the standard persistence tool."
+  }
+}

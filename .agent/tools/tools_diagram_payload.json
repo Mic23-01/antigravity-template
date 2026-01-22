@@ -1,0 +1,361 @@
+{
+    "elements": [
+        {
+            "type": "rectangle",
+            "x": 100,
+            "y": 50,
+            "width": 180,
+            "height": 80,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#f77f00",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 130,
+            "y": 75,
+            "text": "init_antigravity.py",
+            "fontSize": 16
+        },
+        {
+            "type": "rectangle",
+            "x": 100,
+            "y": 200,
+            "width": 180,
+            "height": 80,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#e63946",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 130,
+            "y": 225,
+            "text": "canary_check.py",
+            "fontSize": 16
+        },
+        {
+            "type": "rectangle",
+            "x": 400,
+            "y": 50,
+            "width": 180,
+            "height": 80,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#118ab2",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 430,
+            "y": 75,
+            "text": "session_sentinel.py",
+            "fontSize": 16
+        },
+        {
+            "type": "rectangle",
+            "x": 400,
+            "y": 200,
+            "width": 180,
+            "height": 80,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#06d6a0",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 445,
+            "y": 225,
+            "text": "event_logger.py",
+            "fontSize": 16
+        },
+        {
+            "type": "rectangle",
+            "x": 400,
+            "y": 350,
+            "width": 180,
+            "height": 80,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#118ab2",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 420,
+            "y": 375,
+            "text": "dynamic_agent.py",
+            "fontSize": 16
+        },
+        {
+            "type": "rectangle",
+            "x": 700,
+            "y": 50,
+            "width": 180,
+            "height": 80,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#fcbf49",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 735,
+            "y": 75,
+            "text": "check_chroma.py",
+            "fontSize": 16
+        },
+        {
+            "type": "rectangle",
+            "x": 700,
+            "y": 200,
+            "width": 180,
+            "height": 80,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#fcbf49",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 735,
+            "y": 225,
+            "text": "deep_search.py",
+            "fontSize": 16
+        },
+        {
+            "type": "arrow",
+            "x": 190,
+            "y": 130,
+            "points": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    70
+                ]
+            ],
+            "strokeColor": "#e63946",
+            "strokeWidth": 2,
+            "roughness": 0,
+            "opacity": 100,
+            "endArrowhead": "arrow"
+        },
+        {
+            "type": "text",
+            "x": 210,
+            "y": 155,
+            "text": "suggests",
+            "fontSize": 13,
+            "strokeColor": "#e63946"
+        },
+        {
+            "type": "arrow",
+            "x": 280,
+            "y": 240,
+            "points": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    120,
+                    -40
+                ]
+            ],
+            "strokeColor": "#e63946",
+            "strokeWidth": 2,
+            "roughness": 0,
+            "opacity": 100,
+            "endArrowhead": "arrow"
+        },
+        {
+            "type": "text",
+            "x": 300,
+            "y": 185,
+            "text": "imports",
+            "fontSize": 13,
+            "strokeColor": "#e63946"
+        },
+        {
+            "type": "arrow",
+            "x": 280,
+            "y": 240,
+            "points": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    120,
+                    0
+                ]
+            ],
+            "strokeColor": "#06d6a0",
+            "strokeWidth": 2,
+            "roughness": 0,
+            "opacity": 100,
+            "endArrowhead": "arrow"
+        },
+        {
+            "type": "text",
+            "x": 315,
+            "y": 250,
+            "text": "logs to",
+            "fontSize": 13,
+            "strokeColor": "#06d6a0"
+        },
+        {
+            "type": "arrow",
+            "x": 280,
+            "y": 240,
+            "points": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    120,
+                    150
+                ]
+            ],
+            "strokeColor": "#118ab2",
+            "strokeWidth": 2,
+            "roughness": 0,
+            "opacity": 100,
+            "endArrowhead": "arrow"
+        },
+        {
+            "type": "text",
+            "x": 330,
+            "y": 310,
+            "text": "runs",
+            "fontSize": 13,
+            "strokeColor": "#118ab2"
+        },
+        {
+            "type": "rectangle",
+            "x": 50,
+            "y": 500,
+            "width": 850,
+            "height": 150,
+            "backgroundColor": "#ffffff",
+            "strokeColor": "#457b9d",
+            "strokeWidth": 3,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 80,
+            "y": 515,
+            "text": "LEGEND",
+            "fontSize": 18,
+            "fontFamily": "1",
+            "strokeColor": "#1d3557"
+        },
+        {
+            "type": "rectangle",
+            "x": 80,
+            "y": 550,
+            "width": 30,
+            "height": 20,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#f77f00",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 120,
+            "y": 552,
+            "text": "Init/Bootstrap Tool",
+            "fontSize": 14
+        },
+        {
+            "type": "rectangle",
+            "x": 280,
+            "y": 550,
+            "width": 30,
+            "height": 20,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#e63946",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 320,
+            "y": 552,
+            "text": "Validation/CI Tool",
+            "fontSize": 14
+        },
+        {
+            "type": "rectangle",
+            "x": 480,
+            "y": 550,
+            "width": 30,
+            "height": 20,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#118ab2",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 520,
+            "y": 552,
+            "text": "Core Infrastructure",
+            "fontSize": 14
+        },
+        {
+            "type": "rectangle",
+            "x": 80,
+            "y": 585,
+            "width": 30,
+            "height": 20,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#06d6a0",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 120,
+            "y": 587,
+            "text": "Logging/Telemetry",
+            "fontSize": 14
+        },
+        {
+            "type": "rectangle",
+            "x": 280,
+            "y": 585,
+            "width": 30,
+            "height": 20,
+            "backgroundColor": "#f1faee",
+            "strokeColor": "#fcbf49",
+            "strokeWidth": 2,
+            "roughness": 0
+        },
+        {
+            "type": "text",
+            "x": 320,
+            "y": 587,
+            "text": "Research/Data Tools",
+            "fontSize": 14
+        },
+        {
+            "type": "text",
+            "x": 320,
+            "y": 20,
+            "text": ".agent/tools Directory Structure",
+            "fontSize": 20,
+            "fontFamily": "1",
+            "strokeColor": "#1d3557"
+        }
+    ]
+}
