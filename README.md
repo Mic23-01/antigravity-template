@@ -162,4 +162,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Project Founder**: MIC | **Version**: 3.0.0 | **Status**: Production Ready
+**Project Founder**: MIC | **Version**: 3.0.1 | **Status**: Production Ready
