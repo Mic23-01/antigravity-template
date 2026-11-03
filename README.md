@@ -1,7 +1,6 @@
 ![Python](https://img.shields.io/badge/python-3.10+-blue)
 ![uv](https://img.shields.io/badge/uv-native-blueviolet)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-production--ready-success)
 ![Agentic](https://img.shields.io/badge/architecture-agentic-orange)
 
 # Antigravity (AG) 🌌
