@@ -1,7 +1,6 @@
 ![Python](https://img.shields.io/badge/python-3.10+-blue)
 ![uv](https://img.shields.io/badge/uv-native-blueviolet)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-production--ready-success)
 ![Agentic](https://img.shields.io/badge/architecture-agentic-orange)
 
 # Antigravity (AG) 🌌
@@ -11,7 +10,7 @@
 
 ## About
 
-🚀 **Antigravity**: The definitive template for building production-grade Autonomous Agents. Hybrid architecture, dual-layer memory (ChromaDB + Filesystem), sequential thinking, and battle-tested guardrails. From concept to deployment in minutes.
+🚀 **Antigravity**: A template for building autonomous agents. Hybrid architecture, dual-layer memory (ChromaDB + Filesystem), sequential thinking, and guardrails.
 
 ## Project Overview
 
@@ -162,4 +161,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Project Founder**: MIC | **Version**: 3.0.1 | **Status**: Production Ready
+**Project Founder**: MIC | **Version**: 3.0.1 | **Status**: Experimental
